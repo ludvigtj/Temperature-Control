@@ -7,7 +7,7 @@ Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "TemperatureControl.Applicat
 EndProject
 Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "TemperatureControl.ViewModel", "TemperatureControl.ViewModel\TemperatureControl.ViewModel.nfproj", "{7CD1DDEC-38E0-4148-8837-F67A3B31EC7D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adafruit", "..\..\Adafruit\Adafruit\Adafruit.csproj", "{9DFCFEE4-61A4-475A-8473-24E132AD2322}"
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "TemperatureControl.Model", "..\..\Adafruit\NF_App_MAX31865\TemperatureControl.Model.nfproj", "{6187B7EB-B001-4055-BD62-E9FE0486D05E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,12 @@ Global
 		{7CD1DDEC-38E0-4148-8837-F67A3B31EC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CD1DDEC-38E0-4148-8837-F67A3B31EC7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7CD1DDEC-38E0-4148-8837-F67A3B31EC7D}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{9DFCFEE4-61A4-475A-8473-24E132AD2322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DFCFEE4-61A4-475A-8473-24E132AD2322}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DFCFEE4-61A4-475A-8473-24E132AD2322}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DFCFEE4-61A4-475A-8473-24E132AD2322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6187B7EB-B001-4055-BD62-E9FE0486D05E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6187B7EB-B001-4055-BD62-E9FE0486D05E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6187B7EB-B001-4055-BD62-E9FE0486D05E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6187B7EB-B001-4055-BD62-E9FE0486D05E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6187B7EB-B001-4055-BD62-E9FE0486D05E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6187B7EB-B001-4055-BD62-E9FE0486D05E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
