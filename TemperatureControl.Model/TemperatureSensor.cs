@@ -6,7 +6,7 @@ using System.Device.Gpio;
 using UnitsNet;
 using nanoFramework.Hardware.Esp32;
 
-namespace NF_MAX31865
+namespace TemperatureControl.Model
 {
     public class TemperatureSensor
     {
