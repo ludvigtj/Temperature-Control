@@ -20,7 +20,7 @@ namespace TemperatureControl.Model
             // GPIO PINS for ovenstående setup fundet på: https://docs.m5stack.com/en/core/tough
 
             _settings = new(1, 5)  // busid = 1, da SPI port på M5 er connected med VSPI hvilket har busid 1
-                                   // ChipselectLine (CS) = 5, da den skal sidde på GPIO5 på M5
+                                   // ChipselectLine (CS) = 5, da den skal sidde på GPIO5 på M5 
             {
                 ClockFrequency = 1000000, // Start med 1-2 MHz, hvis det ikke er godt nok set da ClockFrequency = Max31865.SpiClockFrequency
                 Mode = Max31865.SpiMode3,  // SpiMode3 skulle gerne være kombatibelt mellem MAX31865 og M5Stack Tough
