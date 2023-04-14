@@ -31,6 +31,9 @@
     <Reference Include="Iot.Device.Common.NumberHelper">
       <HintPath>..\packages\nanoFramework.Iot.Device.Common.NumberHelper.1.2.211\lib\Iot.Device.Common.NumberHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Iot.Device.Max31865">
+      <HintPath>..\packages\nanoFramework.Iot.Device.Max31865.1.2.273\lib\Iot.Device.Max31865.dll</HintPath>
+    </Reference>
     <Reference Include="Iot.Device.Rtc">
       <HintPath>..\packages\nanoFramework.Iot.Device.Rtc.1.2.273\lib\Iot.Device.Rtc.dll</HintPath>
     </Reference>
@@ -61,6 +64,9 @@
     <Reference Include="nanoFramework.Tough">
       <HintPath>..\packages\nanoFramework.Tough.1.1.135\lib\nanoFramework.Tough.dll</HintPath>
     </Reference>
+    <Reference Include="System.Buffers.Binary.BinaryPrimitives">
+      <HintPath>..\packages\nanoFramework.System.Buffers.Binary.BinaryPrimitives.1.2.211\lib\System.Buffers.Binary.BinaryPrimitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Device.Adc">
       <HintPath>..\packages\nanoFramework.System.Device.Adc.1.1.6\lib\System.Device.Adc.dll</HintPath>
     </Reference>
@@ -85,6 +91,9 @@
     <Reference Include="System.IO.Streams">
       <HintPath>..\packages\nanoFramework.System.IO.Streams.1.1.38\lib\System.IO.Streams.dll</HintPath>
     </Reference>
+    <Reference Include="System.Math">
+      <HintPath>..\packages\nanoFramework.System.Math.1.5.29\lib\System.Math.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading">
       <HintPath>..\packages\nanoFramework.System.Threading.1.1.19\lib\System.Threading.dll</HintPath>
     </Reference>
@@ -93,6 +102,12 @@
     </Reference>
     <Reference Include="UnitsNet.ElectricPotential">
       <HintPath>..\packages\UnitsNet.nanoFramework.ElectricPotential.5.9.0\lib\UnitsNet.ElectricPotential.dll</HintPath>
+    </Reference>
+    <Reference Include="UnitsNet.ElectricResistance">
+      <HintPath>..\packages\UnitsNet.nanoFramework.ElectricResistance.5.9.0\lib\UnitsNet.ElectricResistance.dll</HintPath>
+    </Reference>
+    <Reference Include="UnitsNet.Frequency">
+      <HintPath>..\packages\UnitsNet.nanoFramework.Frequency.5.9.0\lib\UnitsNet.Frequency.dll</HintPath>
     </Reference>
     <Reference Include="UnitsNet.Power">
       <HintPath>..\packages\UnitsNet.nanoFramework.Power.5.9.0\lib\UnitsNet.Power.dll</HintPath>
