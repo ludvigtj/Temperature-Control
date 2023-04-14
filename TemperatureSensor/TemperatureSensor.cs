@@ -27,9 +27,10 @@ namespace TemperatureControl.Model
                 DataFlow = Max31865.SpiDataFlow // Er rigtig, da M5Stack er master og MAX31865 er slave
             };
         }
+
         public void ReadTemperature()
         {
-            using SpiDevice device = SpiDevice.Create(_settings);                         //fire ledninger                           // I tvivl om denne, men kan finde at reference ohm er 430 på PT100
+            using SpiDevice device = SpiDevice.Create(_settings);                         //fire ledninger                                                                                                           // I tvivl om denne, men kan finde at reference ohm er 430 på PT100
                                                                                           //using Max31865 sensor = new(device, PlatinumResistanceThermometerType.Pt100, ResistanceTemperatureDetectorWires.FourWire, ElectricResistance.FromOhms(430));
 
             //to ledninger
