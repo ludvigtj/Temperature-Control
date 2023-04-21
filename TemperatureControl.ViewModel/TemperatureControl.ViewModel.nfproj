@@ -21,6 +21,7 @@
     <Compile Include="GUIModel.cs" />
     <Compile Include="ITouchHandler.cs" />
     <Compile Include="IViewModel.cs" />
+    <Compile Include="MenuTouchHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
