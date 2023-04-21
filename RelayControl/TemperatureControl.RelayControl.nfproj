@@ -18,8 +18,14 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="Interfaces\IPump.cs" />
+    <Compile Include="Interfaces\ITemperatureRegulator.cs" />
+    <Compile Include="Interfaces\IValve.cs" />
     <Compile Include="RelayControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabValve.cs" />
+    <Compile Include="TemperatureRegulator.cs" />
+    <Compile Include="TubValve.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iot.Device.Relay">
