@@ -5,10 +5,11 @@ using System.Device.Spi;
 using System.Device.Gpio;
 using UnitsNet;
 using nanoFramework.Hardware.Esp32;
+using TemperatureSensor;
 
 namespace TemperatureControl.Model
 {
-    public class TemperatureSensor
+    public class TemperatureSensor : ITemperatureSensor
     {
         SpiConnectionSettings _settings;
 
