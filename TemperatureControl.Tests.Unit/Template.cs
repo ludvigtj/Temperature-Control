@@ -5,7 +5,7 @@ using System;
 namespace TemperatureControl.Tests.Unit
 {
     [TestClass]
-    public class Template
+    public class TouchButtonTest
     {
         [TestMethod]
         public void TestMethod1()
