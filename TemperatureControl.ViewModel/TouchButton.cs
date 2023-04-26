@@ -6,6 +6,6 @@ namespace TemperatureControl.ViewModel
 {
     public class TouchButton : GuiElementBase
     {
-
+        public TouchButton()
     }
 }

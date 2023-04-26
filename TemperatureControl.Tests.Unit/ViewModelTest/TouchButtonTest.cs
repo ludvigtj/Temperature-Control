@@ -2,8 +2,9 @@ using nanoFramework.TestFramework;
 using TemperatureControl.ViewModel;
 using System;
 using TemperatureControl.ViewModel.Abstract;
+using TemperatureControl.ViewModel.Shapes;
 
-//FOR COPY PASTE PURPOSES - DO NOT EDIT
+
 namespace TemperatureControl.Tests.Unit.ViewModelTest
 {
     [TestClass]
@@ -17,7 +18,7 @@ namespace TemperatureControl.Tests.Unit.ViewModelTest
         }
 
         [TestMethod]
-        public void Constructor_TwoPointsIn_ReturnsCorrectArea()
+        public void Constructor_TwoPointsIn_ReturnsCorrectProperties()
         {
             new Point()
             
