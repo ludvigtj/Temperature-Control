@@ -18,9 +18,11 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="GUIModel.cs" />
-    <Compile Include="ITouchHandler.cs" />
-    <Compile Include="IViewModel.cs" />
+    <Compile Include="Abstract\GuiElementBase.cs" />
+    <Compile Include="TouchButton.cs" />
+    <Compile Include="WindowModel.cs" />
+    <Compile Include="Abstract\ITouchHandler.cs" />
+    <Compile Include="Abstract\IViewModel.cs" />
     <Compile Include="MenuTouchHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -121,6 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Elements\" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>
