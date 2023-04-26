@@ -4,10 +4,11 @@ using System.Device.I2c;
 using System.Globalization;
 using System.Threading;
 using nanoFramework.Hardware.Esp32;
+using RelayControl.Interfaces;
 
 namespace RelayControl
 {
-    public class RelayController
+    public class RelayController : IRelayController
     {
         // Browse our samples repository: https://github.com/nanoframework/samples
         // Check our documentation online: https://docs.nanoframework.net/

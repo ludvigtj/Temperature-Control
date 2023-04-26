@@ -5,9 +5,9 @@ namespace RelayControl
 {
     public class Pump : IPump
     {
-        private readonly RelayController _relay;
+        private readonly IRelayController _relay;
 
-        public Pump(RelayController relay)
+        public Pump(IRelayController relay)
         {
             _relay = relay;
         }
