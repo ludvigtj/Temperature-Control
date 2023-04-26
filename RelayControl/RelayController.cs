@@ -7,7 +7,7 @@ using nanoFramework.Hardware.Esp32;
 
 namespace RelayControl
 {
-    public class RelayControl
+    public class RelayController
     {
         // Browse our samples repository: https://github.com/nanoframework/samples
         // Check our documentation online: https://docs.nanoframework.net/
@@ -17,7 +17,7 @@ namespace RelayControl
 
         private readonly Unit4Relay _unit4Relay;
 
-        public RelayControl()
+        public RelayController()
         {
             Configuration.SetPinFunction(21, DeviceFunction.I2C1_DATA);
             Configuration.SetPinFunction(22, DeviceFunction.I2C1_CLOCK);

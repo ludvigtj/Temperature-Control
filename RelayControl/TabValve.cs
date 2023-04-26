@@ -5,8 +5,8 @@ namespace RelayControl
 {
     public class TabValve: IValve
     {
-        private readonly RelayControl _relay;
-        public TabValve(RelayControl relay)
+        private readonly RelayController _relay;
+        public TabValve(RelayController relay)
         {
             _relay = relay;
         }

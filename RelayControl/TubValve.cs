@@ -5,8 +5,8 @@ namespace RelayControl
 {
     public class TubValve : IValve
     {
-        private readonly RelayControl _relay;
-        public TubValve(RelayControl relay)
+        private readonly RelayController _relay;
+        public TubValve(RelayController relay)
         {
             _relay = relay;
         }
