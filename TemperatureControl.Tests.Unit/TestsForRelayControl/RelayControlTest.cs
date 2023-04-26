@@ -1,15 +1,22 @@
 ﻿using nanoFramework.TestFramework;
 using RelayControl;
 
-namespace TemperatureControl.Tests.Unit.RelayControl
+namespace TemperatureControl.Tests.Unit.TestsForRelayControl
 {
     [TestClass]
     public class RelayControlTest
     {
-        [TestMethod]
-        public void TestMethod1()
+        private RelayController uut = new RelayController();
+
+        [Setup]
+        public void Setup()
         {
 
+        }
+
+        [TestMethod]
+        public void TurnOnRelay_MethodCalled()
+        {
         }
     }
 }

@@ -17,7 +17,6 @@ namespace RelayControl
         // https://docs.nanoframework.net/devicesdetails/Relay4/README.html
 
         private readonly Unit4Relay _unit4Relay;
-
         public RelayController()
         {
             Configuration.SetPinFunction(21, DeviceFunction.I2C1_DATA);

@@ -24,6 +24,7 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="TestsForRelayControl\Fakes\FakeRelayController.cs" />
     <Compile Include="TestsForRelayControl\PumpTests.cs" />
     <Compile Include="TestsForRelayControl\TubValveTests.cs" />
     <Compile Include="TestsForRelayControl\TemperatureRegulatorTests.cs" />
