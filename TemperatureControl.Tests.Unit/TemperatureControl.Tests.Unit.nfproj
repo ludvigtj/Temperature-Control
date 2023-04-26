@@ -24,11 +24,11 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="RelayControl\PumpTests.cs" />
-    <Compile Include="RelayControl\TubValveTests.cs" />
-    <Compile Include="RelayControl\TemperatureRegulatorTests.cs" />
-    <Compile Include="RelayControl\TabValveTests.cs" />
-    <Compile Include="RelayControl\RelayControlTest.cs" />
+    <Compile Include="TestsForRelayControl\PumpTests.cs" />
+    <Compile Include="TestsForRelayControl\TubValveTests.cs" />
+    <Compile Include="TestsForRelayControl\TemperatureRegulatorTests.cs" />
+    <Compile Include="TestsForRelayControl\TabValveTests.cs" />
+    <Compile Include="TestsForRelayControl\RelayControlTest.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -46,6 +46,10 @@
   <ItemGroup>
     <None Include="nano.runsettings" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RelayControl\TemperatureControl.RelayControl.nfproj" />
+    <ProjectReference Include="..\TemperatureSensor\TemperatureControl.TemperatureSensor.nfproj" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <!-- MANUAL UPDATE HERE -->
