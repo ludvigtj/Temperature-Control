@@ -30,7 +30,16 @@ namespace TemperatureControl.ViewModel
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (_state != States.FILLING)
+            {
+                // Viser at reguler er inaktiv og tømfunktionen er aktiv
+                _logic.EmptyVessel();
+                // Viser at tømfunktionen er inaktiv
+            }
+            else
+            {
+                throw new Exception("Filling is active");
+            }
         }
 
         public void OnFill_Pressed(object sender, EventArgs e)
