@@ -127,6 +127,9 @@
   <ItemGroup>
     <Folder Include="Elements\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TemperatureControl.Model\TemperatureControl.Model.nfproj" />
+  </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>
     <ProjectCapabilities>

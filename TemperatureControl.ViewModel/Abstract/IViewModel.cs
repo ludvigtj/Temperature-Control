@@ -8,7 +8,7 @@ namespace TemperatureControl.ViewModel.Abstract
 
         public void OnArrow_Pressed(object sender, EventArgs e);
 
-        public void OnSetPointPlu_Pressed(object sender, EventArgs e);
+        public void OnSetPointPlus_Pressed(object sender, EventArgs e);
         public void OnSetPointMinus_Pressed(object sender, EventArgs e);
         public void OnFill_Pressed(object sender, EventArgs e);
         public void OnEmpty_Pressed(object sender, EventArgs e);
