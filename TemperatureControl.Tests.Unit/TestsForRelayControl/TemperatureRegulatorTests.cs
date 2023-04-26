@@ -1,22 +1,28 @@
 ﻿using nanoFramework.TestFramework;
 using RelayControl;
+using NSubstitube;
 
 namespace TemperatureControl.Tests.Unit.RelayControl
 {
     [TestClass]
     public class TemperatureRaegulatorTests
     {
-        private TemperatureRegulator _uutTemperatureRegulator;
-        private readonly global::RelayControl.RelayControl _relay;
-        [Setup]
-        public void Setup()
-        {
-            _uutTemperatureRegulator = new TemperatureRegulator(_relay);
-        }
         [TestMethod]
-        public void TestMethod1()
+        public void Regulate_TurnsOnRelay_WhenActualTempIsBelowSetPointTemp()
         {
+            // Arrange
+            var relayMock = Substitube.For<RelayController>();
+            var tempRegulator = new TemperatureRegulator(relayMock);
+
+            // Act
+            tempRegulator.SetPointTemp = 37;
+            tempRegulator.Regulate(34);
+
+            // Assert
+            relayMock.Received().TurnOnRelay(2);
 
         }
+
+        
     }
 }
