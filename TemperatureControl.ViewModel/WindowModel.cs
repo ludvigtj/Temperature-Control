@@ -44,7 +44,11 @@ namespace TemperatureControl.ViewModel
 
         public void OnFill_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            // Viser at fyld funktion er aktiv
+            _logic.FillVessel();
+            // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
+
+            // Viser at reguler funktion er inaktiv efter 5 timer
         }
 
         public void OnRegulate_Pressed(object sender, EventArgs e)

@@ -14,7 +14,6 @@ namespace TemperatureControl.Model
         private Pump _pump;
         private TemperatureRegulator _tempRegulator;
 
-
         public BusinessLogic()
         {
             _relayController = new RelayController();
@@ -23,6 +22,30 @@ namespace TemperatureControl.Model
             _tabValve = new TabValve();
             _pump = new Pump();
             _tempRegulator = new TemperatureRegulator();
+        }
+
+        public void FillVessel()
+        {
+            _tabValve.OpenValve();
+            _tubValve.OpenValve();
+            Thread.Sleep(300000); // Fylder i 5 minutter
+
+            for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
+            {
+                _tabValve.CloseValve();
+                Thread.Sleep(1000);
+                i++;
+                _tabValve.OpenValve();
+                Thread.Sleep(1000);
+            }
+            _pump.TurnOnPump();
+            _tempRegulator.Regulate(_tempSensor.ReadTemperature());
+
+            Thread.Sleep(900000);
+
+            _tabValve.CloseValve();
+
+            // Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
         }
 
         public void EmptyVessel()
