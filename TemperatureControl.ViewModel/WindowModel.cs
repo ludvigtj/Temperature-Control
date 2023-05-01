@@ -78,12 +78,12 @@ namespace TemperatureControl.ViewModel
 
         public void OnSetPointMinus_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            SetPointTemperature -= 0.5;
         }
 
         public void OnSetPointPlus_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            SetPointTemperature += 0.5;
         }
     }
 }
