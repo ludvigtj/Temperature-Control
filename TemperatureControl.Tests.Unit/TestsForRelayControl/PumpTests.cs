@@ -8,19 +8,21 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl
     [TestClass]
     public class PumpTests
     {
-        private IPump uut;
         private IRelayController fakeRelay;
+        private IPump uut;
 
         [Setup]
         public void Setup()
         {
             fakeRelay = new FakeRelayController();
             uut = new Pump(fakeRelay);
+            
         }
         [TestMethod]
         public void NoMethodsCalled_PumpOff()
         {
-            Assert.IsFalse(uut.PumpOn);
+            bool pumpOn = uut.PumpOn;
+            Assert.IsFalse(pumpOn);
         }
 
         [TestMethod]

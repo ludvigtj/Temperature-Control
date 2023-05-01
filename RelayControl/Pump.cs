@@ -6,10 +6,11 @@ namespace RelayControl
     public class Pump : IPump
     {
         private readonly IRelayController _relay;
-        public bool PumpOn { get; private set; } = false;
+        public bool PumpOn { get; private set; }
         public Pump(IRelayController relay)
         {
             _relay = relay;
+            PumpOn = false;
         }
         public void TurnOnPump()
         {

@@ -8,7 +8,7 @@ namespace TemperatureControl.Tests.Unit.RelayControl
         [TestMethod]
         public void TestMethod1()
         {
-
+            Assert.SkipTest();
         }
     }
 }
