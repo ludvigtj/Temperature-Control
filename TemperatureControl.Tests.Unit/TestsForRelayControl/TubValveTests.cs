@@ -1,6 +1,6 @@
 ﻿using nanoFramework.TestFramework;
 
-namespace TemperatureControl.Tests.Unit.RelayControl
+namespace TemperatureControl.Tests.Unit.TestsForRelayControl
 {
     [TestClass]
     public class TubValveTests
