@@ -96,5 +96,18 @@ namespace TemperatureControl.Model
                 _tempRegulator.StopRegulate();
             }
         }
+
+        public void CheckTemperature(double setPointTemp)
+        {
+            while (_tempSensor.ReadTemperature() < setPointTemp + 2 || _tempSensor.ReadTemperature() > setPointTemp -2 )
+            {
+   
+            }
+
+            _tabValve.CloseValve();
+            _tubValve.CloseValve();
+            _pump.TurnOffPump();
+            _tempRegulator.StopRegulate();
+        }
     }
 }

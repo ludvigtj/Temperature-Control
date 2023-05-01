@@ -3,6 +3,7 @@ using System;
 using TemperatureControl.Model;
 using TemperatureControl.ViewModel.Abstract;
 using System.ComponentModel;
+using System.Threading;
 
 namespace TemperatureControl.ViewModel
 {
@@ -28,6 +29,17 @@ namespace TemperatureControl.ViewModel
             }
         }
 
+        private double _currentTemperature;
+        public double CurrentTemperature
+        {
+            get { return _currentTemperature; }
+            set
+            {
+                _currentTemperature = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
+            }
+        }
+
         public WindowModel()
         {
             _logic = new BusinessLogic();
@@ -42,6 +54,11 @@ namespace TemperatureControl.ViewModel
         public void OnArrow_Pressed(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        public void CheckTemperature() // Skal denne være her? andre måder? evt. skal metoden i logic sætte CurrentTemperature
+        {
+            _logic.CheckTemperature(SetPointTemperature);
         }
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
