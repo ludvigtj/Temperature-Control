@@ -19,10 +19,9 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl
             
         }
         [TestMethod]
-        public void NoMethodsCalled_PumpOff()
+        public void ctor_PumpOff()
         {
-            bool pumpOn = uut.PumpOn;//der er her det går galt 
-            Assert.IsFalse(pumpOn);
+            Assert.IsFalse(uut.PumpOn);
         }
 
         [TestMethod]
@@ -33,17 +32,26 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl
         }
 
         [TestMethod]
-        public void TurnOffPump_MethodCalled_PumpOff()
-        {
-            uut.TurnOffPump();
-            Assert.IsFalse(uut.PumpOn);
-        }
-        [TestMethod]
         public void TurnOnPump_TwoMethodsCalled_PumpOn()
         {
             uut.TurnOffPump();
             uut.TurnOnPump();
             Assert.IsTrue(uut.PumpOn);
+        }
+
+        [TestMethod]
+        public void TurnOffPump_MethodCalled_PumpOff()
+        {
+            uut.TurnOffPump();
+            Assert.IsFalse(uut.PumpOn);
+        }
+        
+        [TestMethod]
+        public void TurnOffPump_MethodCalledTwice_PumpOff()
+        {
+            uut.TurnOffPump();
+            uut.TurnOffPump();
+            Assert.IsFalse(uut.PumpOn);
         }
     }
 }
