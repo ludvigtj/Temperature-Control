@@ -21,7 +21,7 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl
         [TestMethod]
         public void NoMethodsCalled_PumpOff()
         {
-            bool pumpOn = uut.PumpOn;
+            bool pumpOn = uut.PumpOn;//der er her det går galt 
             Assert.IsFalse(pumpOn);
         }
 

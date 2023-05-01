@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using RelayControl.Interfaces;
 
 namespace TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes
@@ -46,5 +47,43 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes
                     break;
             }
         }
+
+        //public void TurnOnRelay(byte number)
+        //{
+        //    switch (number)
+        //    {
+        //        case 1:
+        //            Debug.WriteLine("Relay 1 on");
+        //            break;
+        //        case 2:
+        //            Debug.WriteLine("Relay 2 on");
+        //            break;
+        //        case 3:
+        //            Debug.WriteLine("Relay 3 on");
+        //            break;
+        //        case 4:
+        //            Debug.WriteLine("Relay 4 on");
+        //            break;
+        //    }
+        //}
+
+        //public void TurnOffRelay(byte number)
+        //{
+        //    switch (number)
+        //    {
+        //        case 1:
+        //            Debug.WriteLine("Relay 1 off");
+        //            break;
+        //        case 2:
+        //            Debug.WriteLine("Relay 2 off");
+        //            break;
+        //        case 3:
+        //            Debug.WriteLine("Relay 3 off");
+        //            break;
+        //        case 4:
+        //            Debug.WriteLine("Relay 4 off");
+        //            break;
+        //    }
+        //}
     }
 }
