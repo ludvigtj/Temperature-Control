@@ -46,7 +46,7 @@ namespace TemperatureControl.ViewModel
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
         {
-            if (_state != States.FILLING)
+            if (_state != States.FILLING && _state != States.EMPTYING)
             {
                 // Viser at reguler er inaktiv og tømfunktionen er aktiv
                 _logic.EmptyVessel();
@@ -64,7 +64,8 @@ namespace TemperatureControl.ViewModel
             if (_state == States.STANDBY)
             {
                 // Viser at fyld funktion er aktiv
-                _logic.FillVessel();
+                _logic.FillVessel(SetPointTemperature);
+                _state = States.FILLING;
                 // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
 
                 // Viser at reguler funktion er inaktiv efter 5 timer
@@ -77,11 +78,18 @@ namespace TemperatureControl.ViewModel
 
         public void OnRegulate_Pressed(object sender, EventArgs e)
         {
-            _logic.RegulateTemperature(SetPointTemperature);  // skal databindes med displayet.
-            // Viser at regulering er aktiv
+            if (_state == States.STANDBY)
+            {
+                _logic.RegulateTemperature(SetPointTemperature);  // SetPointTemperature skal databindes med displayet.
+                _state = States.REGULATING;
+                // Viser at regulering er aktiv
 
-            // Efter 5 timer, viser at reguleringen er inaktiv
-
+                // Efter 5 timer, viser at reguleringen er inaktiv
+            }
+            else
+            {
+                throw new Exception("Tub is either filling or emptying");
+            }
         }
 
         public void OnSetPointMinus_Pressed(object sender, EventArgs e)
