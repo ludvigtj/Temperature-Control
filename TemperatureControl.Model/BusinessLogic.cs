@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace TemperatureControl.Model
@@ -29,6 +27,7 @@ namespace TemperatureControl.Model
             _tabValve.OpenValve();
             _tubValve.OpenValve();
             Thread.Sleep(300000); // Fylder i 5 minutter
+            //Brug stopwatch class
 
             for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
             {
