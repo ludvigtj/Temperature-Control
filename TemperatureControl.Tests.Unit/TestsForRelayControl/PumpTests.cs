@@ -8,8 +8,8 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl
     [TestClass]
     public class PumpTests
     {
-        private IRelayController fakeRelay;
-        private IPump uut;
+        private static IRelayController fakeRelay;
+        private static IPump uut;
 
         [Setup]
         public void Setup()
