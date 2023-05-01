@@ -10,6 +10,7 @@ namespace RelayControl
         public TubValve(IRelayController relay)
         {
             _relay = relay;
+            ValveOpen = false;
         }
 
         public void OpenValve()
