@@ -22,7 +22,7 @@ namespace TemperatureControl.Model
             _tempRegulator = new TemperatureRegulator();
         }
 
-        public void FillVessel()
+        public void FillVessel(double setPointTemp)
         {
             _tabValve.OpenValve();
             _tubValve.OpenValve();
@@ -38,13 +38,29 @@ namespace TemperatureControl.Model
                 Thread.Sleep(1000);
             }
             _pump.TurnOnPump();
-            _tempRegulator.Regulate(_tempSensor.ReadTemperature());
+            _tempRegulator.Regulate(setPointTemp);
 
-            Thread.Sleep(900000); // Holder ventil til brugsvand åben i 15 minutter
+            //Thread.Sleep(900000); // Holder ventil til brugsvand åben i 15 minutter
 
-            _tabValve.CloseValve();
+            //_tabValve.CloseValve();
 
-            // IKKE GJORT ENDNU     Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+            Timer timer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite);
+
+            void TimerCallback(object state)
+            {
+                _tabValve.CloseValve();
+            }
+
+            // ER I TVIVL OM NEDENSTÅENDE
+
+            Timer timer2 = new Timer(TimerCallback2, null, 5 * 60 * 60 * 1000, Timeout.Infinite);
+
+            void TimerCallback2(object state)
+            {
+                _pump.TurnOffPump();
+                _tubValve.CloseValve();
+                _tempRegulator.StopRegulate(); //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+            }
         }
 
         public void EmptyVessel()
@@ -53,8 +69,15 @@ namespace TemperatureControl.Model
             _pump.TurnOnPump();
             _tempRegulator.StopRegulate();
 
-            Thread.Sleep(1200000); // Skal tømme i 20 minutter. Kan dette bare løses sådan? 
-            _pump.TurnOffPump();
+            //Thread.Sleep(1200000); // Skal tømme i 20 minutter. Kan dette bare løses sådan? 
+            //_pump.TurnOffPump();
+
+            Timer timer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite);
+
+            void TimerCallback(object state)
+            {
+                _pump.TurnOffPump();
+            }
 
         }
 

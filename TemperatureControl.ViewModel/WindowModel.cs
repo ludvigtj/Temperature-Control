@@ -11,7 +11,7 @@ namespace TemperatureControl.ViewModel
         private BusinessLogic _logic;
         private enum States
         {
-            STANDBY, ALARM, FILLING, REGULATE, EMPTYING
+            STANDBY, ALARM, FILLING, REGULATING, EMPTYING
         }
         private States _state = States.STANDBY;
 
@@ -50,6 +50,7 @@ namespace TemperatureControl.ViewModel
             {
                 // Viser at reguler er inaktiv og tømfunktionen er aktiv
                 _logic.EmptyVessel();
+                _state = States.EMPTYING;
                 // Viser at tømfunktionen er inaktiv
             }
             else
@@ -60,11 +61,18 @@ namespace TemperatureControl.ViewModel
 
         public void OnFill_Pressed(object sender, EventArgs e)
         {
-            // Viser at fyld funktion er aktiv
-            _logic.FillVessel();
-            // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
+            if (_state == States.STANDBY)
+            {
+                // Viser at fyld funktion er aktiv
+                _logic.FillVessel();
+                // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
 
-            // Viser at reguler funktion er inaktiv efter 5 timer
+                // Viser at reguler funktion er inaktiv efter 5 timer
+            }
+            else
+            {
+                throw new Exception("Tub is not empty");
+            }
         }
 
         public void OnRegulate_Pressed(object sender, EventArgs e)
