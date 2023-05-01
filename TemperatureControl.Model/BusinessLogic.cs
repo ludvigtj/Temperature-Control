@@ -41,11 +41,11 @@ namespace TemperatureControl.Model
             _pump.TurnOnPump();
             _tempRegulator.Regulate(_tempSensor.ReadTemperature());
 
-            Thread.Sleep(900000);
+            Thread.Sleep(900000); // Holder ventil til brugsvand åben i 15 minutter
 
             _tabValve.CloseValve();
 
-            // Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+            // IKKE GJORT ENDNU     Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
         }
 
         public void EmptyVessel()
@@ -57,6 +57,22 @@ namespace TemperatureControl.Model
             Thread.Sleep(1200000); // Skal tømme i 20 minutter. Kan dette bare løses sådan? 
             _pump.TurnOffPump();
 
+        }
+
+        public void RegulateTemperature(double setPointTemp)
+        {
+            _tubValve.OpenValve();
+            _pump.TurnOnPump();
+            _tempRegulator.Regulate(setPointTemp);
+
+            Timer timer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite);
+
+            void TimerCallback(object state)
+            {
+                _tubValve.CloseValve();
+                _pump.TurnOffPump();
+                _tempRegulator.StopRegulate();
+            }
         }
     }
 }
