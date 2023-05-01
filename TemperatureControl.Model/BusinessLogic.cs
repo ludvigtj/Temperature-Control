@@ -43,7 +43,7 @@ namespace TemperatureControl.Model
 
             void TimerCallback(object state)
             {
-                _tabValve.CloseValve();
+                //_tabValve.CloseValve();
             }
 
             // ER I TVIVL OM NEDENSTÅENDE
@@ -53,8 +53,8 @@ namespace TemperatureControl.Model
             void TimerCallback2(object state)
             {
                 _pump.TurnOffPump();
-                _tubValve.CloseValve();
-                _tempRegulator.StopRegulate(); //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+                //_tubValve.CloseValve();
+                //_tempRegulator.StopRegulate(); //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
             }
         }
 
@@ -94,15 +94,15 @@ namespace TemperatureControl.Model
 
         public void CheckTemperature(double setPointTemp)
         {
-            while (_tempSensor.ReadTemperature() < setPointTemp + 2 || _tempSensor.ReadTemperature() > setPointTemp -2 )
+            //while (_tempSensor.ReadTemperature() < setPointTemp + 2 || _tempSensor.ReadTemperature() > setPointTemp -2 )
             {
    
             }
 
-            _tabValve.CloseValve();
-            _tubValve.CloseValve();
+            //_tabValve.CloseValve();
+            //_tubValve.CloseValve();
             _pump.TurnOffPump();
-            _tempRegulator.StopRegulate();
+            //_tempRegulator.StopRegulate();
         }
     }
 }

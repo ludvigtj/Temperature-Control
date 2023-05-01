@@ -36,7 +36,7 @@ namespace TemperatureControl.ViewModel
             set
             {
                 _currentTemperature = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
             }
         }
 
