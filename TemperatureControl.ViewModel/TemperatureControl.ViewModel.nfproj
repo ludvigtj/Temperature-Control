@@ -12,7 +12,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>TemperatureControl.ViewModel</RootNamespace>
+    <RootNamespace>7</RootNamespace>
     <AssemblyName>TemperatureControl.ViewModel</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>

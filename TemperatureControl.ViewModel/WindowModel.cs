@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace TemperatureControl.ViewModel
 {
-    public class WindowModel : IViewModel, INotifyPropertyChanged
+    public class WindowModel : IViewModel
     {
         private BusinessLogic _logic;
         private enum States
@@ -15,7 +15,7 @@ namespace TemperatureControl.ViewModel
         }
         private States _state = States.STANDBY;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        //public event PropertyChangedEventHandler? PropertyChanged;
 
         private double _setPointTemperature;
         public double SetPointTemperature
@@ -24,13 +24,13 @@ namespace TemperatureControl.ViewModel
             set
             {
                 _setPointTemperature = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature)));
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature))); - observer
             }
         }
 
         public WindowModel()
         {
-            _logic = new BusinessLogic();
+            //_logic = new BusinessLogic();
             SetPointTemperature = 36.5;
         }
 

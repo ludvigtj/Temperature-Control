@@ -1,57 +1,52 @@
 ﻿using System;
 using System.Threading;
+using RelayControl.Interfaces;
+using TemperatureControl.TemperatureSensor;
 
 namespace TemperatureControl.Model
 {
     public class BusinessLogic
     {
-        private RelayController _relayController;
-        private TemperatureSensor _tempSensor;
-        private TubValve _tubValve;
-        private TabValve _tabValve;
-        private Pump _pump;
-        private TemperatureRegulator _tempRegulator;
+        private IRelayController _relayController;
+        private ITemperatureSensor _tempSensor;
+        private IPump _pump;
+        private ITemperatureRegulator _tempRegulator;
 
-        public BusinessLogic()
+        public BusinessLogic(IRelayController relayController,ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator)
         {
-            _relayController = new RelayController();
-            _tempSensor = new TemperatureSensor();
-            _tubValve = new TubValve();
-            _tabValve = new TabValve();
-            _pump = new Pump();
-            _tempRegulator = new TemperatureRegulator();
+            
         }
 
         public void FillVessel()
         {
-            _tabValve.OpenValve();
-            _tubValve.OpenValve();
+            //_tabValve.OpenValve();
+            //_tubValve.OpenValve();
             Thread.Sleep(300000); // Fylder i 5 minutter
-            //Brug stopwatch class
+            //Use stopwatch
 
             for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
             {
-                _tabValve.CloseValve();
-                Thread.Sleep(1000);
-                i++;
-                _tabValve.OpenValve();
-                Thread.Sleep(1000);
+                //_tabValve.CloseValve(); - These members are not a part of the interface
+                //Thread.Sleep(1000);
+                //i++;
+                //_tabValve.OpenValve(); 
+                //Thread.Sleep(1000);
             }
             _pump.TurnOnPump();
-            _tempRegulator.Regulate(_tempSensor.ReadTemperature());
+            //_tempRegulator.Regulate(_tempSensor.ReadTemperature()); - ReadTemperature interface returns void
 
             Thread.Sleep(900000); // Holder ventil til brugsvand åben i 15 minutter
 
-            _tabValve.CloseValve();
+            //_tabValve.CloseValve();
 
             // IKKE GJORT ENDNU     Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
         }
 
         public void EmptyVessel()
         {
-            _tubValve.CloseValve();
+            //_tubValve.CloseValve();
             _pump.TurnOnPump();
-            _tempRegulator.StopRegulate();
+            //_tempRegulator.StopRegulate(); - Not in interface
 
             Thread.Sleep(1200000); // Skal tømme i 20 minutter. Kan dette bare løses sådan? 
             _pump.TurnOffPump();
@@ -60,7 +55,7 @@ namespace TemperatureControl.Model
 
         public void RegulateTemperature(double setPointTemp)
         {
-            _tubValve.OpenValve();
+            //_tubValve.OpenValve();
             _pump.TurnOnPump();
             _tempRegulator.Regulate(setPointTemp);
 
@@ -68,9 +63,9 @@ namespace TemperatureControl.Model
 
             void TimerCallback(object state)
             {
-                _tubValve.CloseValve();
+                //_tubValve.CloseValve();
                 _pump.TurnOffPump();
-                _tempRegulator.StopRegulate();
+                //_tempRegulator.StopRegulate();
             }
         }
     }
