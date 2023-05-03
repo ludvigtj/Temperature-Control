@@ -82,7 +82,7 @@ namespace TemperatureControl.ViewModel
             {
                 _pump.TurnOffPump();
                 _tubValve.CloseValve();
-                //_tempRegulator.StopRegulate(); //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+                _tempRegulator.StopRegulate(); //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
             }
         }
 
@@ -90,7 +90,7 @@ namespace TemperatureControl.ViewModel
         {
             _tubValve.CloseValve();
             _pump.TurnOnPump();
-            //_tempRegulator.StopRegulate(); - Not in interface
+            _tempRegulator.StopRegulate();
 
             Timer timer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // 20 minutter
             // Skal tømme i 20 minutter.
@@ -113,7 +113,7 @@ namespace TemperatureControl.ViewModel
             {
                 _tubValve.CloseValve();
                 _pump.TurnOffPump();
-                //_tempRegulator.StopRegulate(); - Not in interface
+                _tempRegulator.StopRegulate();
             }
         }
 
@@ -127,7 +127,7 @@ namespace TemperatureControl.ViewModel
             _tabValve.CloseValve();
             _tubValve.CloseValve();
             _pump.TurnOffPump();
-            //_tempRegulator.StopRegulate(); - Not in interface
+            _tempRegulator.StopRegulate();
         }
     }
 }

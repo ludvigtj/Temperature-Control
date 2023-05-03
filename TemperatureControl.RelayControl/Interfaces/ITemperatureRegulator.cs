@@ -6,6 +6,6 @@ namespace TemperatureControl.RelayControl.Interfaces
     {
         double SetPointTemp { get; set; }
         void Regulate(double actualTemp);
-
+        void StopRegulate();
     }
 }
