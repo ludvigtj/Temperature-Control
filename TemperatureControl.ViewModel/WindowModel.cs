@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Threading;
-using Interfaces;
+using TemperatureControl.ViewModel.Interfaces;
 
 namespace TemperatureControl.ViewModel
 {

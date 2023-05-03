@@ -24,6 +24,12 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="RelayControlTests\Fakes\FakeRelayController.cs" />
+    <Compile Include="RelayControlTests\PumpTests.cs" />
+    <Compile Include="RelayControlTests\RelayControllerTests.cs" />
+    <Compile Include="RelayControlTests\TabValveTests.cs" />
+    <Compile Include="RelayControlTests\TemperatureRegulatorTests.cs" />
+    <Compile Include="RelayControlTests\TubValveTests.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelTest\TouchButtonTest.cs" />
@@ -44,6 +50,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TemperatureControl.RelayControl\TemperatureControl.RelayControl.nfproj" />
     <ProjectReference Include="..\TemperatureControl.ViewModel\TemperatureControl.ViewModel.nfproj" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
