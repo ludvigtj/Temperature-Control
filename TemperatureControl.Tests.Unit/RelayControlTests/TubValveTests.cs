@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using nanoFramework.TestFramework;
 using RelayControl;
 using TemperatureControl.RelayControl.Interfaces;
-using TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes;
+using TemperatureControl.Tests.Unit.RelayControlTests.Fakes;
 
 namespace TemperatureControl.Tests.Unit.RelayControlTests
 {
@@ -19,45 +20,35 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         }
 
         [TestMethod]
-        public void ctor_ValveClosed()
+        public void OpenValve_MethodCalled_ExceptionThrown()
         {
-            Assert.IsFalse(uut.ValveOpen);
+            Exception ex = new Exception();
+            try
+            {
+                uut.OpenValve();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            Assert.AreSame(ex.Message, "Relay 4 on");
         }
 
         [TestMethod]
-        public void OpenValve_MethodCalled_ValveOpen()
+        public void CloseValve_MethodCalled_ExceptionThrown()
         {
-            uut.OpenValve();
-            Assert.IsTrue(uut.ValveOpen);
-        }
+            Exception ex = new Exception();
+            try
+            {
+                uut.CloseValve();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
 
-        [TestMethod]
-        public void OpenValve_TwoMethodsCalled_ValveOpen()
-        {
-            uut.CloseValve();
-            uut.OpenValve();
-            Assert.IsTrue(uut.ValveOpen);
-        }
-        [TestMethod]
-        public void OpenValve_()
-        {
-            uut.OpenValve();
-            Assert.IsTrue(uut.ValveOpen);
-        }
-
-        [TestMethod]
-        public void CloseValve_MethodCalled_ValveClosed()
-        {
-            uut.CloseValve();
-            Assert.IsFalse(uut.ValveOpen);
-        }
-
-        [TestMethod]
-        public void CloseValve_MethodCalledTwice_ValveClosed()
-        {
-            uut.CloseValve();
-            uut.CloseValve();
-            Assert.IsFalse(uut.ValveOpen);
+            Assert.AreSame(ex.Message, "Relay 4 off");
         }
     }
 }

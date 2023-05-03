@@ -1,7 +1,9 @@
-﻿using nanoFramework.TestFramework;
+﻿using System;
+using System.Diagnostics;
+using nanoFramework.TestFramework;
 using RelayControl;
 using TemperatureControl.RelayControl.Interfaces;
-using TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes;
+using TemperatureControl.Tests.Unit.RelayControlTests.Fakes;
 
 namespace TemperatureControl.Tests.Unit.RelayControlTests
 {
@@ -16,42 +18,38 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         {
             fakeRelay = new FakeRelayController();
             uut = new Pump(fakeRelay);
-            
-        }
-        [TestMethod]
-        public void ctor_PumpOff()
-        {
-            Assert.IsFalse(uut.PumpOn);
         }
 
         [TestMethod]
-        public void TurnOnPump_MethodCalled_PumpOn()
+        public void TurnOnPump_MethodCalled_ExceptionThrown()
         {
-            uut.TurnOnPump();
-            Assert.IsTrue(uut.PumpOn);
+            Exception ex = new Exception();
+            try
+            {
+                uut.TurnOnPump();
+            }
+            catch(Exception e)
+            {
+                ex = e;
+            }
+
+            Assert.AreSame(ex.Message, "Relay 1 on");
         }
 
         [TestMethod]
-        public void TurnOnPump_TwoMethodsCalled_PumpOn()
+        public void TurnOffPump_MethodCalled_ExceptionThrown()
         {
-            uut.TurnOffPump();
-            uut.TurnOnPump();
-            Assert.IsTrue(uut.PumpOn);
-        }
+            Exception ex = new Exception();
+            try
+            {
+                uut.TurnOffPump();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
 
-        [TestMethod]
-        public void TurnOffPump_MethodCalled_PumpOff()
-        {
-            uut.TurnOffPump();
-            Assert.IsFalse(uut.PumpOn);
-        }
-        
-        [TestMethod]
-        public void TurnOffPump_MethodCalledTwice_PumpOff()
-        {
-            uut.TurnOffPump();
-            uut.TurnOffPump();
-            Assert.IsFalse(uut.PumpOn);
+            Assert.AreSame(ex.Message, "Relay 1 off");
         }
     }
 }

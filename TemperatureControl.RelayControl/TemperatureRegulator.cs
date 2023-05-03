@@ -7,9 +7,9 @@ namespace RelayControl
         public double SetPointTemp { get; set; }
 
         private double _actualTemp = 0;
-        private readonly RelayController _relay;
+        private readonly IRelayController _relay;
 
-        public TemperatureRegulator(RelayController relay)
+        public TemperatureRegulator(IRelayController relay)
         {
             _relay = relay;
         }

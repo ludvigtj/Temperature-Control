@@ -2,29 +2,28 @@
 using System.Diagnostics;
 using TemperatureControl.RelayControl.Interfaces;
 
-namespace TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes
+namespace TemperatureControl.Tests.Unit.RelayControlTests.Fakes
 {
     internal class FakeRelayController : IRelayController
     {
-        public bool RelayOn1 { get; private set; } = false;
-        public bool RelayOn2 { get; private set; } = false;
-        public bool RelayOn3 { get; private set; } = false;
-        public bool RelayOn4 { get; private set; } = false;
         public void TurnOnRelay(byte number)
         {
             switch (number)
             {
-                case 1: 
-                    RelayOn1 = true; 
+                case 1:
+                    throw new Exception("Relay 1 on");
                     break;
                 case 2:
-                    RelayOn2 = true;
+                    throw new Exception("Relay 2 on");
                     break;
                 case 3:
-                    RelayOn3 = true;
+                    throw new Exception("Relay 3 on");
                     break;
                 case 4:
-                    RelayOn4 = true;
+                    throw new Exception("Relay 4 on");
+                    break;
+                default:
+                    throw new Exception("Default exception");
                     break;
             }
         }
@@ -34,56 +33,21 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes
             switch (number)
             {
                 case 1:
-                    RelayOn1 = false;
+                    throw new Exception("Relay 1 off");
                     break;
                 case 2:
-                    RelayOn2 = false;
+                    throw new Exception("Relay 2 off");
                     break;
                 case 3:
-                    RelayOn3 = false;
+                    throw new Exception("Relay 3 off");
                     break;
                 case 4:
-                    RelayOn4 = false;
+                    throw new Exception("Relay 4 off");
+                    break;
+                default:
+                    throw new Exception("Default exception");
                     break;
             }
         }
-
-        //public void TurnOnRelay(byte number)
-        //{
-        //    switch (number)
-        //    {
-        //        case 1:
-        //            Debug.WriteLine("Relay 1 on");
-        //            break;
-        //        case 2:
-        //            Debug.WriteLine("Relay 2 on");
-        //            break;
-        //        case 3:
-        //            Debug.WriteLine("Relay 3 on");
-        //            break;
-        //        case 4:
-        //            Debug.WriteLine("Relay 4 on");
-        //            break;
-        //    }
-        //}
-
-        //public void TurnOffRelay(byte number)
-        //{
-        //    switch (number)
-        //    {
-        //        case 1:
-        //            Debug.WriteLine("Relay 1 off");
-        //            break;
-        //        case 2:
-        //            Debug.WriteLine("Relay 2 off");
-        //            break;
-        //        case 3:
-        //            Debug.WriteLine("Relay 3 off");
-        //            break;
-        //        case 4:
-        //            Debug.WriteLine("Relay 4 off");
-        //            break;
-        //    }
-        //}
     }
 }
