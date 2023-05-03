@@ -7,7 +7,7 @@ using TemperatureControl.Tests.Unit.RelayControlTests.Fakes;
 namespace TemperatureControl.Tests.Unit.RelayControlTests
 {
     [TestClass]
-    public class TabValveTests
+    public class TapValveTests
     {
         private static IValve uut;
         private static IRelayController fakerRelayController;
@@ -15,7 +15,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         public void Setup()
         {
             fakerRelayController = new FakeRelayController();
-            uut = new TabValve(fakerRelayController);
+            uut = new TapValve(fakerRelayController);
         }
 
         [TestMethod]
