@@ -4,7 +4,6 @@ using System.Text;
 using nanoFramework.M5Stack;
 using nanoFramework.UI.Input;
 using nanoFramework.Presentation;
-using TemperatureControl.ViewModel.Abstract;
 using TouchEventArgs = nanoFramework.Tough.TouchEventArgs;
 using TemperatureControl.ViewModel.Elements;
 using TemperatureControl.ViewModel.Interfaces;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
-using RelayControl.Interfaces;
-using TemperatureControl.TemperatureSensor;
+using TemperatureControl.RelayControl.Interfaces;
+using TemperatureSensor.Interfaces;
 
 namespace TemperatureControl.ViewModel
 {
