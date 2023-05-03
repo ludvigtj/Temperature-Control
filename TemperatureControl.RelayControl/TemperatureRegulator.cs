@@ -6,12 +6,14 @@ namespace RelayControl
     {
         public double SetPointTemp { get; set; }
 
-        private double _actualTemp = 0;
+        private double _actualTemp;
         private readonly IRelayController _relay;
 
         public TemperatureRegulator(IRelayController relay)
         {
             _relay = relay;
+            SetPointTemp = 36.5;
+            _actualTemp = 0;
         }
 
         public void Regulate(double actualTemp)
