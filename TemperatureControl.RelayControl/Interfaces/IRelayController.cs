@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RelayControl.Interfaces
+namespace TemperatureControl.RelayControl.Interfaces
 {
     public interface IRelayController
     {

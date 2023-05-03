@@ -3,7 +3,7 @@ using System.Threading;
 using RelayControl.Interfaces;
 using TemperatureControl.TemperatureSensor;
 
-namespace TemperatureControl.Model
+namespace TemperatureControl.ViewModel
 {
     public class BusinessLogic
     {

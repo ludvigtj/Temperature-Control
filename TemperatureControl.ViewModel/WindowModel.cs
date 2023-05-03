@@ -1,9 +1,8 @@
 ﻿using nanoFramework.UI;
 using System;
-using TemperatureControl.Model;
-using TemperatureControl.ViewModel.Abstract;
 using System.ComponentModel;
 using System.Threading;
+using Interfaces;
 
 namespace TemperatureControl.ViewModel
 {

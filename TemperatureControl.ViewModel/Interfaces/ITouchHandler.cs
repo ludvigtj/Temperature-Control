@@ -3,7 +3,7 @@ using System.Diagnostics;
 using nanoFramework.M5Stack;
 using nanoFramework.Tough;
 
-namespace TemperatureControl.ViewModel.Abstract
+namespace Interfaces
 {
     internal interface ITouchHandler
     {

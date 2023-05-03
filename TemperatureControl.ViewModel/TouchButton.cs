@@ -4,8 +4,8 @@ using TemperatureControl.ViewModel.Abstract;
 
 namespace TemperatureControl.ViewModel
 {
-    public class TouchButton : GuiElementBase
+    public class TouchButton
     {
-        public TouchButton()
+
     }
 }

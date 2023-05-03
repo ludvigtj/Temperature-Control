@@ -4,7 +4,7 @@ using System.Device.I2c;
 using System.Threading;
 using nanoFramework.Hardware.Esp32;
 
-namespace RelayControl
+namespace TemperatureControl.RelayControl
 {
     public class RelayControl
     {

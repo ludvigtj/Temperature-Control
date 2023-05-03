@@ -6,6 +6,7 @@ using nanoFramework.UI.Input;
 using nanoFramework.Presentation;
 using TemperatureControl.ViewModel.Abstract;
 using TouchEventArgs = nanoFramework.Tough.TouchEventArgs;
+using Interfaces;
 
 namespace TemperatureControl.ViewModel
 {
@@ -28,14 +29,7 @@ namespace TemperatureControl.ViewModel
 
             Debug.WriteLine(StrXY1 + e.X + StrXY2 + e.Y);
 #endregion
-            int count = _buttons.Length;
-            foreach (GuiElementBase button in _buttons)
-            {
-                if (button.X <= e.X && button.Y <=)
-                {
-                    
-                }
-            }
+            
         }
     }
 }
