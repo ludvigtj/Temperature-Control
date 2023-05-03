@@ -16,25 +16,25 @@ namespace TemperatureControl.ViewModel
         private IValve _tubValve;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private double _temperature;
+        private double _currentTemperature;
         public double Temperature
         {
             get
             {
-                return _temperature;
+                return _currentTemperature;
             }
             set
             {
-                if (value != _temperature)
+                if (value != _currentTemperature)
                 {
-                    _temperature = value;
+                    _currentTemperature = value;
                     NotifyPropertyChanged();
                 }
             }
         }
         private void NotifyPropertyChanged()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Temperature), Temperature, _temperature));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Temperature), Temperature, _currentTemperature));
         }
 
         public BusinessLogic(IRelayController relayController,ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator, IValve tabValve, IValve tubValve)

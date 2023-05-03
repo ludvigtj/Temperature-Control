@@ -28,16 +28,16 @@ namespace TemperatureControl.ViewModel
             }
         }
 
-        private double _currentTemperature;
-        public double CurrentTemperature
-        {
-            get { return _currentTemperature; }
-            set
-            {
-                _currentTemperature = value;
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
-            }
-        }
+        //private double _currentTemperature;
+        //public double CurrentTemperature
+        //{
+        //    get { return _currentTemperature; }
+        //    set
+        //    {
+        //        _currentTemperature = value;
+        //        //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
+        //    }
+        //}
 
         public WindowModel()
         {
