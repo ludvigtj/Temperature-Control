@@ -53,7 +53,9 @@ namespace TemperatureControl.ViewModel
             _tubValve.OpenValve();
 
             Thread.Sleep(300000); // Fylder i 5 minutter
-            //Use stopwatch
+                                  //Use stopwatch
+            
+
 
             for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
             {
@@ -73,8 +75,6 @@ namespace TemperatureControl.ViewModel
             {
                 _tabValve.CloseValve();
             }
-
-            // ER I TVIVL OM NEDENSTÅENDE
 
             Timer timer2 = new Timer(TimerCallback2, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
 
