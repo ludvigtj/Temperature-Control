@@ -19,6 +19,7 @@
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
     <Compile Include="Abstract\GuiElementBase.cs" />
+    <Compile Include="BusinessLogic.cs" />
     <Compile Include="Shapes\Point.cs" />
     <Compile Include="Shapes\Rectangle.cs" />
     <Compile Include="Shapes\Shape.cs" />
@@ -129,9 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Elements\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TemperatureControl.Model\TemperatureControl.Model.nfproj" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>

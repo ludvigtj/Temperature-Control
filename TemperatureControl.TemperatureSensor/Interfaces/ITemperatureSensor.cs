@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TemperatureControl.TemperatureSensor
+namespace TemperatureSensor.Interfaces
 {
     public interface ITemperatureSensor
     {
