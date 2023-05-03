@@ -6,7 +6,8 @@ using nanoFramework.UI.Input;
 using nanoFramework.Presentation;
 using TemperatureControl.ViewModel.Abstract;
 using TouchEventArgs = nanoFramework.Tough.TouchEventArgs;
-using Interfaces;
+using TemperatureControl.ViewModel.Elements;
+using TemperatureControl.ViewModel.Interfaces;
 
 namespace TemperatureControl.ViewModel
 {
