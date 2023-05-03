@@ -71,7 +71,7 @@
       <HintPath>..\packages\nanoFramework.System.Text.1.2.37\lib\nanoFramework.System.Text.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Tough">
-      <HintPath>..\packages\nanoFramework.Tough.1.1.135\lib\nanoFramework.Tough.dll</HintPath>
+      <HintPath>..\..\..\PRJ4\nanoFramework.M5Stack\nanoFramework.Tough\bin\Debug\nanoFramework.Tough.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers.Binary.BinaryPrimitives">
       <HintPath>..\packages\nanoFramework.System.Buffers.Binary.BinaryPrimitives.1.2.211\lib\System.Buffers.Binary.BinaryPrimitives.dll</HintPath>
