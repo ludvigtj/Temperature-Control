@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interfaces
+namespace TemperatureControl.ViewModel.Interfaces
 {
     internal interface IViewModel
     {
