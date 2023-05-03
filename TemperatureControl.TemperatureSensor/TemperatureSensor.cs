@@ -7,7 +7,8 @@ using UnitsNet;
 using nanoFramework.Hardware.Esp32;
 using TemperatureSensor.Interfaces;
 
-namespace TemperatureControl.Model
+
+namespace TemperatureControl.TemperatureSensor
 {
     public class TemperatureSensor : ITemperatureSensor
     {

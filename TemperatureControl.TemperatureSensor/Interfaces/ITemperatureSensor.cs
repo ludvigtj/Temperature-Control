@@ -2,9 +2,12 @@
 
 namespace TemperatureSensor.Interfaces
 {
-    internal interface ITemperatureSensor
-    {
-        public void ReadTemperature();
 
+    public interface ITemperatureSensor
+    {
+        void ReadTemperature();
     }
 }
+
+
+
