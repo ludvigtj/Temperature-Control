@@ -39,7 +39,7 @@ namespace TemperatureControl.TemperatureSensor
         public double ReadTemperature()
         {
             csPin.SelectCSPin();
-            Thread.Sleep(500);
+            Thread.Sleep(200);
             using SpiDevice device = SpiDevice.Create(_settings);                         //fire ledninger                                                                                                           // I tvivl om denne, men kan finde at reference ohm er 430 på PT100
                                                                                           //using Max31865 sensor = new(device, PlatinumResistanceThermometerType.Pt100, ResistanceTemperatureDetectorWires.FourWire, ElectricResistance.FromOhms(430));
             //to ledninger
