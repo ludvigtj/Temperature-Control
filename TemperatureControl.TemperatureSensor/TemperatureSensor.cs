@@ -5,7 +5,7 @@ using System.Device.Spi;
 using System.Device.Gpio;
 using UnitsNet;
 using nanoFramework.Hardware.Esp32;
-using TemperatureSensor;
+using TemperatureSensor.Interfaces;
 
 namespace TemperatureControl.Model
 {

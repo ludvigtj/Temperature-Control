@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TemperatureSensor
+namespace TemperatureSensor.Interfaces
 {
     internal interface ITemperatureSensor
     {
