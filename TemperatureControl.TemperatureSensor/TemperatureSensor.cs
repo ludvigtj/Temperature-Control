@@ -18,7 +18,7 @@ namespace TemperatureControl.TemperatureSensor
         {
             Configuration.SetPinFunction(23, DeviceFunction.SPI1_MOSI);
             Configuration.SetPinFunction(38, DeviceFunction.SPI1_MISO);
-            Configuration.SetPinFunction(0, DeviceFunction.SPI1_CLOCK);
+            Configuration.SetPinFunction(18, DeviceFunction.SPI1_CLOCK);
             // GPIO PINS for ovenstående setup fundet på: https://docs.m5stack.com/en/core/tough
 
             _settings = new(1, 5)  // busid = 1, da SPI port på M5 er connected med VSPI hvilket har busid 1
@@ -30,7 +30,7 @@ namespace TemperatureControl.TemperatureSensor
             };
         }
 
-        public void ReadTemperature()
+        public double ReadTemperature()
         {
             using SpiDevice device = SpiDevice.Create(_settings);                         //fire ledninger                                                                                                           // I tvivl om denne, men kan finde at reference ohm er 430 på PT100
                                                                                           //using Max31865 sensor = new(device, PlatinumResistanceThermometerType.Pt100, ResistanceTemperatureDetectorWires.FourWire, ElectricResistance.FromOhms(430));
@@ -42,6 +42,8 @@ namespace TemperatureControl.TemperatureSensor
             while (true)
             {
                 Console.WriteLine($"Temperature: {sensor.Temperature.DegreesCelsius} ℃");
+
+                return sensor.Temperature.DegreesCelsius;
 
                 // wait for 2000ms
                 Thread.Sleep(2000);
