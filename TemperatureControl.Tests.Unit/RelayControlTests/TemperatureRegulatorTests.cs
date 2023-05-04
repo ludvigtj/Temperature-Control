@@ -70,22 +70,32 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         public void Regulate_ActualSameAsPrevious_NoSecondException()
         {
             _uut.SetPointTemp = 38;
-            bool secondException = false;
+            Exception ex = new Exception();
+            int state = 0;
             try
             {
                 _uut.Regulate(39);
-            }
-            catch (Exception e) { }
-            try
-            {
-                _uut.Regulate(39);
+                state = 1;
             }
             catch (Exception e)
             {
-                secondException = true;
+                ex = e;
+                state = 2;
             }
-            Assert.IsFalse(secondException);
-        }
 
+            if (ex.Message == "Relay 2 off")
+            {
+                try
+                {
+                    _uut.Regulate(39);
+                    state = 3;
+                }
+                catch (Exception e)
+                {
+                    state = 4;
+                }
+            }
+            Assert.AreEqual(3,state);
+        }
     }
 }
