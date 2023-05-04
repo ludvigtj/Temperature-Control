@@ -10,13 +10,13 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
     [TestClass]
     public class TubValveTests
     {
-        private static IValve uut;
-        private static IRelayController fakerRelayController;
+        private static IValve _uut;
+        private static IRelayController _fakerRelayController;
         [Setup]
         public void Setup()
         {
-            fakerRelayController = new FakeRelayController();
-            uut = new TubValve(fakerRelayController);
+            _fakerRelayController = new FakeRelayController();
+            _uut = new TubValve(_fakerRelayController);
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             Exception ex = new Exception();
             try
             {
-                uut.OpenValve();
+                _uut.OpenValve();
             }
             catch (Exception e)
             {
@@ -41,7 +41,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             Exception ex = new Exception();
             try
             {
-                uut.CloseValve();
+                _uut.CloseValve();
             }
             catch (Exception e)
             {

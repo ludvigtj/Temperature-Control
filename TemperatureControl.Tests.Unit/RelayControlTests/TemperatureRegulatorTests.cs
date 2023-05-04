@@ -9,25 +9,25 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
     [TestClass]
     public class TemperatureRaegulatorTests
     {
-        private static IRelayController fakeRelay;
-        private static ITemperatureRegulator uut;
+        private static IRelayController _fakeRelay;
+        private static ITemperatureRegulator _uut;
 
         [Setup]
         public void Setup()
         {
-            fakeRelay = new FakeRelayController();
-            uut = new TemperatureRegulator(fakeRelay);
+            _fakeRelay = new FakeRelayController();
+            _uut = new TemperatureRegulator(_fakeRelay);
         }
 
 
         [TestMethod]
         public void Regulate_ActualLowerThanSetPoint_RelayOn()
         {
-            uut.SetPointTemp = 38;
+            _uut.SetPointTemp = 38;
             Exception ex = new Exception();
             try
             {
-                uut.Regulate(34);
+                _uut.Regulate(34);
             }
             catch (Exception e)
             {
@@ -39,11 +39,11 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         [TestMethod]
         public void Regulate_ActualHigherThanSetPoint_RelayOff()
         {
-            uut.SetPointTemp = 38;
+            _uut.SetPointTemp = 38;
             Exception ex = new Exception();
             try
             {
-                uut.Regulate(39);
+                _uut.Regulate(39);
             }
             catch (Exception e)
             {
@@ -54,11 +54,11 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         [TestMethod]
         public void Regulate_ActualSameAsSetPoint_RelayOff()
         {
-            uut.SetPointTemp = 38;
+            _uut.SetPointTemp = 38;
             Exception ex = new Exception();
             try
             {
-                uut.Regulate(38);
+                _uut.Regulate(38);
             }
             catch (Exception e)
             {
@@ -69,16 +69,16 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         [TestMethod]
         public void Regulate_ActualSameAsPrevious_NoSecondException()
         {
-            uut.SetPointTemp = 38;
+            _uut.SetPointTemp = 38;
             bool secondException = false;
             try
             {
-                uut.Regulate(39);
+                _uut.Regulate(39);
             }
             catch (Exception e) { }
             try
             {
-                uut.Regulate(39);
+                _uut.Regulate(39);
             }
             catch (Exception e)
             {

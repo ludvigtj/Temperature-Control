@@ -10,14 +10,14 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
     [TestClass]
     public class PumpTests
     {
-        private static IRelayController fakeRelay;
-        private static IPump uut;
+        private static IRelayController _fakeRelay;
+        private static IPump _uut;
 
         [Setup]
         public void Setup()
         {
-            fakeRelay = new FakeRelayController();
-            uut = new Pump(fakeRelay);
+            _fakeRelay = new FakeRelayController();
+            _uut = new Pump(_fakeRelay);
         }
 
         [TestMethod]
@@ -26,7 +26,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             Exception ex = new Exception();
             try
             {
-                uut.TurnOnPump();
+                _uut.TurnOnPump();
             }
             catch(Exception e)
             {
@@ -42,7 +42,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             Exception ex = new Exception();
             try
             {
-                uut.TurnOffPump();
+                _uut.TurnOffPump();
             }
             catch (Exception e)
             {
