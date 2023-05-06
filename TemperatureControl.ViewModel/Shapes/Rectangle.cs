@@ -3,38 +3,53 @@ using System.Text;
 
 namespace TemperatureControl.ViewModel.Shapes
 {
-    internal class Rectangle : Shape
+    public class Rectangle : Shape
     {
-        public Point TopLeft;
-        public Point TopRight;
-        public Point BottomLeft;
-        public Point BottomRight;
-        public Point MiddlePoint;
-        public int Length;
-        public int Breadth;
-        public int Area;
+        public Point TopLeft { get; private set; }
+        public Point TopRight { get; private set; }
+        public Point BottomLeft { get; private set; }
+        public Point BottomRight { get; private set; }
 
-        public Rectangle(Point topLeft, Point bottomRight)
+        public int Area
         {
-            TopLeft = topLeft;
-            BottomRight = bottomRight;
-            TopRight = new Point()
+            get
             {
-                X = BottomRight.X,
-                Y = TopLeft.Y
-            };
-            BottomLeft = new Point()
+                return Length * Height;
+            }
+            
+        }
+
+        public Rectangle(Point middlePoint, int length, int heigth)
+            :base(middlePoint,length, heigth)
+        {
+            SetPoints();
+        }
+
+        protected override void SetPoints()
+        {
+            int x = MiddlePoint.X - Length / 2;
+            int y = MiddlePoint.Y + Height / 2;
+            TopLeft = new Point(x, y);
+            
+            x = MiddlePoint.X + Length / 2;
+            y = MiddlePoint.Y + Height / 2;
+            TopRight = new Point(x, y);
+
+            x = MiddlePoint.X - Length / 2;
+            y = MiddlePoint.Y - Height / 2;
+            BottomLeft = new Point(x, y);
+
+            x = MiddlePoint.X + Length / 2;
+            y = MiddlePoint.Y - Height / 2;
+            BottomRight = new Point(x, y);
+
+            Points = new Point[]
             {
-                X = TopLeft.X,
-                Y = BottomRight.Y
-            };
-            Length = bottomRight.X - TopLeft.X;
-            Breadth = TopLeft.Y - BottomRight.Y;
-            Area = Length * Breadth;
-            MiddlePoint = new Point()
-            {
-                X = TopLeft.X + Length/2,
-                Y = BottomRight.Y + Breadth/2
+                MiddlePoint,
+                TopLeft,
+                TopRight,
+                BottomLeft,
+                BottomRight
             };
         }
 
