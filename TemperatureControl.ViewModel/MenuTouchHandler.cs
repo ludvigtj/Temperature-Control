@@ -15,8 +15,8 @@ namespace TemperatureControl.ViewModel
         private GuiElementBase[] _buttons; //maybe rename type to buttons TBD
         public MenuTouchHandler(GuiElementBase[] buttons)
         {
-            Tough.TouchEvent += TouchEventCallback;
-            _buttons = buttons;
+            //Tough.TouchEvent += TouchEventCallback;
+            //_buttons = buttons;
         }
         public void TouchEventCallback(object sender, TouchEventArgs e)
         {

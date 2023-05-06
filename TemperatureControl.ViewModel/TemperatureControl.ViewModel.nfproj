@@ -12,14 +12,20 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>7</RootNamespace>
+    <RootNamespace>TemperatureControl.ViewModel</RootNamespace>
     <AssemblyName>TemperatureControl.ViewModel</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
     <Compile Include="BusinessLogic.cs" />
+    <Compile Include="Elements\DynamicDrawableObject.cs" />
     <Compile Include="Elements\GuiElementBase.cs" />
+    <Compile Include="Elements\StaticDrawableObject.cs" />
+    <Compile Include="Elements\DrawableObject.cs" />
+    <Compile Include="Interfaces\IScreen.cs" />
+    <Compile Include="Elements\MenuScreen.cs" />
+    <Compile Include="Shapes\Pixel.cs" />
     <Compile Include="Shapes\Point.cs" />
     <Compile Include="Shapes\Rectangle.cs" />
     <Compile Include="Shapes\Shape.cs" />

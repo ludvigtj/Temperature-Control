@@ -2,7 +2,7 @@
 
 namespace TemperatureControl.ViewModel.Interfaces
 {
-    internal interface IViewModel
+    public interface IViewModel
     {
         public void Initialize();
 

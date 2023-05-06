@@ -17,10 +17,5 @@ namespace TemperatureControl.Tests.Unit.ViewModelTest
 
         }
 
-        [TestMethod]
-        public void Constructor_TwoPointsIn_ReturnsCorrectProperties()
-        {
-            
-        }
     }
 }

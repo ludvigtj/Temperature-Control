@@ -5,7 +5,7 @@ using nanoFramework.Tough;
 
 namespace TemperatureControl.ViewModel.Interfaces
 {
-    internal interface ITouchHandler
+    public interface ITouchHandler
     {
         void TouchEventCallback(object sender, TouchEventArgs e);
     }

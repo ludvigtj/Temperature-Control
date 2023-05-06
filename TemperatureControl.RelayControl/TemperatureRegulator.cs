@@ -29,5 +29,10 @@ namespace RelayControl
                 }
             }
         }
+
+        public void StopRegulate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

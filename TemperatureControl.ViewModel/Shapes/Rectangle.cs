@@ -53,6 +53,43 @@ namespace TemperatureControl.ViewModel.Shapes
             };
         }
 
+        public override Pixel[] GetOutline(ushort outlineThickness, ushort color)
+        {
+            int Circumference = 2 * Length + 2 * Height;
+            int bufferSize = (Circumference * outlineThickness)-8*outlineThickness;
+            Pixel[] output = new Pixel[bufferSize];
+            int n = 0;
+            //ArrayOrder??
+            for (int t = 0; t < outlineThickness; t++)
+            {
+                for (int i = 0; i < Length; i++)
+                {
+                    output[n] = new Pixel(TopLeft.X + i, TopLeft.Y - t, color);
+                    n++;
+                }
+            }
+        }
+
+        public override Pixel[] GetFill(ushort subtractOutline, ushort color)
+        {
+            int newHeight = Height - subtractOutline;
+            int newLength = Length - subtractOutline;
+            int bufferSize = newLength * newHeight;
+            int startX = TopLeft.X + subtractOutline;
+            int startY = TopLeft.Y - subtractOutline;
+
+            Pixel[] output = new Pixel[bufferSize];
+            for (int i = 0; i < Height; i++)
+            {
+                for (int j = 0; j < Length; j++)
+                {
+                    output[(j+1)*(i+1)] = new Pixel(startX + j, startY + i, color);
+                }
+            }
+
+            return output;
+        }
+
         private bool BetweenRanges(int a, int b, int input)
         {
             return (a <= input) && (input <= b);

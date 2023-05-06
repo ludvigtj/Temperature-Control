@@ -22,5 +22,9 @@ namespace TemperatureControl.ViewModel.Shapes
             Points = new Point[] { MiddlePoint };
         }
 
+        public abstract Pixel[] GetOutline(ushort outlineThickness,ushort color);
+
+        public abstract Pixel[] GetFill(ushort subtractOutline, ushort color);
+
     }
 }
