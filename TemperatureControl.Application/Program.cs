@@ -1,16 +1,25 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using nanoFramework.M5Stack;
+using nanoFramework.Presentation;
+using nanoFramework.UI;
+using TemperatureControl.View;
 
 namespace TemperatureControl.Application
 {
-    public class Program
+    public class Program : nanoFramework.UI.Application
     {
+        private static ViewController viewController;
         public static void Main()
         {
-            Debug.WriteLine("Hello from nanoFramework!");
+            Tough.InitializeScreen();
 
-            Thread.Sleep(Timeout.Infinite);
+            Program app = new Program();
+
+            viewController = new ViewController();
+
+            app.Run();
         }
     }
 }
