@@ -52,31 +52,31 @@ namespace TemperatureControl.ViewModel
             _tabValve.OpenValve();
             _tubValve.OpenValve();
 
-            Thread.Sleep(300000); // Fylder i 5 minutter
-                                  //Use stopwatch
-            
 
+            Timer fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
 
-            for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
+            void FillingCallback(object state)
             {
-                _tabValve.CloseValve();
-                Thread.Sleep(1000);
-                i++;
-                _tabValve.OpenValve(); 
-                Thread.Sleep(1000);
-            }
-            _pump.TurnOnPump();
-            _tempRegulator.Regulate(setPointTemp);
+                for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
+                {
+                    _tabValve.CloseValve();
+                    Thread.Sleep(1000);
+                    i++;
+                    _tabValve.OpenValve();
+                    Thread.Sleep(1000);
+                }
+                _pump.TurnOnPump();
+                _tempRegulator.Regulate(setPointTemp);
 
-            
-            Timer timer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // 15 minutter
-            // Holder ventil til brugsvand åben i 15 minutter
+                Timer valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // 15 minutter
+                // Holder ventil til brugsvand åben i 15 minutter
+            }
+
             void TimerCallback(object state)
             {
                 _tabValve.CloseValve();
+                Timer timer2 = new Timer(TimerCallback2, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
             }
-
-            Timer timer2 = new Timer(TimerCallback2, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
 
             void TimerCallback2(object state)
             {
@@ -98,7 +98,6 @@ namespace TemperatureControl.ViewModel
             {
                 _pump.TurnOffPump();
             }
-
         }
 
         public void RegulateTemperature(double setPointTemp)
