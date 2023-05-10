@@ -8,7 +8,6 @@ namespace TemperatureControl.ViewModel
 {
     public class BusinessLogic
     {
-        private IRelayController _relayController;
         private ITemperatureSensor _tempSensor;
         private IPump _pump;
         private ITemperatureRegulator _tempRegulator;
@@ -60,9 +59,8 @@ namespace TemperatureControl.ViewModel
 
 
 
-        public BusinessLogic(IRelayController relayController,ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator, IValve tabValve, IValve tubValve)
+        public BusinessLogic(ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator, IValve tabValve, IValve tubValve)
         {
-            _relayController = relayController;
             _tempSensor = tempSensor;
             _pump = pump;
             _tempRegulator = tempRegulator;
