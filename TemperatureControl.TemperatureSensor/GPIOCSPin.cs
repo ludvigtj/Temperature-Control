@@ -8,9 +8,9 @@ namespace TemperatureSensor
     {
         GpioPin csPin;
 
-        public GPIOCSPin()
+        public GPIOCSPin(int pin)
         {
-            csPin = new GpioController().OpenPin(27);
+            csPin = new GpioController().OpenPin(pin);
         }
 
         public void CreateCSPin()

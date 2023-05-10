@@ -18,7 +18,8 @@ namespace TemperatureControl.TemperatureSensor
 
         public TemperatureSensor()
         {
-            csPin = new GPIOCSPin();
+            csPin = new GPIOCSPin(27); // GPIO27 er ikke en CS, så derfor laver vi den softwaremæssigt i klassen GPIOCSPin. 
+
             csPin.CreateCSPin();
 
             Configuration.SetPinFunction(23, DeviceFunction.SPI1_MOSI);
