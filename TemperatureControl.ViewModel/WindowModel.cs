@@ -9,40 +9,19 @@ namespace TemperatureControl.ViewModel
     public class WindowModel : IViewModel
     {
         private BusinessLogic _logic;
+        private Thread checkTempThread;
         private enum States
         {
             STANDBY, ALARM, FILLING, REGULATING, EMPTYING
         }
         private States _state = States.STANDBY;
 
-        //public event PropertyChangedEventHandler? PropertyChanged;
-
-        private double _setPointTemperature;
-        public double SetPointTemperature
+        public WindowModel(BusinessLogic logic)
         {
-            get { return _setPointTemperature; }
-            set
-            {
-                _setPointTemperature = value;
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature))); - observer
-            }
-        }
-
-        //private double _currentTemperature;
-        //public double CurrentTemperature
-        //{
-        //    get { return _currentTemperature; }
-        //    set
-        //    {
-        //        _currentTemperature = value;
-        //        //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
-        //    }
-        //}
-
-        public WindowModel()
-        {
+            _logic = logic;
             //_logic = new BusinessLogic();
-            SetPointTemperature = 36.5;
+            _logic.SetPointTemperature = 36.5;
+            checkTempThread = new Thread(_logic.CheckTemperature);
         }
 
         public void Initialize()
@@ -55,9 +34,12 @@ namespace TemperatureControl.ViewModel
             throw new NotImplementedException();
         }
 
-        public void CheckTemperature() // Skal denne være her? andre måder? evt. skal metoden i logic sætte CurrentTemperature
+        public void CheckTemperature()
         {
-            _logic.CheckTemperature(SetPointTemperature);
+            if (!checkTempThread.IsAlive)
+            {
+                checkTempThread.Start();
+            }
         }
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
@@ -80,7 +62,7 @@ namespace TemperatureControl.ViewModel
             if (_state == States.STANDBY)
             {
                 // Viser at fyld funktion er aktiv
-                _logic.FillVessel(SetPointTemperature);
+                _logic.FillVessel();
                 _state = States.FILLING;
                 // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
 
@@ -96,7 +78,7 @@ namespace TemperatureControl.ViewModel
         {
             if (_state == States.STANDBY)
             {
-                _logic.RegulateTemperature(SetPointTemperature);  // SetPointTemperature skal databindes med displayet.
+                _logic.RegulateTemperature(); 
                 _state = States.REGULATING;
                 // Viser at regulering er aktiv
 
@@ -110,12 +92,12 @@ namespace TemperatureControl.ViewModel
 
         public void OnSetPointMinus_Pressed(object sender, EventArgs e)
         {
-            SetPointTemperature -= 0.5;
+            _logic.SetPointTemperature -= 0.5;
         }
 
         public void OnSetPointPlus_Pressed(object sender, EventArgs e)
         {
-            SetPointTemperature += 0.5;
+            _logic.SetPointTemperature += 0.5;
         }
     }
 }

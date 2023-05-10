@@ -17,7 +17,7 @@ namespace TemperatureControl.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
         private double _currentTemperature;
-        public double Temperature
+        public double CurrentTemperature
         {
             get
             {
@@ -28,14 +28,37 @@ namespace TemperatureControl.ViewModel
                 if (value != _currentTemperature)
                 {
                     _currentTemperature = value;
-                    NotifyPropertyChanged();
+                    NotifyCurrentTemperatureChanged();
                 }
             }
-        }
-        private void NotifyPropertyChanged()
+        }   // CurrentTemperature skal databindes med displayet.
+        private void NotifyCurrentTemperatureChanged()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Temperature), Temperature, _currentTemperature));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature), CurrentTemperature, _currentTemperature));
         }
+
+        private double _setPointTemperature;  
+        public double SetPointTemperature
+        {
+            get
+            {
+                return _setPointTemperature;
+            }
+            set
+            {
+                if (value != _setPointTemperature)
+                {
+                    _setPointTemperature = value;
+                    NotifySetPointTemperatureChanged();
+                }
+            }
+        }   // SetPointTemperature skal databindes med displayet.
+        private void NotifySetPointTemperatureChanged()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature), SetPointTemperature, _setPointTemperature));
+        }
+
+
 
         public BusinessLogic(IRelayController relayController,ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator, IValve tabValve, IValve tubValve)
         {
@@ -47,7 +70,7 @@ namespace TemperatureControl.ViewModel
             _tubValve = tubValve;
         }
 
-        public void FillVessel(double setPointTemp)
+        public void FillVessel()
         {
             _tabValve.OpenValve();
             _tubValve.OpenValve();
@@ -66,7 +89,7 @@ namespace TemperatureControl.ViewModel
                     Thread.Sleep(1000);
                 }
                 _pump.TurnOnPump();
-                _tempRegulator.Regulate(setPointTemp);
+                _tempRegulator.Regulate(SetPointTemperature);
 
                 Timer valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // 15 minutter
                 // Holder ventil til brugsvand åben i 15 minutter
@@ -100,11 +123,11 @@ namespace TemperatureControl.ViewModel
             }
         }
 
-        public void RegulateTemperature(double setPointTemp)
+        public void RegulateTemperature()
         {
             _tubValve.OpenValve();
             _pump.TurnOnPump();
-            _tempRegulator.Regulate(setPointTemp);
+            _tempRegulator.Regulate(SetPointTemperature);
 
             Timer timer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
 
@@ -116,11 +139,12 @@ namespace TemperatureControl.ViewModel
             }
         }
 
-        public void CheckTemperature(double setPointTemp)
+        public void CheckTemperature()
         {
-            while (_tempSensor.ReadTemperature() < setPointTemp + 2 || _tempSensor.ReadTemperature() > setPointTemp -2 )
+            while (_tempSensor.ReadTemperature() < SetPointTemperature + 2 || _tempSensor.ReadTemperature() > SetPointTemperature -2 )
             {
-
+                CurrentTemperature = _tempSensor.ReadTemperature();
+                Thread.Sleep(2000);
             }
 
             _tabValve.CloseValve();
