@@ -12,8 +12,6 @@ namespace RelayControl
         public TemperatureRegulator(IRelayController relay)
         {
             _relay = relay;
-            SetPointTemp = 36.5;
-            _actualTemp = 0;
         }
 
         public void Regulate()
