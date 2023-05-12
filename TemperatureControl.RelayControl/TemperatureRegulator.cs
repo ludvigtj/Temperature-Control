@@ -2,11 +2,11 @@
 
 namespace RelayControl
 {
-    public class TemperatureRegulator :ITemperatureRegulator
+    public class TemperatureRegulator : ITemperatureRegulator
     {
         public double SetPointTemp { get; set; }
 
-        private double _actualTemp = 0;
+        public double CurrentTemp { get; set; }
         private readonly RelayController _relay;
 
         public TemperatureRegulator(RelayController relay)
@@ -14,19 +14,15 @@ namespace RelayControl
             _relay = relay;
         }
 
-        public void Regulate(double actualTemp)
+        public void Regulate()
         {
-            if (actualTemp != _actualTemp)
+            if (CurrentTemp < SetPointTemp)
             {
-                _actualTemp = actualTemp;
-                if (actualTemp < SetPointTemp)
-                {
-                    _relay.TurnOnRelay(2); //varmelegeme
-                }
-                else
-                {
-                    _relay.TurnOffRelay(2);
-                }
+                _relay.TurnOnRelay(2); //varmelegeme
+            }
+            else
+            {
+                _relay.TurnOffRelay(2);
             }
         }
     }
