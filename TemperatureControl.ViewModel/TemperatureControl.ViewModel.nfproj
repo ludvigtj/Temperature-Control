@@ -20,6 +20,7 @@
   <ItemGroup>
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Elements\GuiElementBase.cs" />
+    <Compile Include="Interfaces\IBusinessLogic.cs" />
     <Compile Include="Shapes\Point.cs" />
     <Compile Include="Shapes\Rectangle.cs" />
     <Compile Include="Shapes\Shape.cs" />

@@ -1,12 +1,13 @@
 ﻿using nanoFramework.UI;
 using System;
 using System.Threading;
+using TemperatureControl.ViewModel.Interfaces;
 using TemperatureControl.RelayControl.Interfaces;
 using TemperatureSensor.Interfaces;
 
 namespace TemperatureControl.ViewModel
 {
-    public class BusinessLogic
+    public class BusinessLogic : IBusinessLogic
     {
         private ITemperatureSensor _tempSensor;
         private IPump _pump;
@@ -24,8 +25,9 @@ namespace TemperatureControl.ViewModel
         #endregion
 
         #region CurrentTemperature
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler CurrentTemperatureChanged;
         private double _currentTemperature;
+        private double _currentTemperatureOld;
         public double CurrentTemperature
         {
             get
@@ -36,6 +38,7 @@ namespace TemperatureControl.ViewModel
             {
                 if (value != _currentTemperature)
                 {
+                    _currentTemperatureOld = _currentTemperature;
                     _currentTemperature = value;
                     NotifyCurrentTemperatureChanged();
                 }
@@ -43,12 +46,14 @@ namespace TemperatureControl.ViewModel
         }   // CurrentTemperature skal databindes med displayet.
         private void NotifyCurrentTemperatureChanged()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature), CurrentTemperature, _currentTemperature));
+            CurrentTemperatureChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature), _currentTemperatureOld, _currentTemperature));
         }
         #endregion
 
         #region SetPointTemperature
-        private double _setPointTemperature;  
+        public event PropertyChangedEventHandler SetPointTemperatureChanged;
+        private double _setPointTemperature;
+        private double _setPointTemperatureOld;
         public double SetPointTemperature
         {
             get
@@ -59,6 +64,7 @@ namespace TemperatureControl.ViewModel
             {
                 if (value != _setPointTemperature)
                 {
+                    _setPointTemperatureOld = _setPointTemperature;
                     _setPointTemperature = value;
                     NotifySetPointTemperatureChanged();
                 }
@@ -66,7 +72,7 @@ namespace TemperatureControl.ViewModel
         }   // SetPointTemperature skal databindes med displayet.
         private void NotifySetPointTemperatureChanged()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature), SetPointTemperature, _setPointTemperature));
+            SetPointTemperatureChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature), _setPointTemperatureOld, _setPointTemperature));
         }
         #endregion
 
@@ -123,8 +129,7 @@ namespace TemperatureControl.ViewModel
             {
                 _pump.TurnOffPump();
                 _tubValve.CloseValve();
-                _tempRegulator.StopRegulate(); //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
-                IsRegulating = false; // stopper temperaturreguleringen
+                IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
             }
         }
 
