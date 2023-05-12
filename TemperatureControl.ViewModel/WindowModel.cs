@@ -1,6 +1,7 @@
 ﻿using nanoFramework.UI;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
 using TemperatureControl.ViewModel.Interfaces;
 
@@ -19,9 +20,9 @@ namespace TemperatureControl.ViewModel
         public WindowModel(BusinessLogic logic)
         {
             _logic = logic;
-            //_logic = new BusinessLogic();
             _logic.SetPointTemperature = 37;
             checkTempThread = new Thread(_logic.CheckTemperature);
+            checkTempThread.Start();
         }
 
         public void Initialize()
@@ -49,7 +50,7 @@ namespace TemperatureControl.ViewModel
                 // Viser at reguler er inaktiv og tømfunktionen er aktiv
                 _logic.EmptyVessel();
                 _state = States.EMPTYING;
-                // Viser at tømfunktionen er inaktiv
+                // Viser at tømfunktionen er inaktiv efter 20 minutter
             }
             else
             {
@@ -65,7 +66,11 @@ namespace TemperatureControl.ViewModel
                 _logic.FillVessel();
                 _state = States.FILLING;
                 // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
-
+                while (!_logic.IsRegulating)
+                {
+                    // Venter på at regulering starter
+                }
+                _state = States.REGULATING;
                 // Viser at reguler funktion er inaktiv efter 5 timer
             }
             else
