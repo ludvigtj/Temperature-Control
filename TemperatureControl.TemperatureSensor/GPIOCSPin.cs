@@ -6,27 +6,31 @@ namespace TemperatureSensor
 {
     public class GPIOCSPin : IGPIOCSPin
     {
-        GpioPin csPin;
+        GpioController csPin;
+        int _pin;
 
         public GPIOCSPin(int pin)
         {
-            csPin = new GpioController().OpenPin(pin);
+            _pin = pin;
+            //csPin = new GpioController().OpenPin(pin);
+            csPin = new GpioController();
+            csPin.OpenPin(_pin, PinMode.Output);
         }
 
         public void CreateCSPin()
         {
-            csPin.SetPinMode(PinMode.Output);
-            csPin.Write(PinValue.High);
+            csPin.SetPinMode(_pin, PinMode.Output);
+            csPin.Write(_pin, PinValue.High);
         }
 
         public void SelectCSPin()
         {
-            csPin.Write(PinValue.Low);
+            csPin.Write(_pin, PinValue.Low);
         }
 
         public void DeselectCSPin()
         {
-            csPin.Write(PinValue.High);
+            csPin.Write(_pin, PinValue.High);
         }
     }
 }
