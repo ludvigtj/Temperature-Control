@@ -70,23 +70,48 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             Assert.AreSame(ex.Message, "Relay 2 off");
         }
 
-        //[DataTestMethod]
-        [DataRow(38,38)]
-        [DataRow(38, 39)]
-        public void Regulate_(double setpoint, double current)
+        [TestMethod]
+        public void Regulate_IncreasingCurrentTemp_RelayOff()
         {
-            _uut.SetPointTemp = setpoint;
-            _uut.CurrentTemp = current;
+            _uut.SetPointTemp = 38;
+            _uut.CurrentTemp = 39;
             Exception ex = new Exception();
-            try
+            for (int i = 0; i < 15; i++)
             {
-                _uut.Regulate();
-            }
-            catch (Exception e)
-            {
-                ex = e;
+                try
+                {
+                    _uut.Regulate();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+
+                _uut.CurrentTemp += 0.5;
             }
             Assert.AreSame(ex.Message, "Relay 2 off");
+        }
+
+        [TestMethod]
+        public void Regulate_DecreasingCurrentTemp_RelayOn()
+        {
+            _uut.SetPointTemp = 38;
+            _uut.CurrentTemp = 39;
+            Exception ex = new Exception();
+            for (int i = 0; i < 15; i++)
+            {
+                try
+                {
+                    _uut.Regulate();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+
+                _uut.CurrentTemp -= 0.5;
+            }
+            Assert.AreSame(ex.Message, "Relay 2 on");
         }
 
         //[TestMethod]

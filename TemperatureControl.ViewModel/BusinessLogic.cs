@@ -33,7 +33,7 @@ namespace TemperatureControl.ViewModel
                 //Thread.Sleep(1000);
             }
             _pump.TurnOnPump();
-            _tempRegulator.Regulate(setPointTemp);
+            //_tempRegulator.Regulate(setPointTemp);
 
             //Thread.Sleep(900000); // Holder ventil til brugsvand åben i 15 minutter
 
@@ -80,7 +80,7 @@ namespace TemperatureControl.ViewModel
         {
             //_tubValve.OpenValve();
             _pump.TurnOnPump();
-            _tempRegulator.Regulate(setPointTemp);
+            //_tempRegulator.Regulate(setPointTemp);
 
             Timer timer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite);
 
