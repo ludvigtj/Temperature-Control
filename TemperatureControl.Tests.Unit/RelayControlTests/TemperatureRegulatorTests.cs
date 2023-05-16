@@ -24,10 +24,11 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         public void Regulate_ActualLowerThanSetPoint_RelayOn()
         {
             _uut.SetPointTemp = 38;
+            _uut.CurrentTemp = 34;
             Exception ex = new Exception();
             try
             {
-                _uut.Regulate(34);
+                _uut.Regulate();
             }
             catch (Exception e)
             {
@@ -40,10 +41,11 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         public void Regulate_ActualHigherThanSetPoint_RelayOff()
         {
             _uut.SetPointTemp = 38;
+            _uut.CurrentTemp = 39;
             Exception ex = new Exception();
             try
             {
-                _uut.Regulate(39);
+                _uut.Regulate();
             }
             catch (Exception e)
             {
@@ -55,10 +57,11 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         public void Regulate_ActualSameAsSetPoint_RelayOff()
         {
             _uut.SetPointTemp = 38;
+            _uut.CurrentTemp = 38;
             Exception ex = new Exception();
             try
             {
-                _uut.Regulate(38);
+                _uut.Regulate();
             }
             catch (Exception e)
             {
@@ -66,36 +69,57 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             }
             Assert.AreSame(ex.Message, "Relay 2 off");
         }
-        [TestMethod]
-        public void Regulate_ActualSameAsPrevious_NoSecondException()
+
+        //[DataTestMethod]
+        [DataRow(38,38)]
+        [DataRow(38, 39)]
+        public void Regulate_(double setpoint, double current)
         {
-            _uut.SetPointTemp = 38;
+            _uut.SetPointTemp = setpoint;
+            _uut.CurrentTemp = current;
             Exception ex = new Exception();
-            int state = 0;
             try
             {
-                _uut.Regulate(39);
-                state = 1;
+                _uut.Regulate();
             }
             catch (Exception e)
             {
                 ex = e;
-                state = 2;
             }
-
-            if (ex.Message == "Relay 2 off")
-            {
-                try
-                {
-                    _uut.Regulate(39);
-                    state = 3;
-                }
-                catch (Exception e)
-                {
-                    state = 4;
-                }
-            }
-            Assert.AreEqual(3,state);
+            Assert.AreSame(ex.Message, "Relay 2 off");
         }
+
+        //[TestMethod]
+        //public void Regulate_ActualSameAsPrevious_NoSecondException()
+        //{
+        //    _uut.SetPointTemp = 38;
+        //    _uut.CurrentTemp = 39;
+        //    Exception ex = new Exception();
+        //    int state = 0;
+        //    try
+        //    {
+        //        _uut.Regulate();
+        //        state = 1;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ex = e;
+        //        state = 2;
+        //    }
+
+        //    if (ex.Message == "Relay 2 off")
+        //    {
+        //        try
+        //        {
+        //            _uut.Regulate();
+        //            state = 3;
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            state = 4;
+        //        }
+        //    }
+        //    Assert.AreEqual(3,state);
+        //}
     }
 }
