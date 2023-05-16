@@ -51,5 +51,41 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
 
             Assert.AreSame(ex.Message, "Relay 1 off");
         }
+
+        [TestMethod]
+        public void TurnOnPump_MethodMultipleTimes_ExceptionThrown()
+        {
+            Exception ex = new Exception();
+            for (int i = 0; i < 15; i++)
+            {
+                try
+                {
+                    _uut.TurnOnPump();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+            }
+            Assert.AreSame(ex.Message, "Relay 1 on");
+        }
+
+        [TestMethod]
+        public void TurnOffPump_MethodMultipleTimes_ExceptionThrown()
+        {
+            Exception ex = new Exception();
+            for (int i = 0; i < 15; i++)
+            {
+                try
+                {
+                    _uut.TurnOffPump();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+            }
+            Assert.AreSame(ex.Message, "Relay 1 off");
+        }
     }
 }

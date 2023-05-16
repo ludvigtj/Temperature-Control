@@ -19,7 +19,6 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             _uut = new TemperatureRegulator(_fakeRelay);
         }
 
-
         [TestMethod]
         public void Regulate_ActualLowerThanSetPoint_RelayOn()
         {

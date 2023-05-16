@@ -50,5 +50,40 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
 
             Assert.AreSame(ex.Message, "Relay 4 off");
         }
+        [TestMethod]
+        public void OpenValve_MethodMultipleTimes_ExceptionThrown()
+        {
+            Exception ex = new Exception();
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    _uut.OpenValve();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+            }
+            Assert.AreSame(ex.Message, "Relay 3 on");
+        }
+
+        [TestMethod]
+        public void CloseValve_MethodMultipleTimes_ExceptionThrown()
+        {
+            Exception ex = new Exception();
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    _uut.CloseValve();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+            }
+            Assert.AreSame(ex.Message, "Relay 3 off");
+        }
     }
 }
