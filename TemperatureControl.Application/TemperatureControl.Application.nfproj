@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="nanoFramework.Tough">
       <HintPath>..\packages\nanoFramework.Tough.1.1.137\lib\nanoFramework.Tough.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Buffers.Binary.BinaryPrimitives">
       <HintPath>..\packages\nanoFramework.System.Buffers.Binary.BinaryPrimitives.1.2.295\lib\System.Buffers.Binary.BinaryPrimitives.dll</HintPath>
@@ -120,7 +121,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TemperatureControl.View\TemperatureControl.View.nfproj" />
+    <ProjectReference Include="..\TemperatureControl.ViewModel\TemperatureControl.ViewModel.nfproj" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>

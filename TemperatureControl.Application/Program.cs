@@ -5,19 +5,20 @@ using nanoFramework.M5Stack;
 using nanoFramework.Presentation;
 using nanoFramework.UI;
 using TemperatureControl.View;
+using TemperatureControl.ViewModel;
+using TemperatureControl.ViewModel.Interfaces;
 
 namespace TemperatureControl.Application
 {
     public class Program : nanoFramework.UI.Application
     {
-        private static ViewController viewController;
+        private static WindowModel viewModel;
         public static void Main()
         {
             Tough.InitializeScreen();
 
             Program app = new Program();
-
-            viewController = new ViewController();
+            viewModel = new WindowModel();
 
             app.Run();
         }

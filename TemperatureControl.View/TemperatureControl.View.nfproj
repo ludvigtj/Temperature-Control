@@ -18,18 +18,13 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="Elements\ButtonFunction.cs" />
-    <Compile Include="Elements\ITouchButton.cs" />
-    <Compile Include="Elements\TouchButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewController.cs" />
-    <Compile Include="Windows\MainMenuWindow.cs" />
-    <Compile Include="Windows\MenuWindow.cs" />
-    <Compile Include="Windows\TemperatureWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iot.Device.Axp192">
       <HintPath>..\packages\nanoFramework.Iot.Device.Axp192.1.2.297\lib\Iot.Device.Axp192.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Iot.Device.Chsc6540">
       <HintPath>..\packages\nanoFramework.Iot.Device.Chsc6540.1.1.297\lib\Iot.Device.Chsc6540.dll</HintPath>
@@ -44,10 +39,7 @@
       <HintPath>..\packages\nanoFramework.CoreLibrary.1.14.2\lib\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Graphics">
-      <HintPath>..\packages\nanoFramework.Graphics.1.1.34\lib\nanoFramework.Graphics.dll</HintPath>
-    </Reference>
-    <Reference Include="nanoFramework.Graphics.Core">
-      <HintPath>..\packages\nanoFramework.Graphics.1.1.34\lib\nanoFramework.Graphics.Core.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Graphics.1.1.28\lib\nanoFramework.Graphics.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Hardware.Esp32">
       <HintPath>..\packages\nanoFramework.Hardware.Esp32.1.6.3\lib\nanoFramework.Hardware.Esp32.dll</HintPath>
@@ -112,9 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="343033418_625994385668835_7191771787230732546_n.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TemperatureControl.ViewModel\TemperatureControl.ViewModel.nfproj" />
