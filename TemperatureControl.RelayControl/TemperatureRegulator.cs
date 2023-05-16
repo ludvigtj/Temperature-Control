@@ -18,11 +18,11 @@ namespace RelayControl
         {
             if (CurrentTemp < SetPointTemp)
             {
-                _relay.TurnOnRelay(2); //varmelegeme
+                _relay.TurnOnRelay(1); //varmelegeme
             }
             else
             {
-                _relay.TurnOffRelay(2);
+                _relay.TurnOffRelay(1);
             }
         }
     }

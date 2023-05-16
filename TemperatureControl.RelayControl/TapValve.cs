@@ -12,12 +12,12 @@ namespace RelayControl
         
         public void OpenValve()
         {
-            _relay.TurnOnRelay(3);
+            _relay.TurnOnRelay(2);
         }
 
         public void CloseValve()
         {
-            _relay.TurnOffRelay(3);
+            _relay.TurnOffRelay(2);
         }
     }
 }
