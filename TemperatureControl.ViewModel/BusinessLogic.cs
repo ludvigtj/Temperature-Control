@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using TemperatureControl.RelayControl.Interfaces;
 using TemperatureSensor.Interfaces;
 
@@ -12,9 +11,9 @@ namespace TemperatureControl.ViewModel
         private IPump _pump;
         private ITemperatureRegulator _tempRegulator;
 
-        public BusinessLogic(IRelayController relayController,ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator)
+        public BusinessLogic(IRelayController relayController, ITemperatureSensor tempSensor, IPump pump, ITemperatureRegulator tempRegulator)
         {
-            
+
         }
 
         public void FillVessel(double setPointTemp)
@@ -96,7 +95,7 @@ namespace TemperatureControl.ViewModel
         {
             //while (_tempSensor.ReadTemperature() < setPointTemp + 2 || _tempSensor.ReadTemperature() > setPointTemp -2 )
             {
-   
+
             }
 
             //_tabValve.CloseValve();

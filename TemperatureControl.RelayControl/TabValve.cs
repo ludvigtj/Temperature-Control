@@ -2,7 +2,7 @@
 
 namespace RelayControl
 {
-    public class TabValve: IValve
+    public class TabValve : IValve
     {
         private readonly IRelayController _relay;
         public bool ValveOpen { get; private set; }
@@ -11,7 +11,7 @@ namespace RelayControl
             _relay = relay;
             ValveOpen = false;
         }
-        
+
         public void OpenValve()
         {
             _relay.TurnOnRelay(3);

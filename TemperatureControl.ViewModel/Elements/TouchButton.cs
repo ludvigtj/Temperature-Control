@@ -1,19 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using nanoFramework.Presentation.Controls;
-using nanoFramework.Presentation.Media;
+﻿using nanoFramework.Presentation.Media;
 using nanoFramework.Presentation.Shapes;
-using nanoFramework.UI;
+using System;
 using TemperatureControl.ViewModel;
 
 namespace TemperatureControl.View.Elements
 {
-    public class TouchButton: ITouchButton
+    public class TouchButton : ITouchButton
     {
-        public string Text { get; set; }
-
-        private Text _text;
-        private bool[] _subscribedStates;
         public States State
         {
             get => State;
@@ -34,14 +27,15 @@ namespace TemperatureControl.View.Elements
                     case States.REGULATING:
                         c = Color.Green;
                         break;
-                    case States.STANDBY:;
+                    case States.STANDBY:
+                        ;
                         break;
                 }
-                buttonRender.Fill = new SolidColorBrush(c);
+                ButtonRender.Fill = new SolidColorBrush(c);
             }
         }
         public event EventHandler ButtonPressed;
-        public Rectangle buttonRender { get; set; }
+        public Rectangle ButtonRender { get; set; }
         public TouchButton()
         {
 
@@ -49,16 +43,10 @@ namespace TemperatureControl.View.Elements
 
         public void Press()
         {
-            OnButtonPressed();
-        }
-
-        protected void OnButtonPressed()
-        {
             EventHandler handler = ButtonPressed;
             if (handler == null) return;
             handler.Invoke(this, EventArgs.Empty);
-
         }
-        
+
     }
 }

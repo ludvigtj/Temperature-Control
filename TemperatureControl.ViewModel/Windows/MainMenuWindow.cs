@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using nanoFramework.Presentation;
-using nanoFramework.Presentation.Controls;
+﻿using nanoFramework.Presentation.Controls;
 using nanoFramework.Presentation.Media;
-using nanoFramework.Presentation.Shapes;
-using nanoFramework.UI;
+using nanoFramework.Tough;
+using System;
+using TemperatureControl.View.Elements;
 using TemperatureControl.ViewModel.Elements;
 using TemperatureControl.ViewModel.Interfaces;
 
@@ -12,64 +10,80 @@ namespace TemperatureControl.ViewModel.Windows
 {
     public class MainMenuWindow : MenuWindow
     {
-        private enum BtnLocal
-        {
-            MENU = 0, FILL = 1, EMPTY = 2
-        }
+
         public MainMenuWindow(IViewModel model) : base(model)
         {
-            //RETRIEVING TOUCH BUTTONS FROM STATIC HOLDER
-            LocalButtons = new[]
-            {
-                TouchButtons[(int)Btn.MENU],
-                TouchButtons[(int)Btn.FILL],
-                TouchButtons[(int)Btn.EMPTY]
-            };
+
+        }
+        protected override void OnSwitchWindows(object sender, EventArgs e)
+        {
+            MenuWindow temperatureWindow = new TemperatureWindow(viewModel);
+        }
+
+        public override void ToughOnTouchEvent(object sender, TouchEventArgs e)
+        {
+
+            base.ToughOnTouchEvent(sender, e);
+        }
+
+        protected override void DefineRenders()
+        {
             //CREATING FULL SCREEN CANVAS
             Canvas c = new Canvas();
             this.Child = c;
             this.Background = new SolidColorBrush(ColorUtility.ColorFromRGB(0, 0, 0));
 
-            //CREATING GRAPHIC PORTION OF TOUCH BUTTONS
             int standardWidth = (Width / 2) - 1;
             int standardHeight = (Height / 2) - 1;
-
-            LocalButtons[(int)BtnLocal.MENU].buttonRender = new Rectangle(standardWidth, standardHeight)
-            {
-                Fill = new SolidColorBrush(Color.Black),
-                Stroke = new Pen(Color.White)
-            };
-            LocalButtons[(int)BtnLocal.FILL].buttonRender = new Rectangle(standardWidth, standardHeight)
-            {
-                Fill = new SolidColorBrush(Color.Black),
-                Stroke = new Pen(Color.White)
-            };
-            LocalButtons[(int)BtnLocal.EMPTY].buttonRender = new Rectangle(standardWidth, standardHeight)
-            {
-                Fill = new SolidColorBrush(Color.Black),
-                Stroke = new Pen(Color.White)
-            };
-            TextBox tempString = new TextBox(standardWidth, standardHeight, false);
-
-
-            //SETTING LOCALTION OF ELEMENTS ON THE CANVAS
+            TextBox tempString = new TextBox(standardWidth, standardHeight, "...", false);
+            viewModel.ReadTempChanged += tempString.OnUpdateTextEvent;
             Canvas.SetLeft(tempString, 0);
             Canvas.SetTop(tempString, 0);
             c.Children.Add(tempString);
-            model.ReadTempChanged += tempString.OnUpdateTextEvent;
 
-            Canvas.SetLeft(LocalButtons[(int)BtnLocal.FILL].buttonRender, 0);
-            Canvas.SetTop(LocalButtons[(int)BtnLocal.FILL].buttonRender, 0);
-            c.Children.Add(LocalButtons[(int)BtnLocal.FILL].buttonRender);
+            TouchButton tbMenu = new TouchButton()
+            {
+                ButtonRender = new TextBox(standardWidth, standardHeight, "MENU")
+                {
+                    Fill = new SolidColorBrush(Color.Black),
+                    Stroke = new Pen(Color.White)
+                }
+            };
+            tbMenu.ButtonPressed += OnSwitchWindows;
 
-            Canvas.SetRight(LocalButtons[(int)BtnLocal.EMPTY].buttonRender, 0);
-            Canvas.SetTop(LocalButtons[(int)BtnLocal.EMPTY].buttonRender, 0);
-            c.Children.Add(LocalButtons[(int)BtnLocal.EMPTY].buttonRender);
+            Canvas.SetRight(tbMenu.ButtonRender, 0);
+            Canvas.SetBottom(tbMenu.ButtonRender, 0);
+            c.Children.Add(tbMenu.ButtonRender);
 
-            Canvas.SetRight(LocalButtons[(int)BtnLocal.MENU].buttonRender, 0);
-            Canvas.SetBottom(LocalButtons[(int)BtnLocal.MENU].buttonRender, 0);
-            c.Children.Add(LocalButtons[(int)BtnLocal.MENU].buttonRender);
-            model.ActiveButtons = LocalButtons;
+            TouchButton tbFill = new TouchButton()
+            {
+                ButtonRender = new TextBox(standardWidth, standardHeight, "FYLD")
+                {
+                    Fill = new SolidColorBrush(Color.Black),
+                    Stroke = new Pen(Color.White)
+                }
+            };
+            tbFill.ButtonPressed += viewModel.OnFill_Pressed;
+            viewModel.Subscribe(tbFill, States.FILLING);
+
+            Canvas.SetLeft(tbMenu.ButtonRender, 0);
+            Canvas.SetTop(tbMenu.ButtonRender, 0);
+            c.Children.Add(tbMenu.ButtonRender);
+
+            TouchButton tbEmpty = new TouchButton()
+            {
+                ButtonRender = new TextBox(standardWidth, standardHeight, "TØM")
+                {
+                    Fill = new SolidColorBrush(Color.Black),
+                    Stroke = new Pen(Color.White)
+                }
+            };
+            tbEmpty.ButtonPressed += viewModel.OnEmpty_Pressed;
+            viewModel.Subscribe(tbEmpty, States.EMPTYING);
+
+            Canvas.SetRight(tbMenu.ButtonRender, 0);
+            Canvas.SetTop(tbMenu.ButtonRender, 0);
+            c.Children.Add(tbMenu.ButtonRender);
         }
     }
 }

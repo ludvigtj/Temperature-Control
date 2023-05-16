@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using TemperatureControl.RelayControl.Interfaces;
+﻿using TemperatureControl.RelayControl.Interfaces;
 
 namespace TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes
 {
@@ -14,8 +12,8 @@ namespace TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes
         {
             switch (number)
             {
-                case 1: 
-                    RelayOn1 = true; 
+                case 1:
+                    RelayOn1 = true;
                     break;
                 case 2:
                     RelayOn2 = true;

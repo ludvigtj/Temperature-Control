@@ -1,10 +1,8 @@
-﻿using TemperatureControl.View.Elements;
-
-namespace TemperatureControl.ViewModel
+﻿namespace TemperatureControl.ViewModel
 {
     public static class ButtonContainer
     {
-        public static TouchButton[] Buttons { get; set; }
+        //public static TouchButton[] Buttons { get; set; }
     }
     public enum Btn
     {

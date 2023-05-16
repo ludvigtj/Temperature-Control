@@ -1,11 +1,7 @@
 using nanoFramework.TestFramework;
-using TemperatureControl.ViewModel;
-using System;
-using nanoFramework.Presentation;
-using TemperatureControl.View;
 using TemperatureControl.View.Elements;
+using TemperatureControl.ViewModel;
 using TemperatureControl.ViewModel.Interfaces;
-using TemperatureControl.ViewModel.Windows;
 
 
 namespace TemperatureControl.Tests.Unit.ViewModelTest
@@ -19,7 +15,7 @@ namespace TemperatureControl.Tests.Unit.ViewModelTest
 
         }
 
-        
+
 
         [TestMethod]
         public void Resource()

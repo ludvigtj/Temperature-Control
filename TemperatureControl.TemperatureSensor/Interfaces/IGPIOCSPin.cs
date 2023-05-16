@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TemperatureSensor.Interfaces
+﻿namespace TemperatureSensor.Interfaces
 {
 
     public interface IGPIOCSPin

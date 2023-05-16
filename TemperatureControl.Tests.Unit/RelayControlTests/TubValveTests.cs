@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using nanoFramework.TestFramework;
+﻿using nanoFramework.TestFramework;
 using RelayControl;
 using TemperatureControl.RelayControl.Interfaces;
 using TemperatureControl.Tests.Unit.TestsForRelayControl.Fakes;

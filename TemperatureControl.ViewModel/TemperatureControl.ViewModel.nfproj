@@ -26,7 +26,6 @@
     <Compile Include="Elements\TextBox.cs" />
     <Compile Include="Elements\TouchButton.cs" />
     <Compile Include="Interfaces\ITextContent.cs" />
-    <Compile Include="Interfaces\IViewController.cs" />
     <Compile Include="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -35,6 +34,9 @@
     <Compile Include="WindowModel.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowModelStates.cs" />
+    <Compile Include="WindowModelTemperature.cs" />
+    <Compile Include="WindowModelTouch.cs" />
     <Compile Include="Windows\MainMenuWindow.cs" />
     <Compile Include="Windows\MenuWindow.cs" />
     <Compile Include="Windows\TemperatureWindow.cs" />

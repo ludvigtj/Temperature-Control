@@ -16,7 +16,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         {
             fakeRelay = new FakeRelayController();
             uut = new Pump(fakeRelay);
-            
+
         }
         [TestMethod]
         public void ctor_PumpOff()
@@ -45,7 +45,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             uut.TurnOffPump();
             Assert.IsFalse(uut.PumpOn);
         }
-        
+
         [TestMethod]
         public void TurnOffPump_MethodCalledTwice_PumpOff()
         {

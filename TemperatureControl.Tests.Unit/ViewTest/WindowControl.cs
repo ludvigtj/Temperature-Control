@@ -4,7 +4,7 @@ using nanoFramework.TestFramework;
 namespace TemperatureControl.Tests.Unit
 {
     [TestClass]
-    public class TouchButtonTest
+    public class WindowControl
     {
         [TestMethod]
         public void TestMethod1()

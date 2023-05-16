@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TemperatureControl.RelayControl.Interfaces
+﻿namespace TemperatureControl.RelayControl.Interfaces
 {
     public interface IPump
     {

@@ -5,7 +5,7 @@ namespace TemperatureControl.View.Elements
 {
     public class MinusSign : Rectangle
     {
-        public MinusSign(int x, int y) : base(x,y) { }
+        public MinusSign(int x, int y) : base(x, y) { }
 
         public override void OnRender(DrawingContext dc)
         {

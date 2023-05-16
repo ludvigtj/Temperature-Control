@@ -24,14 +24,13 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="GUIElementsTest\PointTest.cs" />
+    <Compile Include="ViewTest\WindowControl.cs" />
     <Compile Include="RelayControlTests\Fakes\FakeRelayController.cs" />
     <Compile Include="RelayControlTests\PumpTests.cs" />
     <Compile Include="RelayControlTests\RelayControllerTests.cs" />
     <Compile Include="RelayControlTests\TabValveTests.cs" />
     <Compile Include="RelayControlTests\TemperatureRegulatorTests.cs" />
     <Compile Include="RelayControlTests\TubValveTests.cs" />
-    <Compile Include="GUIElementsTest\ShapesTest.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelTest\InformationGatheringTests.cs" />

@@ -1,8 +1,6 @@
 ﻿using Iot.Device.Relay;
-using System.Device.I2c;
-using System.Globalization;
-using System.Threading;
 using nanoFramework.Hardware.Esp32;
+using System.Device.I2c;
 using TemperatureControl.RelayControl.Interfaces;
 
 namespace RelayControl
@@ -25,7 +23,7 @@ namespace RelayControl
 
             _unit4Relay.SynchronizedMode = true;
         }
-        
+
         //1: Pumpe, 2:varmelegeme, 3: ventil til brugsvand, 4: ventil til karret
         public void TurnOnRelay(byte number)
         {

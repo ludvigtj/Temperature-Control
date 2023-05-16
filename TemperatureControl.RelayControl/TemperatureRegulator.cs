@@ -2,7 +2,7 @@
 
 namespace RelayControl
 {
-    public class TemperatureRegulator :ITemperatureRegulator
+    public class TemperatureRegulator : ITemperatureRegulator
     {
         public double SetPointTemp { get; set; }
 

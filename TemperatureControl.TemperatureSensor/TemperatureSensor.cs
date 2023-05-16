@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
-using Iot.Device.Max31865;
-using System.Device.Spi;
-using System.Device.Gpio;
-using UnitsNet;
+﻿using Iot.Device.Max31865;
 using nanoFramework.Hardware.Esp32;
+using System;
+using System.Device.Spi;
+using System.Threading;
 using TemperatureSensor.Interfaces;
+using UnitsNet;
 
 
 namespace TemperatureControl.TemperatureSensor
