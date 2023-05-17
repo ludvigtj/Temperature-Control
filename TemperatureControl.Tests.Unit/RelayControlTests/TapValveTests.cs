@@ -1,14 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using nanoFramework.TestFramework;
+﻿using nanoFramework.TestFramework;
 using RelayControl;
+using System;
 using TemperatureControl.RelayControl.Interfaces;
 using TemperatureControl.Tests.Unit.RelayControlTests.Fakes;
 
 namespace TemperatureControl.Tests.Unit.RelayControlTests
 {
     [TestClass]
-    public class TubValveTests
+    public class TapValveTests
     {
         private static IValve _uut;
         private static IRelayController _fakerRelayController;
@@ -16,7 +15,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         public void Setup()
         {
             _fakerRelayController = new FakeRelayController();
-            _uut = new TubValve(_fakerRelayController);
+            _uut = new TapValve(_fakerRelayController);
         }
 
         [TestMethod]
@@ -32,7 +31,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
                 ex = e;
             }
 
-            Assert.AreSame(ex.Message, "Relay 4 on");
+            Assert.AreSame(ex.Message, "Relay 3 on");
         }
 
         [TestMethod]
@@ -48,7 +47,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
                 ex = e;
             }
 
-            Assert.AreSame(ex.Message, "Relay 4 off");
+            Assert.AreSame(ex.Message, "Relay 3 off");
         }
         [TestMethod]
         public void OpenValve_MethodMultipleTimes_ExceptionThrown()

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
-using nanoFramework.M5Stack;
+//using nanoFramework.M5Stack;
 using nanoFramework.UI.Input;
 using nanoFramework.Presentation;
-using TouchEventArgs = nanoFramework.Tough.TouchEventArgs;
+//using TouchEventArgs = nanoFramework.Tough.TouchEventArgs;
 using TemperatureControl.ViewModel.Elements;
 using TemperatureControl.ViewModel.Interfaces;
 
@@ -15,7 +15,7 @@ namespace TemperatureControl.ViewModel
         private GuiElementBase[] _buttons; //maybe rename type to buttons TBD
         public MenuTouchHandler(GuiElementBase[] buttons)
         {
-            Tough.TouchEvent += TouchEventCallback;
+            //Tough.TouchEvent += TouchEventCallback;
             _buttons = buttons;
         }
         public void TouchEventCallback(object sender, TouchEventArgs e)
@@ -27,7 +27,7 @@ namespace TemperatureControl.ViewModel
             //Console.CursorLeft = 0;
             //Console.CursorTop = 0;
 
-            Debug.WriteLine(StrXY1 + e.X + StrXY2 + e.Y);
+            //Debug.WriteLine(StrXY1 + e.X + StrXY2 + e.Y);
 #endregion
             
         }
