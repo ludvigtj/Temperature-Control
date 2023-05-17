@@ -1,15 +1,14 @@
 ﻿using nanoFramework.UI;
-using System;
 
 namespace TemperatureControl.ViewModel.Interfaces
 {
-    internal interface IBusinessLogic
+    public interface IBusinessLogic
     {
+        bool IsRegulating { get; set; }
+        double CurrentTemperature { get; set; } // CurrentTemperature skal databindes med displayet.
+        double SetPointTemperature { get; set; } // SetPointTemperature skal databindes med displayet.
         event PropertyChangedEventHandler CurrentTemperatureChanged;
         event PropertyChangedEventHandler SetPointTemperatureChanged;
-        double CurrentTemperature { get; set; } 
-        double SetPointTemperature { get; set; }
-        bool IsRegulating { get; set; }
         void FillVessel();
         void EmptyVessel();
         void RegulateTemperature();

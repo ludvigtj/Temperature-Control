@@ -1,4 +1,5 @@
-﻿using TemperatureControl.RelayControl.Interfaces;
+﻿using System;
+using TemperatureControl.RelayControl.Interfaces;
 
 namespace TemperatureControl.Tests.Unit.RelayControlTests.Fakes
 {

@@ -25,6 +25,7 @@
     <Compile Include="Elements\PlusSign.cs" />
     <Compile Include="Elements\TextBox.cs" />
     <Compile Include="Elements\TouchButton.cs" />
+    <Compile Include="Interfaces\IBusinessLogic.cs" />
     <Compile Include="Interfaces\ITextContent.cs" />
     <Compile Include="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
