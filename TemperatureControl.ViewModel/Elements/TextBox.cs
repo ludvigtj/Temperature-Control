@@ -25,6 +25,7 @@ namespace TemperatureControl.ViewModel.Elements
         public void OnUpdateTextEvent(object sender, PropertyChangedEventArgs e)
         {
             _text = e.NewValue.ToString();
+            PrintText();
         }
         public override void OnRender(DrawingContext dc)
         {

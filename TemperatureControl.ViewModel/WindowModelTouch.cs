@@ -6,7 +6,7 @@ namespace TemperatureControl.ViewModel
     {
         public void CheckTemperature() // Skal denne være her? andre måder? evt. skal metoden i logic sætte CurrentTemperature
         {
-            _logic.CheckTemperature(SetPointTemperature);
+            _logic.CheckTemperature();
         }
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace TemperatureControl.ViewModel
             if (_state == States.STANDBY)
             {
                 // Viser at fyld funktion er aktiv
-                _logic.FillVessel(SetPointTemperature);
+                _logic.FillVessel();
                 ChangeStateAndNotify(States.FILLING);
                 // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
 
@@ -45,7 +45,7 @@ namespace TemperatureControl.ViewModel
         {
             if (_state == States.STANDBY)
             {
-                _logic.RegulateTemperature(SetPointTemperature);  // SetPointTemperature skal databindes med displayet.
+                _logic.RegulateTemperature();  // SetPointTemperature skal databindes med displayet.
                 ChangeStateAndNotify(States.REGULATING);
                 // Viser at regulering er aktiv
 

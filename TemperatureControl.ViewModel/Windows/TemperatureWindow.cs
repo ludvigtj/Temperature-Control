@@ -92,6 +92,7 @@ namespace TemperatureControl.ViewModel.Windows
             Canvas.SetLeft(tbMinus.ButtonRender, 0);
             Canvas.SetBottom(tbMinus.ButtonRender, 0);
             c.Children.Add(tbMinus.ButtonRender);
+            LocalButtons = new[] { tbMenu, tbRegulate, tbMinus, tbPlus };
         }
     }
 }
