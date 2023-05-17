@@ -66,9 +66,9 @@ namespace TemperatureControl.ViewModel.Windows
             tbFill.ButtonPressed += viewModel.OnFill_Pressed;
             viewModel.Subscribe(tbFill, States.FILLING);
 
-            Canvas.SetLeft(tbMenu.ButtonRender, 0);
-            Canvas.SetTop(tbMenu.ButtonRender, 0);
-            c.Children.Add(tbMenu.ButtonRender);
+            Canvas.SetLeft(tbFill.ButtonRender, 0);
+            Canvas.SetTop(tbFill.ButtonRender, 0);
+            c.Children.Add(tbFill.ButtonRender);
 
             TouchButton tbEmpty = new TouchButton()
             {
@@ -81,9 +81,9 @@ namespace TemperatureControl.ViewModel.Windows
             tbEmpty.ButtonPressed += viewModel.OnEmpty_Pressed;
             viewModel.Subscribe(tbEmpty, States.EMPTYING);
 
-            Canvas.SetRight(tbMenu.ButtonRender, 0);
-            Canvas.SetTop(tbMenu.ButtonRender, 0);
-            c.Children.Add(tbMenu.ButtonRender);
+            Canvas.SetRight(tbEmpty.ButtonRender, 0);
+            Canvas.SetTop(tbEmpty.ButtonRender, 0);
+            c.Children.Add(tbEmpty.ButtonRender);
         }
     }
 }

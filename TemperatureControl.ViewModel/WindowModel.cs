@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TemperatureControl.ViewModel.Interfaces;
 using TemperatureControl.ViewModel.Windows;
 
@@ -16,6 +17,11 @@ namespace TemperatureControl.ViewModel
 
         public WindowModel()
         {
+            regulatingSubscribe = new ArrayList();
+            alarmSubscribe = new ArrayList();
+            emptySubscribe = new ArrayList();
+            fillingSubscribe = new ArrayList();
+            standbySubscribe = new ArrayList();
             //_logic = new BusinessLogic();
             mainWindow = new MainMenuWindow(this);
         }
