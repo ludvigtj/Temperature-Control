@@ -18,7 +18,6 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="GPIOCSPin.cs" />
     <Compile Include="Interfaces\IGPIOCSPin.cs" />
     <Compile Include="Interfaces\ITemperatureSensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
