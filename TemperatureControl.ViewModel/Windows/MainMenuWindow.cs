@@ -50,7 +50,7 @@ namespace TemperatureControl.ViewModel.Windows
                 }
             };
             tbMenu.ButtonPressed += OnSwitchWindows;
-
+            
             Canvas.SetRight(tbMenu.ButtonRender, 0);
             Canvas.SetBottom(tbMenu.ButtonRender, 0);
             c.Children.Add(tbMenu.ButtonRender);
@@ -64,6 +64,7 @@ namespace TemperatureControl.ViewModel.Windows
                 }
             };
             tbFill.ButtonPressed += viewModel.OnFill_Pressed;
+            
             viewModel.Subscribe(tbFill, States.FILLING);
 
             Canvas.SetLeft(tbFill.ButtonRender, 0);
@@ -84,6 +85,7 @@ namespace TemperatureControl.ViewModel.Windows
             Canvas.SetRight(tbEmpty.ButtonRender, 0);
             Canvas.SetTop(tbEmpty.ButtonRender, 0);
             c.Children.Add(tbEmpty.ButtonRender);
+            LocalButtons = new []{tbMenu,tbFill,tbEmpty};
         }
     }
 }
