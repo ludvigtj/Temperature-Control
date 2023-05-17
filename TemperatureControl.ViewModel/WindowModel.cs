@@ -17,6 +17,7 @@ namespace TemperatureControl.ViewModel
 
         public WindowModel()
         {
+            CheckTemperature();
             regulatingSubscribe = new ArrayList();
             alarmSubscribe = new ArrayList();
             emptySubscribe = new ArrayList();

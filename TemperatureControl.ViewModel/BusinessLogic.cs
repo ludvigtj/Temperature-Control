@@ -13,7 +13,7 @@ namespace TemperatureControl.ViewModel
         private ITemperatureRegulator _tempRegulator;
         private IValve _tabValve;
         private IValve _tubValve;
-        //public bool IsRegulating { get; set; } = false;
+        public bool IsRegulating { get; set; } = false;
 
         #region Timers
         private Timer fillingTimer;
@@ -114,7 +114,7 @@ namespace TemperatureControl.ViewModel
                     Thread.Sleep(1000);
                 }
                 _pump.TurnOnPump();
-                //IsRegulating = true; // starter temperaturregulering
+                IsRegulating = true; // starter temperaturregulering
 
                 valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
             }
@@ -123,7 +123,7 @@ namespace TemperatureControl.ViewModel
             {
                 _tabValve.CloseValve();
                 fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
-                //IsRegulating = true; // starter temperaturregulering
+                IsRegulating = true; // starter temperaturregulering
             }
 
             void FillRegulateCallback(object state)
@@ -131,7 +131,7 @@ namespace TemperatureControl.ViewModel
                 _pump.TurnOffPump();
                 _tubValve.CloseValve();
                 _tempRegulator.StopRegulate();
-                //IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+                IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
             }
         }
 
@@ -149,7 +149,7 @@ namespace TemperatureControl.ViewModel
             _tubValve.CloseValve();
             _pump.TurnOnPump();
             _tempRegulator.StopRegulate();
-            //IsRegulating = false; // stopper temperaturreguleringen
+            IsRegulating = false; // stopper temperaturreguleringen
 
             emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
 
@@ -171,7 +171,7 @@ namespace TemperatureControl.ViewModel
             }
             _tubValve.OpenValve();
             _pump.TurnOnPump();
-            //IsRegulating = true; // starter temperaturregulering
+            IsRegulating = true; // starter temperaturregulering
             regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
 
             void TimerCallback(object state)
@@ -179,7 +179,7 @@ namespace TemperatureControl.ViewModel
                 _tubValve.CloseValve();
                 _pump.TurnOffPump();
                 _tempRegulator.StopRegulate();
-                //IsRegulating = false; // stopper temperaturreguleringen
+                IsRegulating = false; // stopper temperaturreguleringen
             }
         }
 
@@ -192,15 +192,17 @@ namespace TemperatureControl.ViewModel
                 if (CurrentTemperature < SetPointTemperature + 2 && CurrentTemperature > SetPointTemperature - 2)
                 {
                     Thread.Sleep(200);
-
-                    _tempRegulator.Regulate();
+                    if (IsRegulating)
+                    {
+                        _tempRegulator.Regulate();
+                    }
 
                 }
                 _tabValve.CloseValve();
                 _tubValve.CloseValve();
                 _pump.TurnOffPump();
                 _tempRegulator.StopRegulate();
-                //IsRegulating = false; // stopper temperaturreguleringen
+                IsRegulating = false; // stopper temperaturreguleringen
             }
         }
     }
