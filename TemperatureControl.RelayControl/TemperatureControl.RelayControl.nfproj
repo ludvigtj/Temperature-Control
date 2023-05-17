@@ -30,6 +30,9 @@
     <Compile Include="TubValve.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Iot.Device.Max31865">
+      <HintPath>..\packages\nanoFramework.Iot.Device.Max31865.1.2.313\lib\Iot.Device.Max31865.dll</HintPath>
+    </Reference>
     <Reference Include="Iot.Device.Relay">
       <HintPath>..\packages\nanoFramework.Iot.Device.Relay4.1.1.203\lib\Iot.Device.Relay.dll</HintPath>
     </Reference>
@@ -42,8 +45,29 @@
     <Reference Include="nanoFramework.Runtime.Events">
       <HintPath>..\packages\nanoFramework.Runtime.Events.1.11.6\lib\nanoFramework.Runtime.Events.dll</HintPath>
     </Reference>
+    <Reference Include="System.Buffers.Binary.BinaryPrimitives">
+      <HintPath>..\packages\nanoFramework.System.Buffers.Binary.BinaryPrimitives.1.2.295\lib\System.Buffers.Binary.BinaryPrimitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Device.Gpio">
+      <HintPath>..\packages\nanoFramework.System.Device.Gpio.1.1.28\lib\System.Device.Gpio.dll</HintPath>
+    </Reference>
     <Reference Include="System.Device.I2c">
       <HintPath>..\packages\nanoFramework.System.Device.I2c.1.1.11\lib\System.Device.I2c.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Device.Spi">
+      <HintPath>..\packages\nanoFramework.System.Device.Spi.1.3.37\lib\System.Device.Spi.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Math">
+      <HintPath>..\packages\nanoFramework.System.Math.1.5.29\lib\System.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="UnitsNet.ElectricResistance">
+      <HintPath>..\packages\UnitsNet.nanoFramework.ElectricResistance.5.13.0\lib\UnitsNet.ElectricResistance.dll</HintPath>
+    </Reference>
+    <Reference Include="UnitsNet.Frequency">
+      <HintPath>..\packages\UnitsNet.nanoFramework.Frequency.5.13.0\lib\UnitsNet.Frequency.dll</HintPath>
+    </Reference>
+    <Reference Include="UnitsNet.Temperature">
+      <HintPath>..\packages\UnitsNet.nanoFramework.Temperature.5.13.0\lib\UnitsNet.Temperature.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

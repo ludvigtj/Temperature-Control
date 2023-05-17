@@ -3,7 +3,6 @@ using nanoFramework.Hardware.Esp32;
 using System;
 using System.Device.Spi;
 using System.Threading;
-using TemperatureSensor;
 using TemperatureSensor.Interfaces;
 using UnitsNet;
 
@@ -13,15 +12,10 @@ namespace TemperatureControl.TemperatureSensor
     public class TemperatureSensor : ITemperatureSensor
     {
         SpiConnectionSettings _settings;
-        IGPIOCSPin csPin;
         double temperature;
 
         public TemperatureSensor()
         {
-            csPin = new GPIOCSPin(27); // GPIO27 er ikke en CS, så derfor laver vi den softwaremæssigt i klassen GPIOCSPin. 
-
-            csPin.CreateCSPin();
-
             Configuration.SetPinFunction(23, DeviceFunction.SPI1_MOSI);
             Configuration.SetPinFunction(38, DeviceFunction.SPI1_MISO);
             Configuration.SetPinFunction(18, DeviceFunction.SPI1_CLOCK);
@@ -39,16 +33,15 @@ namespace TemperatureControl.TemperatureSensor
 
         public double ReadTemperature()
         {
-            csPin.SelectCSPin();
+            using SpiDevice device = SpiDevice.Create(_settings);
             Thread.Sleep(200);
-            using SpiDevice device = SpiDevice.Create(_settings);                         //fire ledninger                                                                                                           // I tvivl om denne, men kan finde at reference ohm er 430 på PT100
-                                                                                          //using Max31865 sensor = new(device, PlatinumResistanceThermometerType.Pt100, ResistanceTemperatureDetectorWires.FourWire, ElectricResistance.FromOhms(430));
+
+            //fire ledninger                                                                                                           // I tvivl om denne, men kan finde at reference ohm er 430 på PT100
+            //using Max31865 sensor = new(device, PlatinumResistanceThermometerType.Pt100, ResistanceTemperatureDetectorWires.FourWire, ElectricResistance.FromOhms(430));
             //to ledninger
             using Max31865 sensor = new(device, PlatinumResistanceThermometerType.Pt100, ResistanceTemperatureDetectorWires.TwoWire, ElectricResistance.FromOhms(430));
 
             temperature = sensor.Temperature.DegreesCelsius;
-
-            csPin.DeselectCSPin();
 
             Console.WriteLine($"Temperature: {temperature} ℃");
             return temperature;
