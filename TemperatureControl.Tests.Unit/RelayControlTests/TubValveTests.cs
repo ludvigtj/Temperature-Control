@@ -65,7 +65,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
                     ex = e;
                 }
             }
-            Assert.AreSame(ex.Message, "Relay 3 on");
+            Assert.AreSame(ex.Message, "Relay 4 on");
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
                     ex = e;
                 }
             }
-            Assert.AreSame(ex.Message, "Relay 3 off");
+            Assert.AreSame(ex.Message, "Relay 4 off");
         }
     }
 }
