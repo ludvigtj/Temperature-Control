@@ -1,6 +1,7 @@
 ﻿using nanoFramework.UI;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
 using TemperatureControl.ViewModel.Interfaces;
 
@@ -9,40 +10,19 @@ namespace TemperatureControl.ViewModel
     public class WindowModel : IViewModel
     {
         private BusinessLogic _logic;
+        private Thread checkTempThread;
         private enum States
         {
             STANDBY, ALARM, FILLING, REGULATING, EMPTYING
         }
         private States _state = States.STANDBY;
 
-        //public event PropertyChangedEventHandler? PropertyChanged;
-
-        private double _setPointTemperature;
-        public double SetPointTemperature
+        public WindowModel(BusinessLogic logic)
         {
-            get { return _setPointTemperature; }
-            set
-            {
-                _setPointTemperature = value;
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SetPointTemperature))); - observer
-            }
-        }
-
-        private double _currentTemperature;
-        public double CurrentTemperature
-        {
-            get { return _currentTemperature; }
-            set
-            {
-                _currentTemperature = value;
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTemperature)));
-            }
-        }
-
-        public WindowModel()
-        {
-            //_logic = new BusinessLogic();
-            SetPointTemperature = 36.5;
+            _logic = logic;
+            _logic.SetPointTemperature = 37;
+            checkTempThread = new Thread(_logic.CheckTemperature);
+            checkTempThread.Start();
         }
 
         public void Initialize()
@@ -55,9 +35,12 @@ namespace TemperatureControl.ViewModel
             throw new NotImplementedException();
         }
 
-        public void CheckTemperature() // Skal denne være her? andre måder? evt. skal metoden i logic sætte CurrentTemperature
+        public void CheckTemperature()
         {
-            _logic.CheckTemperature(SetPointTemperature);
+            if (!checkTempThread.IsAlive)
+            {
+                checkTempThread.Start();
+            }
         }
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
@@ -67,7 +50,7 @@ namespace TemperatureControl.ViewModel
                 // Viser at reguler er inaktiv og tømfunktionen er aktiv
                 _logic.EmptyVessel();
                 _state = States.EMPTYING;
-                // Viser at tømfunktionen er inaktiv
+                // Viser at tømfunktionen er inaktiv efter 20 minutter
             }
             else
             {
@@ -80,10 +63,14 @@ namespace TemperatureControl.ViewModel
             if (_state == States.STANDBY)
             {
                 // Viser at fyld funktion er aktiv
-                _logic.FillVessel(SetPointTemperature);
+                _logic.FillVessel();
                 _state = States.FILLING;
                 // Viser at fyld funktionen er inaktiv og reguler funktionen er aktiv
-
+                while (!_logic.IsRegulating)
+                {
+                    // Venter på at regulering starter
+                }
+                _state = States.REGULATING;
                 // Viser at reguler funktion er inaktiv efter 5 timer
             }
             else
@@ -96,7 +83,7 @@ namespace TemperatureControl.ViewModel
         {
             if (_state == States.STANDBY)
             {
-                _logic.RegulateTemperature(SetPointTemperature);  // SetPointTemperature skal databindes med displayet.
+                _logic.RegulateTemperature(); 
                 _state = States.REGULATING;
                 // Viser at regulering er aktiv
 
@@ -110,12 +97,26 @@ namespace TemperatureControl.ViewModel
 
         public void OnSetPointMinus_Pressed(object sender, EventArgs e)
         {
-            SetPointTemperature -= 0.5;
+            if (_logic.SetPointTemperature >= 35.5)
+            {
+                _logic.SetPointTemperature -= 0.5;
+            }
+            else
+            {
+                throw new Exception("Temperature can't go lower than 35 degrees celsius");
+            }
         }
 
         public void OnSetPointPlus_Pressed(object sender, EventArgs e)
         {
-            SetPointTemperature += 0.5;
+            if (_logic.SetPointTemperature <= 37.5)
+            {
+                _logic.SetPointTemperature += 0.5;
+            }
+            else
+            {
+                throw new Exception("Temperature can't go higher than 38 degrees celsius");
+            }
         }
     }
 }
