@@ -9,7 +9,7 @@ namespace RelayControl
         {
             _relay = relay;
         }
-        
+
         public void OpenValve()
         {
             _relay.TurnOnRelay(3);

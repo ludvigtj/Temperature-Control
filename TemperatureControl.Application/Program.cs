@@ -1,16 +1,17 @@
-using System;
-using System.Diagnostics;
-using System.Threading;
+using nanoFramework.M5Stack;
+using TemperatureControl.ViewModel;
 
 namespace TemperatureControl.Application
 {
-    public class Program
+    public class Program : nanoFramework.UI.Application
     {
+        private static WindowModel viewModel;
         public static void Main()
         {
-            Debug.WriteLine("Hello from nanoFramework!");
-
-            Thread.Sleep(Timeout.Infinite);
+            Tough.InitializeScreen();
+            viewModel = new WindowModel();
+            Program app = new Program();
+            app.Run();
         }
     }
 }

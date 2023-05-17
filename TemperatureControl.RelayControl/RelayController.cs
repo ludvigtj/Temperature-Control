@@ -1,8 +1,6 @@
 ﻿using Iot.Device.Relay;
-using System.Device.I2c;
-using System.Globalization;
-using System.Threading;
 using nanoFramework.Hardware.Esp32;
+using System.Device.I2c;
 using TemperatureControl.RelayControl.Interfaces;
 
 

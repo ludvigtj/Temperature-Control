@@ -25,5 +25,10 @@ namespace RelayControl
                 _relay.TurnOffRelay(2);
             }
         }
+
+        public void StopRegulate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
