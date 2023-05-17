@@ -4,7 +4,7 @@ namespace TemperatureControl.ViewModel.Interfaces
 {
     public interface IBusinessLogic
     {
-        bool IsRegulating { get; set; }
+        //bool IsRegulating { get; set; }
         double CurrentTemperature { get; set; } // CurrentTemperature skal databindes med displayet.
         double SetPointTemperature { get; set; } // SetPointTemperature skal databindes med displayet.
         event PropertyChangedEventHandler CurrentTemperatureChanged;

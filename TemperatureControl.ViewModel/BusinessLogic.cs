@@ -1,8 +1,7 @@
 ﻿using nanoFramework.UI;
-using System;
 using System.Threading;
-using TemperatureControl.ViewModel.Interfaces;
 using TemperatureControl.RelayControl.Interfaces;
+using TemperatureControl.ViewModel.Interfaces;
 using TemperatureSensor.Interfaces;
 
 namespace TemperatureControl.ViewModel
@@ -14,7 +13,7 @@ namespace TemperatureControl.ViewModel
         private ITemperatureRegulator _tempRegulator;
         private IValve _tabValve;
         private IValve _tubValve;
-        public bool IsRegulating { get; set; } = false;
+        //public bool IsRegulating { get; set; } = false;
 
         #region Timers
         private Timer fillingTimer;
@@ -40,6 +39,7 @@ namespace TemperatureControl.ViewModel
                 {
                     _currentTemperatureOld = _currentTemperature;
                     _currentTemperature = value;
+                    _tempRegulator.CurrentTemp = _currentTemperature;
                     NotifyCurrentTemperatureChanged();
                 }
             }
@@ -66,6 +66,7 @@ namespace TemperatureControl.ViewModel
                 {
                     _setPointTemperatureOld = _setPointTemperature;
                     _setPointTemperature = value;
+                    _tempRegulator.SetPointTemp = _setPointTemperature;
                     NotifySetPointTemperatureChanged();
                 }
             }
@@ -113,7 +114,7 @@ namespace TemperatureControl.ViewModel
                     Thread.Sleep(1000);
                 }
                 _pump.TurnOnPump();
-                IsRegulating = true; // starter temperaturregulering
+                //IsRegulating = true; // starter temperaturregulering
 
                 valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
             }
@@ -122,14 +123,15 @@ namespace TemperatureControl.ViewModel
             {
                 _tabValve.CloseValve();
                 fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
-                IsRegulating = true; // starter temperaturregulering
+                //IsRegulating = true; // starter temperaturregulering
             }
 
             void FillRegulateCallback(object state)
             {
                 _pump.TurnOffPump();
                 _tubValve.CloseValve();
-                IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+                _tempRegulator.StopRegulate();
+                //IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
             }
         }
 
@@ -146,7 +148,8 @@ namespace TemperatureControl.ViewModel
 
             _tubValve.CloseValve();
             _pump.TurnOnPump();
-            IsRegulating = false; // stopper temperaturreguleringen
+            _tempRegulator.StopRegulate();
+            //IsRegulating = false; // stopper temperaturreguleringen
 
             emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
 
@@ -168,33 +171,37 @@ namespace TemperatureControl.ViewModel
             }
             _tubValve.OpenValve();
             _pump.TurnOnPump();
-            IsRegulating = true; // starter temperaturregulering
+            //IsRegulating = true; // starter temperaturregulering
             regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
 
             void TimerCallback(object state)
             {
                 _tubValve.CloseValve();
                 _pump.TurnOffPump();
-                IsRegulating = false; // stopper temperaturreguleringen
+                _tempRegulator.StopRegulate();
+                //IsRegulating = false; // stopper temperaturreguleringen
             }
         }
 
         public void CheckTemperature()
         {
-            while (_tempSensor.ReadTemperature() < SetPointTemperature + 2 || _tempSensor.ReadTemperature() > SetPointTemperature -2 )
+            while (true)
             {
                 CurrentTemperature = _tempSensor.ReadTemperature();
-                Thread.Sleep(2000);
-                if (IsRegulating)
-                {
-                    _tempRegulator.Regulate();
-                }
-            }
 
-            _tabValve.CloseValve();
-            _tubValve.CloseValve();
-            _pump.TurnOffPump();
-            IsRegulating = false; // stopper temperaturreguleringen
+                if (CurrentTemperature < SetPointTemperature + 2 && CurrentTemperature > SetPointTemperature - 2)
+                {
+                    Thread.Sleep(200);
+
+                    _tempRegulator.Regulate();
+
+                }
+                _tabValve.CloseValve();
+                _tubValve.CloseValve();
+                _pump.TurnOffPump();
+                _tempRegulator.StopRegulate();
+                //IsRegulating = false; // stopper temperaturreguleringen
+            }
         }
     }
 }
