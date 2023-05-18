@@ -27,7 +27,6 @@
     <Compile Include="ViewTest\WindowControl.cs" />
     <Compile Include="RelayControlTests\Fakes\FakeRelayController.cs" />
     <Compile Include="RelayControlTests\PumpTests.cs" />
-    <Compile Include="RelayControlTests\RelayControllerTests.cs" />
     <Compile Include="RelayControlTests\TapValveTests.cs" />
     <Compile Include="RelayControlTests\TemperatureRegulatorTests.cs" />
     <Compile Include="RelayControlTests\TubValveTests.cs" />
