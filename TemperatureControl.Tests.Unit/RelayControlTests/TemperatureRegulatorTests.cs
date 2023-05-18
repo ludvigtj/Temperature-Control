@@ -185,6 +185,61 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
         }
         #endregion
 
+        #region RegulateCalledMoreThanOnce
+
+        [TestMethod]
+        public void Regulate_RelayOffCurrentLowerThanHysteresisCalledMoreThanOnce_RelayOn()
+        {
+            Exception ex = new Exception();
+            int count = 0;
+            int j = 0;
+            _uut = new TemperatureRegulator(_fakeRelay);
+            _uut.CurrentTemp = 34;
+            _uut.SetPointTemp = 38;
+            for (int i = 0; i < 5; i++)
+            {
+                try
+                {
+                    _uut.Regulate();
+                }
+                catch (Exception e)
+                {
+                    if (e.Message == "Relay 2 on")
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        j++;
+                    }
+                }
+            }
+            Assert.AreEqual(1, count); //Metoden bør kun kaldes første gang
+            Assert.AreEqual(0, j); //Der bør ikke være andre exceptions
+        }
+
+        [TestMethod]
+        public void Regulate_RelayOffCurrentHigherThanHysteresisCalledMoreThanOnce_NoChangeInRelay()
+        {
+            int count = 0;
+            _uut = new TemperatureRegulator(_fakeRelay);
+            _uut.CurrentTemp = 40;
+            _uut.SetPointTemp = 38;
+            for (int i = 0; i < 5; i++)
+            {
+                try
+                {
+                    _uut.Regulate();
+                }
+                catch (Exception e)
+                {
+                    count++;
+                }
+            }
+            Assert.AreEqual(0, count); //Der bør ikke være nogen exceptions
+        }
+        #endregion
+
         #region StopRegulate
         [TestMethod]
         public void StopRegulate_RelayOff_NoChangeInRelay()
