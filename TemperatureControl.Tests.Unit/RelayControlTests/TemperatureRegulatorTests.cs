@@ -19,64 +19,18 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
             _uut = new TemperatureRegulator(_fakeRelay);
         }
 
-        [TestMethod]
-        public void Regulate_ActualLowerThanSetPoint_RelayOn()
-        {
-            _uut.SetPointTemp = 38;
-            _uut.CurrentTemp = 34;
-            Exception ex = new Exception();
-            try
-            {
-                _uut.Regulate();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-            Assert.AreSame(ex.Message, "Relay 2 on");
-        }
 
+        #region RegulateRelayOffInTheBeginning
         [TestMethod]
-        public void Regulate_ActualHigherThanSetPoint_RelayOff()
+        public void Regulate_RelayOffCurrentLowerThanHysteresis_RelayOn()
         {
-            _uut.SetPointTemp = 38;
-            _uut.CurrentTemp = 39;
-            Exception ex = new Exception();
-            try
+            double[] currentTemps = new double[] { -5, -1.2, 0, 34, 37.7 };
+            for (int i = 0; i < currentTemps.Length; i++)
             {
-                _uut.Regulate();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-            Assert.AreSame(ex.Message, "Relay 2 off");
-        }
-        [TestMethod]
-        public void Regulate_ActualSameAsSetPoint_RelayOff()
-        {
-            _uut.SetPointTemp = 38;
-            _uut.CurrentTemp = 38;
-            Exception ex = new Exception();
-            try
-            {
-                _uut.Regulate();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-            Assert.AreSame(ex.Message, "Relay 2 off");
-        }
-
-        [TestMethod]
-        public void Regulate_IncreasingCurrentTemp_RelayOff()
-        {
-            _uut.SetPointTemp = 38;
-            _uut.CurrentTemp = 39;
-            Exception ex = new Exception();
-            for (int i = 0; i < 15; i++)
-            {
+                Exception ex = new Exception();
+                _uut = new TemperatureRegulator(_fakeRelay);
+                _uut.CurrentTemp = currentTemps[i];
+                _uut.SetPointTemp = 38;
                 try
                 {
                     _uut.Regulate();
@@ -85,20 +39,115 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
                 {
                     ex = e;
                 }
-
-                _uut.CurrentTemp += 0.5;
+                Assert.AreSame(ex.Message, "Relay 2 on");
             }
-            Assert.AreSame(ex.Message, "Relay 2 off");
         }
 
         [TestMethod]
-        public void Regulate_DecreasingCurrentTemp_RelayOn()
+        public void Regulate_RelayOffCurrentHigherThanHysteresis_NoChangeInRelay()
         {
-            _uut.SetPointTemp = 38;
-            _uut.CurrentTemp = 39;
-            Exception ex = new Exception();
-            for (int i = 0; i < 15; i++)
+            double[] currentTemps = new double[] { 38.3, 40, 1000 };
+            for (int i = 0; i < currentTemps.Length; i++)
             {
+                int state = 0;
+                Exception ex = new Exception();
+                _uut = new TemperatureRegulator(_fakeRelay);
+                _uut.CurrentTemp = currentTemps[i];
+                _uut.SetPointTemp = 38;
+                try
+                {
+                    _uut.Regulate();
+                    state = 1;
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                    state = 2;
+                }
+                Assert.AreEqual(1, state);
+            }
+        }
+
+        [TestMethod]
+        public void Regulate_RelayOffCurrentWithinHysteresis_NoChangeInRelay()
+        {
+            double[] currentTemps = new double[] { 37.8, 37.9, 38, 38.2 };
+            for (int i = 0; i < currentTemps.Length; i++)
+            {
+                int state = 0;
+                Exception ex = new Exception();
+                _uut = new TemperatureRegulator(_fakeRelay);
+                _uut.CurrentTemp = currentTemps[i];
+                _uut.SetPointTemp = 38;
+                try
+                {
+                    _uut.Regulate();
+                    state = 1;
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                    state = 2;
+                }
+                Assert.AreEqual(1, state);
+            }
+        }
+        #endregion
+        public void TurnOnRelayForTest(ITemperatureRegulator uut)
+        {
+            Exception ex = new Exception();
+            _uut = uut;
+            _uut.CurrentTemp = 21;
+            _uut.SetPointTemp = 38;
+            try
+            {
+                _uut.Regulate();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+        }
+
+        #region RegulateRelayOnIntheBeginning
+
+        [TestMethod]
+        public void Regulate_RelayOnCurrentLowerThanHysteresis_NoChangeInRelay()
+        {
+            double[] currentTemps = new double[] { -5, -1.2, 0, 34, 37.7 };
+            for (int i = 0; i < currentTemps.Length; i++)
+            {
+                int state = 0;
+                _uut = new TemperatureRegulator(_fakeRelay);
+                TurnOnRelayForTest(_uut);
+                _uut.CurrentTemp = currentTemps[i];
+                _uut.SetPointTemp = 38;
+                try
+                {
+                    _uut.Regulate();
+                    state = 1;
+                }
+                catch (Exception e)
+                {
+                    state = 2;
+                }
+                Assert.AreEqual(1, state);
+
+            }
+
+        }
+
+        [TestMethod]
+        public void Regulate_RelayOnCurrentHigherThanHysteresis_RelayOff()
+        {
+            double[] currentTemps = new double[] { 38.3, 40, 1000 };
+            for (int i = 0; i < currentTemps.Length; i++)
+            {
+                Exception ex = new Exception();
+                _uut = new TemperatureRegulator(_fakeRelay);
+                TurnOnRelayForTest(_uut);
+                _uut.CurrentTemp = currentTemps[i];
+                _uut.SetPointTemp = 38;
                 try
                 {
                     _uut.Regulate();
@@ -107,43 +156,70 @@ namespace TemperatureControl.Tests.Unit.RelayControlTests
                 {
                     ex = e;
                 }
-
-                _uut.CurrentTemp -= 0.5;
+                Assert.AreSame(ex.Message, "Relay 2 off");
             }
-            Assert.AreSame(ex.Message, "Relay 2 on");
         }
 
-        //[TestMethod]
-        //public void Regulate_ActualSameAsPrevious_NoSecondException()
-        //{
-        //    _uut.SetPointTemp = 38;
-        //    _uut.CurrentTemp = 39;
-        //    Exception ex = new Exception();
-        //    int state = 0;
-        //    try
-        //    {
-        //        _uut.Regulate();
-        //        state = 1;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ex = e;
-        //        state = 2;
-        //    }
+        [TestMethod]
+        public void Regulate_RelayOnCurrentWithinHysteresis_NoChangeInRelay()
+        {
+            double[] currentTemps = new double[] { 37.8, 37.9, 38, 38.2 };
+            for (int i = 0; i < currentTemps.Length; i++)
+            {
+                int state = 0;
+                _uut = new TemperatureRegulator(_fakeRelay);
+                TurnOnRelayForTest(_uut);
+                _uut.CurrentTemp = currentTemps[i];
+                _uut.SetPointTemp = 38;
+                try
+                {
+                    _uut.Regulate();
+                    state = 1;
+                }
+                catch (Exception e)
+                {
+                    state = 2;
+                }
+                Assert.AreEqual(1, state);
+            }
+        }
+        #endregion
 
-        //    if (ex.Message == "Relay 2 off")
-        //    {
-        //        try
-        //        {
-        //            _uut.Regulate();
-        //            state = 3;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            state = 4;
-        //        }
-        //    }
-        //    Assert.AreEqual(3,state);
-        //}
+        #region StopRegulate
+        [TestMethod]
+        public void StopRegulate_RelayOff_NoChangeInRelay()
+        {
+            Exception ex = new Exception();
+            int state = 0;
+            _uut = new TemperatureRegulator(_fakeRelay);
+            try
+            {
+                _uut.StopRegulate();
+                state = 1;
+            }
+            catch (Exception e)
+            {
+                state = 2;
+                ex = e;
+            }
+            Assert.AreEqual(1, state);
+        }
+        [TestMethod]
+        public void StopRegulate_RelayOn_RelayOff()
+        {
+            Exception ex = new Exception();
+            _uut = new TemperatureRegulator(_fakeRelay);
+            TurnOnRelayForTest(_uut);
+            try
+            {
+                _uut.StopRegulate();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+            Assert.AreSame(ex.Message, "Relay 2 off");
+        }
+        #endregion
     }
 }
