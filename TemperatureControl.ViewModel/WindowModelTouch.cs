@@ -61,7 +61,10 @@ namespace TemperatureControl.ViewModel
 
         public void OnSetPointMinus_Pressed(object sender, EventArgs e)
         {
-            _logic.SetPointTemperature -= 0.5;
+            if (_logic.SetPointTemperature >= 35.5)
+            {
+                _logic.SetPointTemperature -= 0.5;
+            }
         }
 
         public void OnSetPointPlus_Pressed(object sender, EventArgs e)

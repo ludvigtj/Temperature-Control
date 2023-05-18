@@ -16,11 +16,11 @@ namespace TemperatureControl.ViewModel
         public bool IsRegulating { get; set; } = false;
 
         #region Timers
-        private Timer fillingTimer;
-        private Timer valveTimer;
-        private Timer fillRegulateTimer;
-        private Timer emptyingTimer;
-        private Timer regulateTimer;
+        private Timer _fillingTimer;
+        private Timer _valveTimer;
+        private Timer _fillRegulateTimer;
+        private Timer _emptyingTimer;
+        private Timer _regulateTimer;
         #endregion
 
         #region CurrentTemperature
@@ -89,19 +89,19 @@ namespace TemperatureControl.ViewModel
 
         public void FillVessel()
         {
-            if (fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                fillRegulateTimer.Dispose();
+                _fillRegulateTimer.Dispose();
             }
-            if (regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                regulateTimer.Dispose();
+                _regulateTimer.Dispose();
             }
 
             _tabValve.OpenValve();
             _tubValve.OpenValve();
 
-            fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
+            _fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
 
             void FillingCallback(object state)
             {
@@ -116,13 +116,13 @@ namespace TemperatureControl.ViewModel
                 _pump.TurnOnPump();
                 IsRegulating = true; // starter temperaturregulering
 
-                valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
+                _valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
             }
 
             void TimerCallback(object state)
             {
                 _tabValve.CloseValve();
-                fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
+                _fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
                 IsRegulating = true; // starter temperaturregulering
             }
 
@@ -137,13 +137,13 @@ namespace TemperatureControl.ViewModel
 
         public void EmptyVessel()
         {
-            if (fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                fillRegulateTimer.Dispose();
+                _fillRegulateTimer.Dispose();
             }
-            if (regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                regulateTimer.Dispose();
+                _regulateTimer.Dispose();
             }
 
             _tubValve.CloseValve();
@@ -151,7 +151,7 @@ namespace TemperatureControl.ViewModel
             _tempRegulator.StopRegulate();
             IsRegulating = false; // stopper temperaturreguleringen
 
-            emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
+            _emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
 
             void TimerCallback(object state)
             {
@@ -161,18 +161,18 @@ namespace TemperatureControl.ViewModel
 
         public void RegulateTemperature()
         {
-            if (fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                fillRegulateTimer.Dispose();
+                _fillRegulateTimer.Dispose();
             }
-            if (regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                regulateTimer.Dispose();
+                _regulateTimer.Dispose();
             }
             _tubValve.OpenValve();
             _pump.TurnOnPump();
             IsRegulating = true; // starter temperaturregulering
-            regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
+            _regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
 
             void TimerCallback(object state)
             {
