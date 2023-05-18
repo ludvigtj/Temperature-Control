@@ -65,11 +65,22 @@ namespace TemperatureControl.ViewModel
             {
                 _logic.SetPointTemperature -= 0.5;
             }
+            else
+            {
+                throw new Exception("Temperature can't go lower than 35 degrees celsius");
+            }
         }
 
         public void OnSetPointPlus_Pressed(object sender, EventArgs e)
         {
-            _logic.SetPointTemperature += 0.5;
+            if (_logic.SetPointTemperature <= 37.5)
+            {
+                _logic.SetPointTemperature += 0.5;
+            }
+            else
+            {
+                throw new Exception("Temperature can't go higher than 38 degrees celsius");
+            }
         }
     }
 }
