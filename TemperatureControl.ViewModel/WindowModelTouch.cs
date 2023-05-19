@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Threading;
 
 namespace TemperatureControl.ViewModel
 {
     public partial class WindowModel
     {
-        public void CheckTemperature() // Skal denne være her? andre måder? evt. skal metoden i logic sætte CurrentTemperature
+        public void CheckTemperature()
         {
-            _logic.CheckTemperature();
+            Thread checkTempThread = new Thread(_logic.CheckTemperature);
+            checkTempThread.Start();
         }
 
         public void OnEmpty_Pressed(object sender, EventArgs e)
@@ -59,12 +61,26 @@ namespace TemperatureControl.ViewModel
 
         public void OnSetPointMinus_Pressed(object sender, EventArgs e)
         {
-            SetPointTemperature -= 0.5;
+            if (_logic.SetPointTemperature >= 35.5)
+            {
+                _logic.SetPointTemperature -= 0.5;
+            }
+            else
+            {
+                throw new Exception("Temperature can't go lower than 35 degrees celsius");
+            }
         }
 
         public void OnSetPointPlus_Pressed(object sender, EventArgs e)
         {
-            SetPointTemperature += 0.5;
+            if (_logic.SetPointTemperature <= 37.5)
+            {
+                _logic.SetPointTemperature += 0.5;
+            }
+            else
+            {
+                throw new Exception("Temperature can't go higher than 38 degrees celsius");
+            }
         }
     }
 }

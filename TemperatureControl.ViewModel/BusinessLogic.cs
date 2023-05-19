@@ -1,8 +1,8 @@
-﻿using nanoFramework.UI;
-using System;
+﻿using nanoFramework.M5Stack;
+using nanoFramework.UI;
 using System.Threading;
-using TemperatureControl.ViewModel.Interfaces;
 using TemperatureControl.RelayControl.Interfaces;
+using TemperatureControl.ViewModel.Interfaces;
 using TemperatureSensor.Interfaces;
 
 namespace TemperatureControl.ViewModel
@@ -17,11 +17,11 @@ namespace TemperatureControl.ViewModel
         public bool IsRegulating { get; set; } = false;
 
         #region Timers
-        private Timer fillingTimer;
-        private Timer valveTimer;
-        private Timer fillRegulateTimer;
-        private Timer emptyingTimer;
-        private Timer regulateTimer;
+        private Timer _fillingTimer;
+        private Timer _valveTimer;
+        private Timer _fillRegulateTimer;
+        private Timer _emptyingTimer;
+        private Timer _regulateTimer;
         #endregion
 
         #region CurrentTemperature
@@ -40,6 +40,7 @@ namespace TemperatureControl.ViewModel
                 {
                     _currentTemperatureOld = _currentTemperature;
                     _currentTemperature = value;
+                    _tempRegulator.CurrentTemp = _currentTemperature;
                     NotifyCurrentTemperatureChanged();
                 }
             }
@@ -66,6 +67,7 @@ namespace TemperatureControl.ViewModel
                 {
                     _setPointTemperatureOld = _setPointTemperature;
                     _setPointTemperature = value;
+                    _tempRegulator.SetPointTemp = _setPointTemperature;
                     NotifySetPointTemperatureChanged();
                 }
             }
@@ -88,113 +90,148 @@ namespace TemperatureControl.ViewModel
 
         public void FillVessel()
         {
-            if (fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                fillRegulateTimer.Dispose();
+                _fillRegulateTimer.Dispose();
+                _tabValve.CloseValve();
+                _tubValve.CloseValve();
+                _pump.TurnOffPump();
+                Console.WriteLine("Fyldtimer stoppet, ventil til brugsvand og kar lukket. Pumpe slukket");
+                IsRegulating = false;
+                Console.WriteLine("Fyld-funktion er inaktiv");
             }
-            if (regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                regulateTimer.Dispose();
+                _regulateTimer.Dispose();
             }
 
             _tabValve.OpenValve();
             _tubValve.OpenValve();
 
-            fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
+            _fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
+            Console.WriteLine("Ventil til brugsvand og karret åben");
+            Console.WriteLine("Fyld-funktion aktiv");
 
             void FillingCallback(object state)
             {
+                int close = 0;
+                int open = 0;
                 for (int i = 0; i < 10; i++) // lukker og åbner ventil i intervaller af 1 sekund i 10 sekunder
                 {
                     _tabValve.CloseValve();
+                    close++;
                     Thread.Sleep(1000);
                     i++;
                     _tabValve.OpenValve();
+                    open++;
                     Thread.Sleep(1000);
                 }
+                Console.WriteLine($"Lukket {close} gange og åbent {open} gange");
                 _pump.TurnOnPump();
+                Console.WriteLine("Ventil til brugsvand åben og pumpe tændt");
                 IsRegulating = true; // starter temperaturregulering
 
-                valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
+                _valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
             }
 
             void TimerCallback(object state)
             {
                 _tabValve.CloseValve();
-                fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
+                _fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
                 IsRegulating = true; // starter temperaturregulering
+                Console.WriteLine("Ventil til brugsvand lukket");
             }
 
             void FillRegulateCallback(object state)
             {
                 _pump.TurnOffPump();
                 _tubValve.CloseValve();
+                _tempRegulator.StopRegulate();
                 IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
+                Console.WriteLine("Pumpe og ventil lukket. Temperaturregulering slukket");
             }
         }
 
         public void EmptyVessel()
         {
-            if (fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                fillRegulateTimer.Dispose();
+                _fillRegulateTimer.Dispose();
             }
-            if (regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                regulateTimer.Dispose();
+                _regulateTimer.Dispose();
             }
 
             _tubValve.CloseValve();
             _pump.TurnOnPump();
+            _tempRegulator.StopRegulate();
             IsRegulating = false; // stopper temperaturreguleringen
+            Console.WriteLine("Ventil til karret lukket. Pumpe tændt. Temperaturregulering slukket");
 
-            emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
+
+            _emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
 
             void TimerCallback(object state)
             {
                 _pump.TurnOffPump();
+                Console.WriteLine("Pumpe slukket.");
             }
         }
 
         public void RegulateTemperature()
         {
-            if (fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                fillRegulateTimer.Dispose();
+                _fillRegulateTimer.Dispose();
+                Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                IsRegulating = false;
             }
-            if (regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
-                regulateTimer.Dispose();
+                _regulateTimer.Dispose();
+                Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                IsRegulating = false;
             }
             _tubValve.OpenValve();
             _pump.TurnOnPump();
             IsRegulating = true; // starter temperaturregulering
-            regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
+            _regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
+            Console.WriteLine("Ventil til karret åben og pumpe tændt");
+
 
             void TimerCallback(object state)
             {
                 _tubValve.CloseValve();
                 _pump.TurnOffPump();
+                _tempRegulator.StopRegulate();
                 IsRegulating = false; // stopper temperaturreguleringen
+                Console.WriteLine("Ventil til karret lukket. Pumpe slukket");
             }
         }
 
         public void CheckTemperature()
         {
-            while (_tempSensor.ReadTemperature() < SetPointTemperature + 2 || _tempSensor.ReadTemperature() > SetPointTemperature -2 )
+            while (true)
             {
                 CurrentTemperature = _tempSensor.ReadTemperature();
-                Thread.Sleep(2000);
-                if (IsRegulating)
-                {
-                    _tempRegulator.Regulate();
-                }
-            }
 
-            _tabValve.CloseValve();
-            _tubValve.CloseValve();
-            _pump.TurnOffPump();
-            IsRegulating = false; // stopper temperaturreguleringen
+                if (CurrentTemperature < SetPointTemperature + 2 && CurrentTemperature > SetPointTemperature - 2)
+                {
+                    Thread.Sleep(200);
+                    if (IsRegulating)
+                    {
+                        _tempRegulator.Regulate();
+                    }
+
+                }
+                _tabValve.CloseValve();
+                _tubValve.CloseValve();
+                _pump.TurnOffPump();
+                _tempRegulator.StopRegulate();
+                IsRegulating = false; // stopper temperaturreguleringen
+                Console.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
+            }
         }
     }
 }

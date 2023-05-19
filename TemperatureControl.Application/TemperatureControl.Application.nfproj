@@ -32,7 +32,7 @@
       <HintPath>..\packages\nanoFramework.Iot.Device.Common.NumberHelper.1.2.295\lib\Iot.Device.Common.NumberHelper.dll</HintPath>
     </Reference>
     <Reference Include="Iot.Device.Max31865">
-      <HintPath>..\packages\nanoFramework.Iot.Device.Max31865.1.2.297\lib\Iot.Device.Max31865.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Iot.Device.Max31865.1.2.313\lib\Iot.Device.Max31865.dll</HintPath>
     </Reference>
     <Reference Include="Iot.Device.Relay">
       <HintPath>..\packages\nanoFramework.Iot.Device.Relay4.1.1.203\lib\Iot.Device.Relay.dll</HintPath>
@@ -108,16 +108,16 @@
       <HintPath>..\packages\UnitsNet.nanoFramework.ElectricPotential.5.12.0\lib\UnitsNet.ElectricPotential.dll</HintPath>
     </Reference>
     <Reference Include="UnitsNet.ElectricResistance">
-      <HintPath>..\packages\UnitsNet.nanoFramework.ElectricResistance.5.12.0\lib\UnitsNet.ElectricResistance.dll</HintPath>
+      <HintPath>..\packages\UnitsNet.nanoFramework.ElectricResistance.5.13.0\lib\UnitsNet.ElectricResistance.dll</HintPath>
     </Reference>
     <Reference Include="UnitsNet.Frequency">
-      <HintPath>..\packages\UnitsNet.nanoFramework.Frequency.5.12.0\lib\UnitsNet.Frequency.dll</HintPath>
+      <HintPath>..\packages\UnitsNet.nanoFramework.Frequency.5.13.0\lib\UnitsNet.Frequency.dll</HintPath>
     </Reference>
     <Reference Include="UnitsNet.Power">
       <HintPath>..\packages\UnitsNet.nanoFramework.Power.5.12.0\lib\UnitsNet.Power.dll</HintPath>
     </Reference>
     <Reference Include="UnitsNet.Temperature">
-      <HintPath>..\packages\UnitsNet.nanoFramework.Temperature.5.12.0\lib\UnitsNet.Temperature.dll</HintPath>
+      <HintPath>..\packages\UnitsNet.nanoFramework.Temperature.5.13.0\lib\UnitsNet.Temperature.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

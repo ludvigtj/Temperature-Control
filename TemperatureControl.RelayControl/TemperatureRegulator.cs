@@ -1,13 +1,14 @@
-﻿using TemperatureControl.RelayControl.Interfaces;
+﻿using System;
+using TemperatureControl.RelayControl.Interfaces;
 
 namespace RelayControl
 {
     public class TemperatureRegulator : ITemperatureRegulator
     {
         public double SetPointTemp { get; set; }
-
         public double CurrentTemp { get; set; }
         private readonly IRelayController _relay;
+        private bool isOn = false;
 
         public TemperatureRegulator(IRelayController relay)
         {
@@ -16,19 +17,32 @@ namespace RelayControl
 
         public void Regulate()
         {
-            if (CurrentTemp < SetPointTemp)
+            if (CurrentTemp < SetPointTemp - 0.2)
             {
-                _relay.TurnOnRelay(2); //varmelegeme
+                if (!isOn)
+                {
+                    _relay.TurnOnRelay(1); //varmelegeme
+                    isOn = true;
+                    Console.WriteLine("Temperaturregulering startet");
+                }
             }
-            else
+            else if (CurrentTemp > SetPointTemp + 0.2)
             {
-                _relay.TurnOffRelay(2);
+                if (isOn)
+                {
+                    _relay.TurnOffRelay(1);
+                    isOn = false;
+                    Console.WriteLine("Temperaturregulering slukket");
+                }
             }
         }
-
         public void StopRegulate()
         {
-            throw new System.NotImplementedException();
+            if (isOn)
+            {
+                _relay.TurnOffRelay(1);
+                Console.WriteLine("Temperaturregulering slukket");
+            }
         }
     }
 }

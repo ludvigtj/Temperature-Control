@@ -11,12 +11,12 @@ namespace RelayControl
         }
         public void TurnOnPump()
         {
-            _relay.TurnOnRelay(1);
+            _relay.TurnOnRelay(0);
         }
 
         public void TurnOffPump()
         {
-            _relay.TurnOffRelay(1);
+            _relay.TurnOffRelay(0);
         }
     }
 }
