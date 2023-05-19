@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using TemperatureControl.RelayControl.Interfaces;
 
 namespace RelayControl
@@ -24,6 +25,7 @@ namespace RelayControl
                     _relay.TurnOnRelay(1); //varmelegeme
                     isOn = true;
                     Console.WriteLine("Temperaturregulering startet");
+                    Debug.WriteLine("Temperaturregulering startet");
                 }
             }
             else if (CurrentTemp > SetPointTemp + 0.2)
@@ -33,6 +35,7 @@ namespace RelayControl
                     _relay.TurnOffRelay(1);
                     isOn = false;
                     Console.WriteLine("Temperaturregulering slukket");
+                    Debug.WriteLine("Temperaturregulering slukket");
                 }
             }
         }
@@ -42,6 +45,7 @@ namespace RelayControl
             {
                 _relay.TurnOffRelay(1);
                 Console.WriteLine("Temperaturregulering slukket");
+                Debug.WriteLine("Temperaturregulering slukket");
             }
         }
     }

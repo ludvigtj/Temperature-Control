@@ -97,8 +97,8 @@ namespace TemperatureControl.ViewModel
                 _tabValve.CloseValve();
                 _tubValve.CloseValve();
                 _pump.TurnOffPump();
-                Console.WriteLine("Fyldtimer stoppet, ventil til brugsvand og kar lukket. Pumpe slukket");
-                Debug.WriteLine("Fyldtimer stoppet, ventil til brugsvand og kar lukket. Pumpe slukket");
+                //Console.WriteLine("Fyldtimer stoppet, ventil til brugsvand og kar lukket. Pumpe slukket");
+                //Debug.WriteLine("Fyldtimer stoppet, ventil til brugsvand og kar lukket. Pumpe slukket");
                 IsRegulating = false;
                 Console.WriteLine("Fyld-funktion er inaktiv");
                 Debug.WriteLine("Fyld-funktion er inaktiv");
@@ -111,9 +111,9 @@ namespace TemperatureControl.ViewModel
             _tabValve.OpenValve();
             _tubValve.OpenValve();
 
-            _fillingTimer = new Timer(FillingCallback, null, 5 * 1000, Timeout.Infinite); // Fylder i 5 minutter
-            Console.WriteLine("Ventil til brugsvand og karret åben");
-            Debug.WriteLine("Ventil til brugsvand og karret åben");
+            _fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
+            //Console.WriteLine("Ventil til brugsvand og karret åben");
+            //Debug.WriteLine("Ventil til brugsvand og karret åben");
             Console.WriteLine("Fyld-funktion aktiv");
             Debug.WriteLine("Fyld-funktion aktiv");
 
@@ -131,11 +131,11 @@ namespace TemperatureControl.ViewModel
                     open++;
                     Thread.Sleep(1000);
                 }
-                Console.WriteLine($"Lukket {close} gange og åbent {open} gange");
-                Debug.WriteLine($"Lukket {close} gange og åbent {open} gange");
+                //Console.WriteLine($"Lukket {close} gange og åbent {open} gange");
+                //Debug.WriteLine($"Lukket {close} gange og åbent {open} gange");
                 _pump.TurnOnPump();
-                Console.WriteLine("Ventil til brugsvand åben og pumpe tændt");
-                Debug.WriteLine("Ventil til brugsvand åben og pumpe tændt");
+                //Console.WriteLine("Ventil til brugsvand åben og pumpe tændt");
+                //Debug.WriteLine("Ventil til brugsvand åben og pumpe tændt");
                 IsRegulating = true; // starter temperaturregulering
 
                 _valveTimer = new Timer(TimerCallback, null, 15 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
@@ -146,8 +146,8 @@ namespace TemperatureControl.ViewModel
                 _tabValve.CloseValve();
                 _fillRegulateTimer = new Timer(FillRegulateCallback, null, 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
                 IsRegulating = true; // starter temperaturregulering
-                Console.WriteLine("Ventil til brugsvand lukket");
-                Debug.WriteLine("Ventil til brugsvand lukket");
+                //Console.WriteLine("Ventil til brugsvand lukket");
+                //Debug.WriteLine("Ventil til brugsvand lukket");
             }
 
             void FillRegulateCallback(object state)
@@ -156,8 +156,8 @@ namespace TemperatureControl.ViewModel
                 _tubValve.CloseValve();
                 _tempRegulator.StopRegulate();
                 IsRegulating = false; // //Sluk pumpe, temperaturregulering og luk ventil til karret efter 5 timer.
-                Console.WriteLine("Pumpe og ventil lukket. Temperaturregulering slukket");
-                Debug.WriteLine("Pumpe og ventil lukket. Temperaturregulering slukket");
+                //Console.WriteLine("Pumpe og ventil lukket. Temperaturregulering slukket");
+                //Debug.WriteLine("Pumpe og ventil lukket. Temperaturregulering slukket");
             }
         }
 
@@ -176,8 +176,8 @@ namespace TemperatureControl.ViewModel
             _pump.TurnOnPump();
             _tempRegulator.StopRegulate();
             IsRegulating = false; // stopper temperaturreguleringen
-            Console.WriteLine("Ventil til karret lukket. Pumpe tændt. Temperaturregulering slukket");
-            Debug.WriteLine("Ventil til karret lukket. Pumpe tændt. Temperaturregulering slukket");
+            //Console.WriteLine("Ventil til karret lukket. Pumpe tændt. Temperaturregulering slukket");
+            //Debug.WriteLine("Ventil til karret lukket. Pumpe tændt. Temperaturregulering slukket");
 
 
             _emptyingTimer = new Timer(TimerCallback, null, 20 * 60 * 1000, Timeout.Infinite); // tømmer karret i 20 minutter
@@ -185,8 +185,8 @@ namespace TemperatureControl.ViewModel
             void TimerCallback(object state)
             {
                 _pump.TurnOffPump();
-                Console.WriteLine("Pumpe slukket.");
-                Debug.WriteLine("Pumpe slukket.");
+                //Console.WriteLine("Pumpe slukket.");
+                //Debug.WriteLine("Pumpe slukket.");
             }
         }
 
@@ -195,23 +195,23 @@ namespace TemperatureControl.ViewModel
             if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
                 _fillRegulateTimer.Dispose();
-                Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
-                Debug.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                //Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                //Debug.WriteLine("Ventil til kar lukket. Pumpe slukket.");
                 IsRegulating = false;
             }
             if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
                 _regulateTimer.Dispose();
-                Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
-                Debug.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                //Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                //Debug.WriteLine("Ventil til kar lukket. Pumpe slukket.");
                 IsRegulating = false;
             }
             _tubValve.OpenValve();
             _pump.TurnOnPump();
             IsRegulating = true; // starter temperaturregulering
             _regulateTimer = new Timer(TimerCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // 5 timer
-            Console.WriteLine("Ventil til karret åben og pumpe tændt");
-            Debug.WriteLine("Ventil til karret åben og pumpe tændt");
+            //Console.WriteLine("Ventil til karret åben og pumpe tændt");
+            //Debug.WriteLine("Ventil til karret åben og pumpe tændt");
 
 
             void TimerCallback(object state)
@@ -220,8 +220,8 @@ namespace TemperatureControl.ViewModel
                 _pump.TurnOffPump();
                 _tempRegulator.StopRegulate();
                 IsRegulating = false; // stopper temperaturreguleringen
-                Console.WriteLine("Ventil til karret lukket. Pumpe slukket");
-                Debug.WriteLine("Ventil til karret lukket. Pumpe slukket");
+                //Console.WriteLine("Ventil til karret lukket. Pumpe slukket");
+                //Debug.WriteLine("Ventil til karret lukket. Pumpe slukket");
             }
         }
 
@@ -247,8 +247,8 @@ namespace TemperatureControl.ViewModel
                     _pump.TurnOffPump();
                     _tempRegulator.StopRegulate();
                     IsRegulating = false; // stopper temperaturreguleringen
-                    Console.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
-                    Debug.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
+                    //Console.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
+                    //Debug.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
                 }
                 
             }

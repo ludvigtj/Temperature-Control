@@ -1,4 +1,6 @@
-﻿using TemperatureControl.RelayControl.Interfaces;
+﻿using System.Diagnostics;
+using System;
+using TemperatureControl.RelayControl.Interfaces;
 
 namespace RelayControl
 {
@@ -12,11 +14,15 @@ namespace RelayControl
 
         public void OpenValve()
         {
+            Console.WriteLine("Ventil til kar åben");
+            Debug.WriteLine("Ventil til kar åben");
             _relay.TurnOnRelay(3);
         }
 
         public void CloseValve()
         {
+            Console.WriteLine("Ventil til kar lukket");
+            Debug.WriteLine("Ventil til kar lukket");
             _relay.TurnOffRelay(3);
         }
     }
