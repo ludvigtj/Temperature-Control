@@ -23,10 +23,7 @@ namespace TemperatureControl.ViewModel
         {
             firstTouch = DateTime.MinValue;
             Tough.TouchEvent += Tough_TouchEvent;
-            _logic = LogicFactory.GetNewLogic();
             _logic.SetPointTemperature = 802;
-            Thread checkTempThread = new Thread(_logic.CheckTemperature);
-            checkTempThread.Start();
         }
 
 
@@ -51,9 +48,22 @@ namespace TemperatureControl.ViewModel
             
         }
 
+        private void Expected()
+        {
+            Debug.WriteLine("Forventet resultat: Ventil til brugsvand åbner, ventil til karret åbner og display viser fyld-funktion er aktiv");
+            Debug.WriteLine("Forventet resultat +5min: Ventil til brugsvand åbnes/lukkes hvert sekund i 10 sekunder");
+            Debug.WriteLine("Forventet resultat +10 sec: Ventil til brugsvand er åben, ”pumpe aktiv”-LED er tændt og ”temperaturregulering aktiv”-LED tændt");
+            Debug.WriteLine("Forventet resultat +15min: Ventil til brugsvand lukkes og display viser fyld-funktion er inaktiv og reguler-funktion er aktiv");
+            Debug.WriteLine("Forventet resultat +5t: Ventil til brugsvand åbner, ventil til karret åbner og display viser fyld-funktion er aktiv");
+            Debug.WriteLine("Forventet resultat step 1: Ventil til brugsvand åbner, ventil til karret åbner og display viser fyld-funktion er aktiv");
+            Debug.WriteLine("Forventet resultat step 2: Ventilen til brugsvand ukker, ventil til karret lukker, ”pumpe aktiv”-LED er slukket, ”temperaturregulering aktiv”-LED er slukket og display viser fyldfunktioner inaktiv");
+        }
         private void Invoke()
         {
+            //Debug.WriteLine("Forventet resultat");
             _logic = LogicFactory.GetNewLogic();
+            Thread checkTempThread = new Thread(_logic.CheckTemperature);
+            checkTempThread.Start();
             _logic.SetPointTemperature = 802;
             Console.Clear();
             switch (eventCounter)
@@ -67,9 +77,9 @@ namespace TemperatureControl.ViewModel
                     Console.WriteLine("Testing Use Case 1: Fyld Kar Ex. 1");
                     Debug.WriteLine("Testing Use Case 1: Fyld Kar Ex. 1");
                     _logic.FillVessel();
-                    Console.WriteLine("Sleeping for 3 seconds");
-                    Debug.WriteLine("Sleeping for 3 seconds");
-                    Thread.Sleep(3000);
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Now calling FillVessel again");
+                    Debug.WriteLine("Now calling FillVessel again");
                     _logic.FillVessel();
                     break;
                 case 2:
@@ -87,22 +97,30 @@ namespace TemperatureControl.ViewModel
                     Console.WriteLine("Testing Use Case 2: Reguler temperatur Ex. 1");
                     Debug.WriteLine("Testing Use Case 2: Reguler temperatur Ex. 1");
                     _logic.RegulateTemperature();
-                    Console.WriteLine("-.5C to SetPoint. New is "+_logic.SetPointTemperature);
                     _logic.SetPointTemperature -= 0.5;
+                    Console.WriteLine("-.5C to SetPoint. New is " + _logic.SetPointTemperature+". Was: "+(_logic.SetPointTemperature -0.5));
+                    Debug.WriteLine("-.5C to SetPoint. New is " + _logic.SetPointTemperature + ". Was: " + (_logic.SetPointTemperature - 0.5));
                     break;
                 case 5:
                     Console.WriteLine("Testing Use Case 2: Reguler temperatur Ex. 2");
                     Debug.WriteLine("Testing Use Case 2: Reguler temperatur Ex. 2");
-
+                    _logic.RegulateTemperature();
+                    Thread.Sleep(1000);
+                    Debug.WriteLine("Pressing button again");
+                    _logic.RegulateTemperature();
                     break;
                 case 6:
                     Console.WriteLine("Testing Use Case 3: Tøm kar");
                     Debug.WriteLine("Testing Use Case 3: Tøm kar");
+                    _logic.EmptyVessel();
                     break;
                 case 7:
                     Console.WriteLine("Testing Use Case 3: Tøm kar Ex. 1");
                     Debug.WriteLine("Testing Use Case 3: Tøm kar Ex. 1");
-
+                    _logic.EmptyVessel();
+                    Thread.Sleep(1000);
+                    Debug.WriteLine("Pressing button again");
+                    _logic.EmptyVessel();
                     break;
 
 

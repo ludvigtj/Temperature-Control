@@ -111,7 +111,7 @@ namespace TemperatureControl.ViewModel
             _tabValve.OpenValve();
             _tubValve.OpenValve();
 
-            _fillingTimer = new Timer(FillingCallback, null, 5 * 60 * 1000, Timeout.Infinite); // Fylder i 5 minutter
+            _fillingTimer = new Timer(FillingCallback, null, 5 * 1000, Timeout.Infinite); // Fylder i 5 minutter
             Console.WriteLine("Ventil til brugsvand og karret åben");
             Debug.WriteLine("Ventil til brugsvand og karret åben");
             Console.WriteLine("Fyld-funktion aktiv");
@@ -138,13 +138,13 @@ namespace TemperatureControl.ViewModel
                 Debug.WriteLine("Ventil til brugsvand åben og pumpe tændt");
                 IsRegulating = true; // starter temperaturregulering
 
-                _valveTimer = new Timer(TimerCallback, null, 15 * 60 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
+                _valveTimer = new Timer(TimerCallback, null, 15 * 1000, Timeout.Infinite); // Holder ventil til brugsvand åben i 15 minutter
             }
 
             void TimerCallback(object state)
             {
                 _tabValve.CloseValve();
-                _fillRegulateTimer = new Timer(FillRegulateCallback, null, 5 * 60 * 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
+                _fillRegulateTimer = new Timer(FillRegulateCallback, null, 60 * 1000, Timeout.Infinite); // Regulering kører i 5 timer
                 IsRegulating = true; // starter temperaturregulering
                 Console.WriteLine("Ventil til brugsvand lukket");
                 Debug.WriteLine("Ventil til brugsvand lukket");
