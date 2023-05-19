@@ -1,6 +1,6 @@
 ﻿using nanoFramework.UI;
 using System;
-using TemperatureControl.View.Elements;
+using TemperatureControl.ViewModel.Elements;
 
 namespace TemperatureControl.ViewModel.Interfaces
 {

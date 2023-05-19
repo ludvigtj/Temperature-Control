@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using TemperatureControl.View.Elements;
+using TemperatureControl.ViewModel.Elements;
 
 namespace TemperatureControl.ViewModel
 {
@@ -8,44 +8,45 @@ namespace TemperatureControl.ViewModel
         private States _state;
         private void ChangeStateAndNotify(States newState)
         {
-            switch (newState)
-            {
-                case States.STANDBY:
-                    _state = newState;
-                    foreach (TouchButton tb in standbySubscribe)
-                    {
-                        tb.State = States.STANDBY;
-                    }
-                    break;
-                case States.ALARM:
-                    _state = newState;
-                    foreach (TouchButton tb in alarmSubscribe)
-                    {
-                        tb.State = States.ALARM;
-                    }
-                    break;
-                case States.FILLING:
-                    _state = newState;
-                    foreach (TouchButton tb in fillingSubscribe)
-                    {
-                        tb.State = States.FILLING;
-                    }
-                    break;
-                case States.REGULATING:
-                    _state = newState;
-                    foreach (TouchButton tb in regulatingSubscribe)
-                    {
-                        tb.State = States.REGULATING;
-                    }
-                    break;
-                case States.EMPTYING:
-                    _state = newState;
-                    foreach (TouchButton tb in emptySubscribe)
-                    {
-                        tb.State = States.EMPTYING;
-                    }
-                    break;
-            }
+            _state = newState;
+            //switch (newState)
+            //{
+            //    case States.STANDBY:
+            //        _state = newState;
+            //        foreach (TouchButton tb in standbySubscribe)
+            //        {
+            //            //tb.State = States.STANDBY;
+            //        }
+            //        break;
+            //    case States.ALARM:
+            //        _state = newState;
+            //        foreach (TouchButton tb in alarmSubscribe)
+            //        {
+            //            //tb.State = States.ALARM;
+            //        }
+            //        break;
+            //    case States.FILLING:
+            //        _state = newState;
+            //        foreach (TouchButton tb in fillingSubscribe)
+            //        {
+            //            //tb.State = States.FILLING;
+            //        }
+            //        break;
+            //    case States.REGULATING:
+            //        _state = newState;
+            //        foreach (TouchButton tb in regulatingSubscribe)
+            //        {
+            //            //tb.State = States.REGULATING;
+            //        }
+            //        break;
+            //    case States.EMPTYING:
+            //        _state = newState;
+            //        foreach (TouchButton tb in emptySubscribe)
+            //        {
+            //            //tb.State = States.EMPTYING;
+            //        }
+            //        break;
+            //}
         }
         private ArrayList standbySubscribe;
         private ArrayList alarmSubscribe;

@@ -1,7 +1,8 @@
 ﻿using nanoFramework.Presentation.Controls;
 using nanoFramework.Presentation.Media;
 using System;
-using TemperatureControl.View.Elements;
+using nanoFramework.Presentation;
+using nanoFramework.Presentation.Shapes;
 using TemperatureControl.ViewModel.Elements;
 using TemperatureControl.ViewModel.Interfaces;
 
@@ -11,7 +12,7 @@ namespace TemperatureControl.ViewModel.Windows
     {
         public TemperatureWindow(IViewModel model) : base(model)
         {
-
+            Rectangle newR = new Rectangle();
         }
 
         protected override void OnSwitchWindows(object sender, EventArgs e)
@@ -21,78 +22,73 @@ namespace TemperatureControl.ViewModel.Windows
 
         protected override void DefineRenders()
         {
-            //CREATING FULL SCREEN CANVAS
-            Canvas c = new Canvas();
-            this.Child = c;
-            this.Background = new SolidColorBrush(ColorUtility.ColorFromRGB(0, 0, 0));
+            ////CREATING FULL SCREEN CANVAS
+            //Canvas c = new Canvas();
+            //this.Child = c;
+            //this.Background = new SolidColorBrush(ColorUtility.ColorFromRGB(0, 0, 0));
 
-            int standardWidth = (Width / 2) - 1;
-            int standardHeight = (Height / 2) - 1;
+            //int standardWidth = (Width / 2) - 1;
+            //int standardHeight = (Height / 2) - 1;
 
-            //TextBox
-            TextBox tempString = new TextBox(standardWidth, standardHeight, "...", false);
-            Canvas.SetLeft(tempString, 0);
-            Canvas.SetTop(tempString, 0);
-            c.Children.Add(tempString);
-            viewModel.SetPointChanged += tempString.OnUpdateTextEvent;
+            ////TextBox
+            //TextBox tempString = new TextBox(standardWidth, standardHeight, "...", c);
+            //Canvas.SetLeft(tempString.Content, 0);
+            //Canvas.SetTop(tempString.Content, 0);
+            //c.Children.Add(tempString.Content);
+            //c.Children.Add(tempString.Content);
+            //viewModel.SetPointChanged += tempString.OnUpdateTextEvent;
 
-            TouchButton tbMenu = new TouchButton()
-            {
-                ButtonRender = new TextBox(standardWidth, standardHeight, "MENU")
-                {
-                    Fill = new SolidColorBrush(Color.Black),
-                    Stroke = new Pen(Color.White)
-                }
-            };
-            tbMenu.ButtonPressed += OnSwitchWindows;
+            //TouchButton tbMenu = new TouchButton()
+            //{
+            //    ButtonRender = new TextBox(standardWidth, standardHeight, "MENU")
+            //    {
+            //        Fill = new SolidColorBrush(Color.Black),
+            //        Stroke = new Pen(Color.White)
+            //    }
+            //};
+            //tbMenu.ButtonPressed += OnSwitchWindows;
 
-            Canvas.SetRight(tbMenu.ButtonRender, 0);
-            Canvas.SetBottom(tbMenu.ButtonRender, 0);
-            c.Children.Add(tbMenu.ButtonRender);
+            //Canvas.SetRight(tbMenu., 0);
+            //Canvas.SetBottom(tbMenu., 0);
+            //c.Children.Add(tbMenu.);
 
-            TouchButton tbRegulate = new TouchButton()
-            {
-                ButtonRender = new TextBox(standardWidth, standardHeight, "REGULER")
-                {
-                    Fill = new SolidColorBrush(Color.Black),
-                    Stroke = new Pen(Color.White)
-                }
-            };
-            tbRegulate.ButtonPressed += viewModel.OnRegulate_Pressed;
-            viewModel.Subscribe(tbRegulate, States.REGULATING);
+            //TouchButton tbRegulate = new TouchButton()
+            //{
+            //    ButtonRender = new TextBox(standardWidth, standardHeight, "REGULER")
+            //    {
+            //        Fill = new SolidColorBrush(Color.Black),
+            //        Stroke = new Pen(Color.White)
+            //    }
+            //};
+            //tbRegulate.ButtonPressed += viewModel.OnRegulate_Pressed;
+            //viewModel.Subscribe(tbRegulate, States.REGULATING);
 
-            Canvas.SetRight(tbRegulate.ButtonRender, 0);
-            Canvas.SetTop(tbRegulate.ButtonRender, 0);
-            c.Children.Add(tbRegulate.ButtonRender);
+            //Canvas.SetRight(tbRegulate, 0);
+            //Canvas.SetTop(tbRegulate, 0);
+            //c.Children.Add(tbRegulate);
 
-            TouchButton tbPlus = new TouchButton()
-            {
-                ButtonRender = new PlusSign((standardWidth / 2) - 1, (standardHeight / 2) - 1)
-                {
-                    Fill = new SolidColorBrush(Color.Black),
-                    Stroke = new Pen(Color.White)
-                }
-            };
-            tbPlus.ButtonPressed += viewModel.OnSetPointPlus_Pressed;
+            //TouchButton tbPlus = new PlusSign((standardWidth / 2) - 1, (standardHeight / 2) - 1)
+            //{
+            //    Fill = new SolidColorBrush(Color.Black),
+            //    Stroke = new Pen(Color.White)
+            //};
+            //tbPlus.ButtonPressed += viewModel.OnSetPointPlus_Pressed;
+            //Canvas.SetLeft(tbPlus, (standardWidth / 2) + 1);
+            //Canvas.SetBottom(tbPlus, 0);
+            //c.Children.Add(tbPlus);
 
-            Canvas.SetLeft(tbPlus.ButtonRender, (standardWidth / 2) + 1);
-            Canvas.SetBottom(tbPlus.ButtonRender, 0);
-            c.Children.Add(tbPlus.ButtonRender);
+            //TouchButton tbMinus = new MinusSign((standardWidth / 2) - 1, (standardHeight / 2) - 1)
+            //{
+            //    Fill = new SolidColorBrush(Color.Black),
+            //    Stroke = new Pen(Color.White)
+            //};
 
-            TouchButton tbMinus = new TouchButton()
-            {
-                ButtonRender = new MinusSign((standardWidth / 2) - 1, (standardHeight / 2) - 1)
-                {
-                    Fill = new SolidColorBrush(Color.Black),
-                    Stroke = new Pen(Color.White)
-                }
-            };
-            tbMinus.ButtonPressed += viewModel.OnSetPointMinus_Pressed;
+            //tbMinus.ButtonPressed += viewModel.OnSetPointMinus_Pressed;
 
-            Canvas.SetLeft(tbMinus.ButtonRender, 0);
-            Canvas.SetBottom(tbMinus.ButtonRender, 0);
-            c.Children.Add(tbMinus.ButtonRender);
-            LocalButtons = new[] { tbMenu, tbRegulate, tbMinus, tbPlus };
+            //Canvas.SetLeft(tbMinus, 0);
+            //Canvas.SetBottom(tbMinus, 0);
+            //c.Children.Add(tbMinus);
+            //LocalButtons = new[] { tbMenu, tbRegulate, tbMinus, tbPlus };
         }
     }
 }

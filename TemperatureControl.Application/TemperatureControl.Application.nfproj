@@ -34,6 +34,9 @@
     <Reference Include="Iot.Device.Max31865">
       <HintPath>..\packages\nanoFramework.Iot.Device.Max31865.1.2.313\lib\Iot.Device.Max31865.dll</HintPath>
     </Reference>
+    <Reference Include="Iot.Device.Relay">
+      <HintPath>..\packages\nanoFramework.Iot.Device.Relay4.1.1.203\lib\Iot.Device.Relay.dll</HintPath>
+    </Reference>
     <Reference Include="Iot.Device.Rtc">
       <HintPath>..\packages\nanoFramework.Iot.Device.Rtc.1.2.297\lib\Iot.Device.Rtc.dll</HintPath>
     </Reference>
@@ -121,6 +124,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TemperatureControl.RelayControl\TemperatureControl.RelayControl.nfproj" />
+    <ProjectReference Include="..\TemperatureControl.TemperatureSensor\TemperatureControl.TemperatureSensor.nfproj" />
     <ProjectReference Include="..\TemperatureControl.ViewModel\TemperatureControl.ViewModel.nfproj" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />

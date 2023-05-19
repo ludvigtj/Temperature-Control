@@ -1,5 +1,4 @@
 using nanoFramework.TestFramework;
-using TemperatureControl.View.Elements;
 using TemperatureControl.ViewModel;
 using TemperatureControl.ViewModel.Interfaces;
 
@@ -21,7 +20,6 @@ namespace TemperatureControl.Tests.Unit.ViewModelTest
         public void Resource()
         {
             IViewModel vm = new WindowModel();
-            TouchButton tb = new TouchButton();
 
 
 

@@ -1,46 +1,21 @@
 ﻿using nanoFramework.Presentation.Media;
 using nanoFramework.Presentation.Shapes;
 using System;
+using nanoFramework.Presentation.Controls;
 using TemperatureControl.ViewModel;
+using TemperatureControl.ViewModel.Interfaces;
 
-namespace TemperatureControl.View.Elements
+namespace TemperatureControl.ViewModel.Elements
 {
-    public class TouchButton : ITouchButton
+    public class TouchButton : Rectangle, ITouchButton
     {
-        public States State
-        {
-            get => State;
-            set
-            {
-                Color c = Color.Black;
-                switch (value)
-                {
-                    case States.ALARM:
-                        c = Color.Red;
-                        break;
-                    case States.EMPTYING:
-                        c = Color.Green;
-                        break;
-                    case States.FILLING:
-                        c = Color.Green;
-                        break;
-                    case States.REGULATING:
-                        c = Color.Green;
-                        break;
-                    case States.STANDBY:
-                        ;
-                        break;
-                }
-                ButtonRender.Fill = new SolidColorBrush(c);
-            }
-        }
+        public TouchButton(int x, int y) : base(x, y) { }
+
+        private static SolidColorBrush greenFill = new SolidColorBrush(Color.Green);
+        
+        private static SolidColorBrush blackFill = new SolidColorBrush(Color.Black);
+
         public event EventHandler ButtonPressed;
-        public Rectangle ButtonRender { get; set; }
-        public TouchButton()
-        {
-
-        }
-
         public void Press()
         {
             EventHandler handler = ButtonPressed;
