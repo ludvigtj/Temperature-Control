@@ -229,6 +229,7 @@ namespace TemperatureControl.ViewModel
         {
             while (true)
             {
+                Debug.Write("+");
                 Thread.Sleep(200);
                 CurrentTemperature = _tempSensor.ReadTemperature();
                 if (CurrentTemperature < SetPointTemperature + 2 && CurrentTemperature > SetPointTemperature - 2)
@@ -237,17 +238,19 @@ namespace TemperatureControl.ViewModel
                     if (IsRegulating)
                     {
                         _tempRegulator.Regulate();
-                        
                     }
-                    continue;
                 }
-                _tabValve.CloseValve();
-                _tubValve.CloseValve();
-                _pump.TurnOffPump();
-                _tempRegulator.StopRegulate();
-                IsRegulating = false; // stopper temperaturreguleringen
-                Console.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
-                Debug.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
+                else
+                {
+                    _tabValve.CloseValve();
+                    _tubValve.CloseValve();
+                    _pump.TurnOffPump();
+                    _tempRegulator.StopRegulate();
+                    IsRegulating = false; // stopper temperaturreguleringen
+                    Console.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
+                    Debug.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
+                }
+                
             }
         }
 

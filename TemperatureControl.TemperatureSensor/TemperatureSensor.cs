@@ -43,7 +43,7 @@ namespace TemperatureControl.TemperatureSensor
 
             temperature = sensor.Temperature.DegreesCelsius;
 
-            Console.WriteLine($"Temperature: {temperature} ℃");
+            //Console.WriteLine($"Temperature: {temperature} ℃");
             return temperature;
         }
     }
