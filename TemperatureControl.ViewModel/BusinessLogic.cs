@@ -90,7 +90,7 @@ namespace TemperatureControl.ViewModel
 
         public void FillVessel()
         {
-            if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (ValidateTimer(_fillRegulateTimer))
             {
                 _fillRegulateTimer.Dispose();
                 _tabValve.CloseValve();
@@ -100,7 +100,7 @@ namespace TemperatureControl.ViewModel
                 IsRegulating = false;
                 Console.WriteLine("Fyld-funktion er inaktiv");
             }
-            if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
+            if (ValidateTimer(_regulateTimer))
             {
                 _regulateTimer.Dispose();
             }
@@ -214,16 +214,17 @@ namespace TemperatureControl.ViewModel
         {
             while (true)
             {
+                Thread.Sleep(200);
                 CurrentTemperature = _tempSensor.ReadTemperature();
-
                 if (CurrentTemperature < SetPointTemperature + 2 && CurrentTemperature > SetPointTemperature - 2)
                 {
-                    Thread.Sleep(200);
+                    
                     if (IsRegulating)
                     {
                         _tempRegulator.Regulate();
+                        
                     }
-
+                    continue;
                 }
                 _tabValve.CloseValve();
                 _tubValve.CloseValve();
@@ -232,6 +233,15 @@ namespace TemperatureControl.ViewModel
                 IsRegulating = false; // stopper temperaturreguleringen
                 Console.WriteLine("Ventil til brugsvand og karret lukket. Pumpe slukket.");
             }
+        }
+
+        private bool ValidateTimer(Timer timer)
+        {
+            if (timer == null)
+            {
+                return false;
+            }
+            return timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }

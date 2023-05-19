@@ -2,6 +2,7 @@ using nanoFramework.M5Stack;
 using nanoFramework.UI;
 using RelayControl;
 using System.Device.I2c;
+using System.Threading;
 using Iot.Device.Relay;
 using TemperatureControl.RelayControl.Interfaces;
 using TemperatureControl.ViewModel;
@@ -16,9 +17,12 @@ namespace TemperatureControl.Application
         public static void Main()
         {
             Tough.InitializeScreen();
-            Program app = new Program();
             invoker = new TestMethodInvoker();
-            app.Run();
+
+            while (true)
+            {
+                Thread.Sleep(1000);
+            }
         }
     }
 }

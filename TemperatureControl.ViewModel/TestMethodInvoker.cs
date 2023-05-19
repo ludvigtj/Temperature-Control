@@ -1,4 +1,5 @@
 ﻿using System.Device.I2c;
+using System.Diagnostics;
 using System.Threading;
 using Iot.Device.Relay;
 using nanoFramework.M5Stack;
@@ -17,6 +18,8 @@ namespace TemperatureControl.ViewModel
         {
             Tough.TouchEvent += Tough_TouchEvent;
             _logic = LogicFactory.GetNewLogic();
+            Thread checkTempThread = new Thread(_logic.CheckTemperature);
+            checkTempThread.Start();
         }
 
         
@@ -30,18 +33,24 @@ namespace TemperatureControl.ViewModel
             {
                 case 0:
                     Console.WriteLine("Testing Use Case 1: Fyld Kar");
+                    Debug.WriteLine("Testing Use Case 1: Fyld Kar");
+                    _logic.SetPointTemperature = 802;
                     _logic.FillVessel();
                     break;
                 case 1:
                     Console.WriteLine("Testing Use Case 1: Fyld Kar Ex. 1");
+                    Debug.WriteLine("Testing Use Case 1: Fyld Kar Ex. 1");
+                    _logic.SetPointTemperature = 802;
                     _logic.FillVessel();
                     Console.WriteLine("Sleeping for 3 seconds");
+                    Debug.WriteLine("Sleeping for 3 seconds");
                     Thread.Sleep(3000);
                     _logic.FillVessel();
                     break;
                 case 2:
                     Console.WriteLine("Testing Use Case 1: Fyld Kar Ex. 2");
-
+                    _logic.SetPointTemperature = 798;
+                    _logic.FillVessel();
                     break;
                 case 3:
                     break;
@@ -49,6 +58,7 @@ namespace TemperatureControl.ViewModel
 
             }
             eventCounter++;
+            Thread.Sleep(5000);
             _locked = false;
         }
 
