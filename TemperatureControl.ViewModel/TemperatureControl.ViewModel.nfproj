@@ -20,10 +20,11 @@
   <ItemGroup>
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="ButtonContainer.cs" />
-    <Compile Include="Elements\ITouchButton.cs" />
+    <Compile Include="Interfaces\ITouchButton.cs" />
     <Compile Include="Elements\MinusSign.cs" />
     <Compile Include="Elements\PlusSign.cs" />
     <Compile Include="Elements\TextBox.cs" />
+    <Compile Include="Elements\MenuButton.cs" />
     <Compile Include="Elements\TouchButton.cs" />
     <Compile Include="Interfaces\IBusinessLogic.cs" />
     <Compile Include="Interfaces\ITextContent.cs" />
@@ -32,6 +33,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="TestMethodInvoker.cs" />
     <Compile Include="WindowModel.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -41,6 +43,7 @@
     <Compile Include="Windows\MainMenuWindow.cs" />
     <Compile Include="Windows\MenuWindow.cs" />
     <Compile Include="Windows\TemperatureWindow.cs" />
+    <Compile Include="Windows\TestWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iot.Device.Axp192">
@@ -54,6 +57,9 @@
     </Reference>
     <Reference Include="Iot.Device.Max31865">
       <HintPath>..\packages\nanoFramework.Iot.Device.Max31865.1.2.297\lib\Iot.Device.Max31865.dll</HintPath>
+    </Reference>
+    <Reference Include="Iot.Device.Relay">
+      <HintPath>..\packages\nanoFramework.Iot.Device.Relay4.1.1.203\lib\Iot.Device.Relay.dll</HintPath>
     </Reference>
     <Reference Include="Iot.Device.Rtc">
       <HintPath>..\packages\nanoFramework.Iot.Device.Rtc.1.2.297\lib\Iot.Device.Rtc.dll</HintPath>

@@ -1,9 +1,8 @@
 ﻿using nanoFramework.Presentation.Media;
-using nanoFramework.Presentation.Shapes;
 
-namespace TemperatureControl.View.Elements
+namespace TemperatureControl.ViewModel.Elements
 {
-    public class MinusSign : Rectangle
+    public class MinusSign : TouchButton
     {
         public MinusSign(int x, int y) : base(x, y) { }
 

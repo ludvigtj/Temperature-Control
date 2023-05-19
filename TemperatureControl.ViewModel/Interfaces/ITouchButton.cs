@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TemperatureControl.View.Elements
+namespace TemperatureControl.ViewModel.Interfaces
 {
     public interface ITouchButton
     {

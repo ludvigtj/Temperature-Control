@@ -3,7 +3,7 @@ using nanoFramework.Tough;
 using nanoFramework.UI;
 using System;
 using System.Diagnostics;
-using TemperatureControl.View.Elements;
+using TemperatureControl.ViewModel.Elements;
 using TemperatureControl.ViewModel.Interfaces;
 
 namespace TemperatureControl.ViewModel.Windows
@@ -12,6 +12,11 @@ namespace TemperatureControl.ViewModel.Windows
     {
         protected static IViewModel viewModel;
         public TouchButton[] LocalButtons;
+
+        public MenuWindow()
+        {
+
+        }
         public MenuWindow(IViewModel model)
         {
             model.WindowClosed += OnSwitchWindows;
@@ -31,7 +36,7 @@ namespace TemperatureControl.ViewModel.Windows
             foreach (TouchButton localButton in LocalButtons)
             {
                 Debug.WriteLine("Testing button" + nameof(localButton));
-                if (localButton.ButtonRender.ContainsPoint(e.X, e.Y))
+                if (localButton.ContainsPoint(e.X, e.Y))
                 {
                     localButton.Press();
                 }
