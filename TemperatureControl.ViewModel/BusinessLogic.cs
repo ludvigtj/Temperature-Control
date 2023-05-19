@@ -229,7 +229,6 @@ namespace TemperatureControl.ViewModel
         {
             while (true)
             {
-                Debug.Write("+");
                 Thread.Sleep(200);
                 CurrentTemperature = _tempSensor.ReadTemperature();
                 if (CurrentTemperature < SetPointTemperature + 2 && CurrentTemperature > SetPointTemperature - 2)

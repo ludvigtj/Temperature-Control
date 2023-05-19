@@ -19,11 +19,13 @@ namespace TemperatureControl.ViewModel
         private IBusinessLogic _logic;
         bool _locked = false;
         private DateTime firstTouch;
+        private Thread checkTempThread;
         public TestMethodInvoker()
         {
             firstTouch = DateTime.MinValue;
             Tough.TouchEvent += Tough_TouchEvent;
-            _logic.SetPointTemperature = 802;
+            _logic = LogicFactory.GetNewLogic();
+            checkTempThread = new Thread(_logic.CheckTemperature);
         }
 
 
@@ -60,10 +62,13 @@ namespace TemperatureControl.ViewModel
         }
         private void Invoke()
         {
+            if (!checkTempThread.IsAlive)
+            {
+                Console.WriteLine("Starting temp reading");
+                Debug.WriteLine("Starting temp reading");
+                checkTempThread.Start();
+            }
             //Debug.WriteLine("Forventet resultat");
-            _logic = LogicFactory.GetNewLogic();
-            Thread checkTempThread = new Thread(_logic.CheckTemperature);
-            checkTempThread.Start();
             _logic.SetPointTemperature = 802;
             Console.Clear();
             switch (eventCounter)
