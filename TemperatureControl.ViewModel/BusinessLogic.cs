@@ -184,10 +184,14 @@ namespace TemperatureControl.ViewModel
             if (_fillRegulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
                 _fillRegulateTimer.Dispose();
+                Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                IsRegulating = false;
             }
             if (_regulateTimer.Change(Timeout.Infinite, Timeout.Infinite) == true)
             {
                 _regulateTimer.Dispose();
+                Console.WriteLine("Ventil til kar lukket. Pumpe slukket.");
+                IsRegulating = false;
             }
             _tubValve.OpenValve();
             _pump.TurnOnPump();
